@@ -1,13 +1,13 @@
 <?php
 
 /* * * error reporting on ** */
-error_reporting(E_ALL);
+error_reporting(E_ALL & ~E_NOTICE);
 
 /* * * define the site path ** */
 $site_path = realpath(dirname(__FILE__));
 define('__SITE_PATH', $site_path);
-define('ROOT_URL', 'http://localhost/system/mvc/');
-define('TEMPLATE_URL', 'http://localhost/system/mvc/views/');
+define('ROOT_URL', 'http://localhost/re7anna');
+define('TEMPLATE_URL', 'http://localhost/re7anna/views/');
 
 /* * * include the init.php file ** */
 include 'includes/init.php';

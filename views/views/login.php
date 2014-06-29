@@ -25,9 +25,9 @@ require_once 'head.php';
         <!-- BEGIN LOGIN FORM -->
         <form class="form-vertical login-form" action="" method="post">
             <h3 class="form-title">مرحبا!...تسجيل الدخول الى حسابك</h3>
-            <div class="alert alert-error hide">
+            <div class="alert alert-error <?=isset($error)? '' : 'hide';?>">
                 <button class="close" data-dismiss="alert"></button>
-                <span>برجاء ادخل اسم المستخدم وكلمة المرور</span>
+                <span><?=$error;?></span>
             </div>
             <div class="control-group">
                 <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
@@ -35,7 +35,7 @@ require_once 'head.php';
                 <div class="controls">
                     <div class="input-icon left">
                         <i class="icon-user"></i>
-                        <input class="m-wrap placeholder-no-fix" type="text" autocomplete="off" placeholder="اسم المستخدم" name="username"/>
+                        <input class="m-wrap placeholder-no-fix" type="text" autocomplete="off" value="<?=$_POST['username'];?>" placeholder="اسم المستخدم" name="username"/>
                     </div>
                 </div>
             </div>

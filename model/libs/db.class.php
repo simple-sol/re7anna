@@ -9,6 +9,7 @@ class db {
     static $tables = array(
         //
         'sys_users' => '`rehanna_users`.`rehanna_sys_users`',
+        'login_attempts' => '`rehanna_users`.`login_attempts`',
     );
 
     /**
