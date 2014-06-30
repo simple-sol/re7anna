@@ -2,7 +2,7 @@
 
 session_start();
 
-class login {
+class Login {
 
     private $user_data;
     private static $instance = NULL;

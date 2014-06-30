@@ -9,6 +9,6 @@ Class indexController Extends baseController {
 
         $this->registry->template->show('index');
     }
-
+    
 }
 

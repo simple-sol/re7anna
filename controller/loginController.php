@@ -3,6 +3,7 @@
 Class loginController Extends baseController {
 
     public function index() {
+        //logs::get_instance()->log(array('id' => 2, 'user' => 'hi'), 'hey');
         //login::get_instance()->logout();
         $status = login::get_instance()->check_login();
         if ($status == 'valid') {
@@ -26,6 +27,11 @@ Class loginController Extends baseController {
             $this->registry->template->title = "ريحانة | الدخول الى البرنامج";
             $this->registry->template->show('login');
         }
+    }
+
+    public function stats() {
+        $this->registry->template->welcome = 'viewing stats';
+        $this->registry->template->show('index');
     }
 
 }

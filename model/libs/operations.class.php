@@ -44,7 +44,10 @@ class Operations {
                         $params[] = $spec;
                 }
                 $obj = new Validation();
-                $valid[$validation] = forward_static_call_array(array('validation', $validation), $params);
+                if (method_exists('Validation', $validation))
+                    $valid[$validation] = forward_static_call_array(array('Validation', $validation), $params);
+                else
+                    $valid[$validation] = false;
             }
             $this->checks[$field] = $valid;
             $this->validations[$field] = !in_array(null, $valid);
