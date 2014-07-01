@@ -96,3 +96,6 @@ require_once 'head.php';
     </div>
     <!-- END LOGIN -->
     <?php require_once 'foot.php'; ?>
+</body>
+<!-- END BODY -->
+</html>
