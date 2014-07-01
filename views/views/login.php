@@ -11,6 +11,14 @@ $scripts = array(
 $styles = array(
     'pages/login-rtl.css',
 );
+$script = <<<HERE
+<script>
+		jQuery(document).ready(function() {     
+		  App.init();
+		  Login.init();
+		});
+	</script>
+HERE;
 require_once 'head.php';
 ?>
 <!-- BEGIN BODY -->
@@ -115,3 +123,6 @@ require_once 'head.php';
     </div>
     <!-- END LOGIN -->
     <?php require_once 'foot.php'; ?>
+</body>
+<!-- END BODY -->
+</html>
