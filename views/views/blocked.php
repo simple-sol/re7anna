@@ -11,6 +11,14 @@ $scripts = array(
 $styles = array(
     'pages/login-rtl.css'
 );
+$script = <<<HERE
+<script>
+		jQuery(document).ready(function() {     
+		  App.init();
+		  Login.init();
+		});
+	</script>
+HERE;
 require_once 'head.php';
 ?>
 <!-- BEGIN BODY -->
@@ -35,6 +43,8 @@ require_once 'head.php';
                     لاستعادة كلمة المرور
                 </p>
             </div>
+            <br />
+            <?= Temp::sys_comment_block('blocked');?>
             <!--<div class="create-account">
                     <p>
                             Don't have an account yet ?&nbsp; 
@@ -50,10 +60,6 @@ require_once 'head.php';
         <form class="form-vertical forget-form" action="index.html" method="post">
             <h3 >تقرير عدم التمكن من الدخول</h3>
             <p>ادخل اسم المستخدم الخاص بك لابلاغ الادارة عن المشكلة</p>
-            <div class="alert alert-error hide">
-                <button class="close" data-dismiss="alert"></button>
-                <span>برجاء ادخل اسم المستخدم وكلمة المرور</span>
-            </div>
             <div class="control-group">
                 <div class="controls">
                     <div class="input-icon left">
@@ -68,7 +74,7 @@ require_once 'head.php';
             <div class="control-group">
                 <div class="controls">
                     <div class="input-icon left">
-                        <textarea class="proplem_cause m-wrap ">شرح سبب المشكلة ...</textarea>
+                        <textarea class="proplem_cause m-wrap">شرح سبب المشكلة ...</textarea>
                     </div>
 
                 </div>
@@ -77,7 +83,9 @@ require_once 'head.php';
 
 
             <div class="form-actions">
-
+                <button type="button" id="back-btn" class="btn pull-left">
+                    <i class="m-icon-swapleft"></i> الرجوع
+                </button>
                 <button type="submit" class="btn green pull-right">
                     إبلاغ الادارة <i class="m-icon-swapright m-icon-white"></i>
                 </button>            
