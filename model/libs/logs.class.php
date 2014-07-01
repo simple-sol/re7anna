@@ -75,10 +75,42 @@ class Logs {
     }
 
     function dump_logs() {
-        //unfinished
+        $fp = fopen(LOGS_URL . 'dump_logs.php', 'r');
+        $date = fgets($fp);
+        fclose($fp);
+        if ($date >= date('Y-m-d', time()))
+            return;
+        
         $array = array(
-            'register' => LOGS_URL . 'register_logs/'
+            'login_logs' => LOGS_URL . 'login_logs/',
+            'register_logs' => LOGS_URL . 'register_logs/',
+            'manufacture_logs' => LOGS_URL . 'manufacture_logs/',
+            'sales_logs' => LOGS_URL . 'sales_logs/',
         );
+
+        foreach ($array as $table_name => $file_dir) {
+            $table = db::$tables[$table_name];
+            $query = "SELECT * FROM $table";
+            echo $query;
+            $stmt = db::getInstance()->query($query);
+            $result = db::getInstance()->fetchAll($stmt);
+
+            $fp = fopen($file_dir . 'log-' . date('Y-m-d', time()) . '.php', 'a');
+            foreach ($result as $num => $array) {
+                $str = date('Y-m-d h:i A', time())
+                        . "\t SYSTEM LOG DATA " . json_encode($array) . "\n";
+                fputs($fp, $str);
+            }
+
+            fclose($fp);
+
+            $query = "TRUNCATE $table";
+            $stmt = db::getInstance()->query($query);
+        }
+        
+        $fp = fopen(LOGS_URL . 'dump_logs.php', 'w');
+        fputs($fp, date('Y-m-d', time()));
+        fclose($fp);
     }
 
 }

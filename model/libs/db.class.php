@@ -1,6 +1,6 @@
 <?php
 
-class Db {
+class db {
 
     /**
      * tables names
@@ -10,6 +10,10 @@ class Db {
         //
         'sys_users' => '`rehanna_users`.`rehanna_sys_users`',
         'login_attempts' => '`rehanna_users`.`login_attempts`',
+        'login_logs' => '`rehanna_system_logs`.`login_logs`',
+        'register_logs' => '`rehanna_system_logs`.`register_logs`',
+        'manufacture_logs' => '`rehanna_system_logs`.`rehanna_factory_manufature_orders_logs`',
+        'sales_logs' => '`rehanna_system_logs`.`rehanna_market_sales_logs`',
     );
 
     /**
