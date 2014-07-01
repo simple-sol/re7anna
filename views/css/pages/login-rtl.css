@@ -2,32 +2,16 @@
 Login page
 ***/
 
-
-/* Re7ana custom style start */
-
-.proplem_cause{
-padding:0 !important;
-margin:0 !important;
-
-width:277px !important;
-max-width:277px;
-
-min-hight:100px;
-max-height:200px;
-}
-
-/* Re7ana custom style end */
-
 /* logo page */
 .login {
-  background-color: #eee!important;
+  background-color: #444 !important;
 }
 
 .login .logo {
-
+  width: 247px;
   margin: 0 auto;   
   margin-top:60px;
-  padding:26px ;
+  padding: 15px;
   text-align: center;
 }  
 

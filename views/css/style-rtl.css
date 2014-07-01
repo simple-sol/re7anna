@@ -30,6 +30,7 @@ light grey: #fafafa;
 Import fonts
 ***/
 
+@import url(//fonts.googleapis.com/css?family=Open+Sans:400,300,600,700);
 
 /*** load open sans font from local
 @import url(../fonts/font.css);
@@ -390,13 +391,6 @@ Header and header elements.
   padding: 0px;
 }
 
-.header .nav > li.inactiv_user > a ,
-.header .nav > li.inactiv_user > ul{
-display:none !important;
-
-
-}
-
 .header .nav > li.dropdown, 
 .header .nav > li.dropdown > a {
   padding-right: 4px; 
@@ -417,7 +411,7 @@ display:none !important;
 }
 
 .header .nav > li.dropdown.user .dropdown-toggle {
-  padding: 6px;
+  padding: 6px 9px 7px 4px;
 }
 
 .header .nav > li.dropdown.user .dropdown-toggle:hover {
