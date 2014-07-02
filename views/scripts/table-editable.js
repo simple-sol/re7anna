@@ -17,7 +17,7 @@ var TableEditable = function () {
 
             function editRow(oTable, nRow) {
                 var aData = oTable.fnGetData(nRow);
-                var jqTds = $('>td', nRow);
+                var jqTds = $('>td', nRow); 
                 jqTds[0].innerHTML = '<input type="text" class="m-wrap small" value="' + aData[0] + '">';
                 jqTds[1].innerHTML = '<input type="text" class="m-wrap small" value="' + aData[1] + '">';
                 jqTds[2].innerHTML = '<input type="text" class="m-wrap small" value="' + aData[2] + '">';
@@ -49,8 +49,8 @@ var TableEditable = function () {
 
             var oTable = $('#sample_editable_1').dataTable({
                 "aLengthMenu": [
-                    [5, 15, 20, -1],
-                    [5, 15, 20, "All"] // change per page values here
+                [5, 15, 20, -1],
+                [5, 15, 20, "All"] // change per page values here
                 ],
                 // set the initial value
                 "iDisplayLength": 5,
@@ -64,9 +64,9 @@ var TableEditable = function () {
                     }
                 },
                 "aoColumnDefs": [{
-                        'bSortable': false,
-                        'aTargets': [0]
-                    }
+                    'bSortable': false,
+                    'aTargets': [0]
+                }
                 ]
             });
 
@@ -81,8 +81,8 @@ var TableEditable = function () {
             $('#sample_editable_1_new').click(function (e) {
                 e.preventDefault();
                 var aiNew = oTable.fnAddData(['', '', '', '',
-                        '<a class="edit" href="">Edit</a>', '<a class="cancel" data-mode="new" href="">Cancel</a>'
-                ]);
+                    '<a class="edit" href="">Edit</a>', '<a class="cancel" data-mode="new" href="">Cancel</a>'
+                    ]);
                 var nRow = oTable.fnGetNodes(aiNew[0]);
                 editRow(oTable, nRow);
                 nEditing = nRow;

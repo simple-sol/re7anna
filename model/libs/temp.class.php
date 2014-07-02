@@ -21,4 +21,22 @@ HERE;
         return $output;
     }
 
+    static function breadcrumb($page_name = '') {
+        $output = <<<HERE
+<ul class = "breadcrumb">
+    <li>
+        <i class = "icon-home"></i>
+        <a href = "index.html">Home</a>
+        <i class = "icon-angle-left"></i>
+    </li>
+    <li>
+        <a href = "#">Data Tables</a>
+        <i class = "icon-angle-left"></i>
+    </li>
+    <li><a href = "#">Editable Tables</a></li>
+</ul>
+HERE;
+        return $output;
+    }
+
 }

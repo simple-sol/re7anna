@@ -1,13 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.4.1
+-- version 3.5.2.2
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: May 10, 2014 at 04:24 PM
--- Server version: 5.5.32
--- PHP Version: 5.4.19
+-- Generation Time: Jul 02, 2014 at 04:10 PM
+-- Server version: 5.5.27
+-- PHP Version: 5.4.7
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
 
@@ -19,8 +19,45 @@ SET time_zone = "+00:00";
 --
 -- Database: `rehanna_users`
 --
-CREATE DATABASE IF NOT EXISTS `rehanna_users` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `rehanna_users`;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `login_attempts`
+--
+
+CREATE TABLE IF NOT EXISTS `login_attempts` (
+  `sys_users_id` int(11) NOT NULL AUTO_INCREMENT,
+  `attempts` int(11) NOT NULL,
+  `time` int(11) NOT NULL,
+  PRIMARY KEY (`sys_users_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `login_attempts`
+--
+
+INSERT INTO `login_attempts` (`sys_users_id`, `attempts`, `time`) VALUES
+(1, 7, 1404030743),
+(2, 9, 1404049275);
+
+--
+-- Triggers `login_attempts`
+--
+DROP TRIGGER IF EXISTS `Block_check`;
+DELIMITER //
+CREATE TRIGGER `Block_check` AFTER UPDATE ON `login_attempts`
+ FOR EACH ROW BEGIN
+
+IF NEW.`attempts` >= 7
+THEN
+UPDATE `rehanna_sys_users` SET `is_blocked` = 1
+WHERE `sys_users_id` = NEW.`sys_users_id`;
+END IF;
+
+END
+//
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -119,14 +156,15 @@ CREATE TABLE IF NOT EXISTS `rehanna_sys_users` (
   `sys_users_type` tinyint(1) NOT NULL,
   `is_blocked` int(1) NOT NULL,
   PRIMARY KEY (`sys_users_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `rehanna_sys_users`
 --
 
 INSERT INTO `rehanna_sys_users` (`sys_users_id`, `sys_users_name`, `sys_users_password`, `sys_users_type`, `is_blocked`) VALUES
-(1, 'mohammed', 'e10adc3949ba59abbe56e057f20f883e', 1, 0);
+(1, 'mohammed', 'e10adc3949ba59abbe56e057f20f883e', 1, 0),
+(2, 'hellboy', '9a57acad6a57183e32968f137dcdb4b2', 1, 1);
 
 -- --------------------------------------------------------
 

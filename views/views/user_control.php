@@ -40,6 +40,15 @@ require_once 'header.php';
                     <p>Here will be a configuration form</p>
                 </div>
             </div>
+            <div id="user_edit" class="modal hide">
+                <div class="modal-header">
+                    <button data-dismiss="modal" class="close" type="button"></button>
+                    <h3>تعديل البيانات</h3>
+                </div>
+                <div class="modal-body">
+                    <p>البيانات المراد تعديلها</p>
+                </div>
+            </div>
             <!-- END SAMPLE PORTLET CONFIGURATION MODAL FORM-->
             <!-- BEGIN PAGE CONTAINER-->        
             <div class="container-fluid">
@@ -96,18 +105,7 @@ require_once 'header.php';
                             <small>يمكنك اضافة المخازن والتعديل عليها وخذفها عن طريق هذه الصفحة</small>
 
                         </h3>
-                        <ul class="breadcrumb">
-                            <li>
-                                <i class="icon-home"></i>
-                                <a href="index.html">Home</a> 
-                                <i class="icon-angle-left"></i>
-                            </li>
-                            <li>
-                                <a href="#">Data Tables</a>
-                                <i class="icon-angle-left"></i>
-                            </li>
-                            <li><a href="#">Editable Tables</a></li>
-                        </ul>
+                        <?= Temp::breadcrumb('user_control'); ?>
                         <!-- END PAGE TITLE & BREADCRUMB-->
                     </div>
                 </div>
@@ -137,10 +135,16 @@ require_once 'header.php';
                         <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
                             <thead>
                                 <tr>
-                                    <th>اسم المخزن</th>
-                                    <th>العنوان</th>
+                                    <th>اسم الموظف</th>
+                                    <th>البريد الالكترونى</th>
                                     <th>حجم</th>
-                                    <th>تاريخ البدء</th>
+                                    <th>الوظيفة</th>
+                                    <th>المرتب</th>
+                                    <th>الحالة الاجتماعية</th>
+                                    <th>الأولاد</th>
+                                    <th>النوع</th>
+                                    <th>تاريخ الميلاد</th>
+                                    <th>المؤهل الدراسى</th>
                                     <th>تعديل</th>
                                     <th>حذف</th>
                                 </tr>
@@ -151,7 +155,13 @@ require_once 'header.php';
                                     <td>Alex Nilson</td>
                                     <td>1234</td>
                                     <td class="center">power user</td>
-                                    <td><a class="edit" href="javascript:;">Edit</a></td>
+                                    <td>أى كلام</td>
+                                    <td>أى كلام</td>
+                                    <td>أى كلام</td>
+                                    <td>أى كلام</td>
+                                    <td>أى كلام</td>
+                                    <td>أى كلام</td>
+                                    <td><a href="#user_edit" data-toggle="modal">Edit</a></td>
                                     <td><a class="delete" href="javascript:;">Delete</a></td>
                                 </tr>
                                 <tr >
@@ -159,6 +169,12 @@ require_once 'header.php';
                                     <td>Lisa Wong</td>
                                     <td>434</td>
                                     <td class="center">new user</td>
+                                    <td>أى كلام</td>
+                                    <td>أى كلام</td>
+                                    <td>أى كلام</td>
+                                    <td>أى كلام</td>
+                                    <td>أى كلام</td>
+                                    <td>أى كلام</td>
                                     <td><a class="edit" href="javascript:;">Edit</a></td>
                                     <td><a class="delete" href="javascript:;">Delete</a></td>
                                 </tr>
@@ -167,6 +183,12 @@ require_once 'header.php';
                                     <td>Nick Roberts</td>
                                     <td>232</td>
                                     <td class="center">power user</td>
+                                    <td>أى كلام</td>
+                                    <td>أى كلام</td>
+                                    <td>أى كلام</td>
+                                    <td>أى كلام</td>
+                                    <td>أى كلام</td>
+                                    <td>أى كلام</td>
                                     <td><a class="edit" href="javascript:;">Edit</a></td>
                                     <td><a class="delete" href="javascript:;">Delete</a></td>
                                 </tr>
@@ -175,6 +197,12 @@ require_once 'header.php';
                                     <td>Sergio Jackson</td>
                                     <td>132</td>
                                     <td class="center">elite user</td>
+                                    <td>أى كلام</td>
+                                    <td>أى كلام</td>
+                                    <td>أى كلام</td>
+                                    <td>أى كلام</td>
+                                    <td>أى كلام</td>
+                                    <td>أى كلام</td>
                                     <td><a class="edit" href="javascript:;">Edit</a></td>
                                     <td><a class="delete" href="javascript:;">Delete</a></td>
                                 </tr>
@@ -183,6 +211,12 @@ require_once 'header.php';
                                     <td>Antonio Sanches</td>
                                     <td>462</td>
                                     <td class="center">new user</td>
+                                    <td>أى كلام</td>
+                                    <td>أى كلام</td>
+                                    <td>أى كلام</td>
+                                    <td>أى كلام</td>
+                                    <td>أى كلام</td>
+                                    <td>أى كلام</td>
                                     <td><a class="edit" href="javascript:;">Edit</a></td>
                                     <td><a class="delete" href="javascript:;">Delete</a></td>
                                 </tr>
@@ -191,6 +225,12 @@ require_once 'header.php';
                                     <td>Nick Roberts</td>
                                     <td>62</td>
                                     <td class="center">new user</td>
+                                    <td>أى كلام</td>
+                                    <td>أى كلام</td>
+                                    <td>أى كلام</td>
+                                    <td>أى كلام</td>
+                                    <td>أى كلام</td>
+                                    <td>أى كلام</td>
                                     <td><a class="edit" href="javascript:;">Edit</a></td>
                                     <td><a class="delete" href="javascript:;">Delete</a></td>
                                 </tr>
