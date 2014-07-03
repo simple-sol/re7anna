@@ -25,5 +25,5 @@ $registry->template = new template($registry);
 /* * * load the controller ** */
 $registry->router->loader();
 
-Logs::get_instance()->dump_logs();
+//Logs::get_instance()->dump_logs();
 ?>

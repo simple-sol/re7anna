@@ -7,6 +7,7 @@ $plugins = array(
 $scripts = array(
     'app.js',
     'table-editable.js',
+    'input-setter.js',
 );
 
 $styles = array(
@@ -20,6 +21,39 @@ $script = <<<HERE
 		   TableEditable.init();
 		});
 	</script>
+        <script type="text/javascript">  
+$(document).ready(function()  
+{  
+  
+$("#sample_editable_1 td:nth-child(11)").click(function(event){  
+  
+//Prevent the hyperlink to perform default behavior  
+event.preventDefault();  
+//alert($(event.target).text())  
+  
+var \$td= $(this).closest('tr').children('td');  
+  
+  
+var name= \$td.eq(0).text();
+var name= \$td.eq(1).text();  
+var city= \$td.eq(2).text();
+$('input[name="emp_name"]').val(\$td.eq(0).text());
+$('input[name="emp_email"]').val(\$td.eq(1).text());
+$('input[name="emp_add"]').val(\$td.eq(2).text());
+$('input[name="emp_job"]').val(\$td.eq(3).text());
+$('input[name="emp_sal"]').val(\$td.eq(4).text());
+$('input[name="emp_st"]').val(\$td.eq(5).text());
+$('input[name="emp_kids"]').val(\$td.eq(6).text());
+$('input[name="emp_gen"]').val(\$td.eq(7).text());
+$('input[name="emp_bday"]').val(\$td.eq(8).text());
+$('input[name="emp_cert"]').val(\$td.eq(9).text());
+}  
+  
+);  
+  
+});  
+  
+</script>  
 HERE;
 require_once 'head.php';
 require_once 'header.php';
@@ -46,7 +80,71 @@ require_once 'header.php';
                     <h3>تعديل البيانات</h3>
                 </div>
                 <div class="modal-body">
-                    <p>البيانات المراد تعديلها</p>
+                    <p></p>
+                    <form id="edit_form" class="form-horizontal">
+                        <div class="control-group">
+                            <label class="control-label">اسم الموظف</label>
+                            <div class="controls">
+                                <input type="text" name="emp_name" class="span6 m-wrap" />
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">البريد الاكترونى</label>
+                            <div class="controls">
+                                <div class="input-prepend"><span class="add-on">@</span><input class="m-wrap " name="emp_email" type="text" placeholder="Email Address" /></div>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">العنوان</label>
+                            <div class="controls">
+                                <input type="text" name="emp_add" class="span6 m-wrap" />
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">الوظيفة</label>
+                            <div class="controls">
+                                <input type="text" name="emp_job" class="span6 m-wrap" />
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">المرتب</label>
+                            <div class="controls">
+                                <div class="input-prepend input-append">
+                                    <span class="add-on">$</span><input class="m-wrap " name="emp_sal" type="text" /><span class="add-on">.00</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">الحالة الاجتماعية</label>
+                            <div class="controls">
+                                <input type="text" name="emp_st" class="span6 m-wrap" />
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">اسم الموظف</label>
+                            <div class="controls">
+                                <input type="text" name="emp_name" class="span6 m-wrap" />
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">اسم الموظف</label>
+                            <div class="controls">
+                                <input type="text" name="emp_name" class="span6 m-wrap" />
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">اسم الموظف</label>
+                            <div class="controls">
+                                <input type="text" name="emp_name" class="span6 m-wrap" />
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">اسم الموظف</label>
+                            <div class="controls">
+                                <input type="text" name="emp_name" class="span6 m-wrap" />
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
             <!-- END SAMPLE PORTLET CONFIGURATION MODAL FORM-->
@@ -137,7 +235,7 @@ require_once 'header.php';
                                 <tr>
                                     <th>اسم الموظف</th>
                                     <th>البريد الالكترونى</th>
-                                    <th>حجم</th>
+                                    <th>العنوان</th>
                                     <th>الوظيفة</th>
                                     <th>المرتب</th>
                                     <th>الحالة الاجتماعية</th>
@@ -175,7 +273,7 @@ require_once 'header.php';
                                     <td>أى كلام</td>
                                     <td>أى كلام</td>
                                     <td>أى كلام</td>
-                                    <td><a class="edit" href="javascript:;">Edit</a></td>
+                                    <td><a href="#user_edit" data-toggle="modal">Edit</a></td>
                                     <td><a class="delete" href="javascript:;">Delete</a></td>
                                 </tr>
                                 <tr >
@@ -189,7 +287,7 @@ require_once 'header.php';
                                     <td>أى كلام</td>
                                     <td>أى كلام</td>
                                     <td>أى كلام</td>
-                                    <td><a class="edit" href="javascript:;">Edit</a></td>
+                                    <td><a href="#user_edit" data-toggle="modal">Edit</a></td>
                                     <td><a class="delete" href="javascript:;">Delete</a></td>
                                 </tr>
                                 <tr >
@@ -203,7 +301,7 @@ require_once 'header.php';
                                     <td>أى كلام</td>
                                     <td>أى كلام</td>
                                     <td>أى كلام</td>
-                                    <td><a class="edit" href="javascript:;">Edit</a></td>
+                                    <td><a href="#user_edit" data-toggle="modal">Edit</a></td>
                                     <td><a class="delete" href="javascript:;">Delete</a></td>
                                 </tr>
                                 <tr >
@@ -217,7 +315,7 @@ require_once 'header.php';
                                     <td>أى كلام</td>
                                     <td>أى كلام</td>
                                     <td>أى كلام</td>
-                                    <td><a class="edit" href="javascript:;">Edit</a></td>
+                                    <td><a href="#user_edit" data-toggle="modal">Edit</a></td>
                                     <td><a class="delete" href="javascript:;">Delete</a></td>
                                 </tr>
                                 <tr >
@@ -231,7 +329,7 @@ require_once 'header.php';
                                     <td>أى كلام</td>
                                     <td>أى كلام</td>
                                     <td>أى كلام</td>
-                                    <td><a class="edit" href="javascript:;">Edit</a></td>
+                                    <td><a href="#user_edit" data-toggle="modal">Edit</a></td>
                                     <td><a class="delete" href="javascript:;">Delete</a></td>
                                 </tr>
                             </tbody>
