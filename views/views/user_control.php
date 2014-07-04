@@ -25,34 +25,42 @@ $script = <<<HERE
 $(document).ready(function()  
 {  
   
-$("#sample_editable_1 td:nth-child(11)").click(function(event){  
+$("#sample_editable_1 td:nth-child(12)").click(function(event){  
   
 //Prevent the hyperlink to perform default behavior  
 event.preventDefault();  
 //alert($(event.target).text())  
   
 var \$td= $(this).closest('tr').children('td');  
-  
-  
-var name= \$td.eq(0).text();
-var name= \$td.eq(1).text();  
-var city= \$td.eq(2).text();
-$('input[name="emp_name"]').val(\$td.eq(0).text());
-$('input[name="emp_email"]').val(\$td.eq(1).text());
-$('input[name="emp_add"]').val(\$td.eq(2).text());
-$('input[name="emp_job"]').val(\$td.eq(3).text());
-$('input[name="emp_sal"]').val(\$td.eq(4).text());
-$('input[name="emp_st"]').val(\$td.eq(5).text());
-$('input[name="emp_kids"]').val(\$td.eq(6).text());
-$('input[name="emp_gen"]').val(\$td.eq(7).text());
-$('input[name="emp_bday"]').val(\$td.eq(8).text());
-$('input[name="emp_cert"]').val(\$td.eq(9).text());
+
+$('input[name="emp_id"]').val(\$td.eq(0).text());
+//alert(\$td.eq(0).text());
+$('input[name="emp_name"]').val(\$td.eq(1).text());
+$('input[name="emp_email"]').val(\$td.eq(2).text());
+$('input[name="emp_add"]').val(\$td.eq(3).text());
+$('input[name="emp_job"]').val(\$td.eq(4).text());
+$('input[name="emp_sal"]').val(\$td.eq(5).text());
+$('input[name="emp_st"]').val(\$td.eq(6).text());
+$('input[name="emp_kids"]').val(\$td.eq(7).text());
+$('input[name="emp_gen"]').val(\$td.eq(8).text());
+$('input[name="emp_bday"]').val(\$td.eq(9).text());
+$('input[name="emp_cert"]').val(\$td.eq(10).text());
 }  
   
 );  
   
 });  
-  
+function emp_sync(){
+    event.preventDefault();
+    
+    $.ajax({ url: '/re7anna/user/emp_edit',
+         data: $("#emp_edit_form").serialize(),
+         type: 'post',
+         success: function(output) {
+                      alert(output);
+                  }
+});
+}
 </script>  
 HERE;
 require_once 'head.php';
@@ -81,7 +89,8 @@ require_once 'header.php';
                 </div>
                 <div class="modal-body">
                     <p></p>
-                    <form id="edit_form" class="form-horizontal">
+                    <form id="emp_edit_form" method="post" class="form-horizontal">
+                        <input type="hidden" name="emp_id" class="span6 m-wrap" />
                         <div class="control-group">
                             <label class="control-label">اسم الموظف</label>
                             <div class="controls">
@@ -143,6 +152,9 @@ require_once 'header.php';
                             <div class="controls">
                                 <input type="text" name="emp_name" class="span6 m-wrap" />
                             </div>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" onClick="emp_sync();" class="btn blue">تعديل</button>
                         </div>
                     </form>
                 </div>
@@ -233,6 +245,7 @@ require_once 'header.php';
                         <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
                             <thead>
                                 <tr>
+                                    <th>رقم الموظف</th>
                                     <th>اسم الموظف</th>
                                     <th>البريد الالكترونى</th>
                                     <th>العنوان</th>
@@ -249,6 +262,7 @@ require_once 'header.php';
                             </thead>
                             <tbody>
                                 <tr >
+                                    <td>10</td>
                                     <td>alex</td>
                                     <td>Alex Nilson</td>
                                     <td>1234</td>
@@ -263,6 +277,7 @@ require_once 'header.php';
                                     <td><a class="delete" href="javascript:;">Delete</a></td>
                                 </tr>
                                 <tr >
+                                    <td>10</td>
                                     <td>lisa</td>
                                     <td>Lisa Wong</td>
                                     <td>434</td>
@@ -277,6 +292,7 @@ require_once 'header.php';
                                     <td><a class="delete" href="javascript:;">Delete</a></td>
                                 </tr>
                                 <tr >
+                                    <td>10</td>
                                     <td>nick12</td>
                                     <td>Nick Roberts</td>
                                     <td>232</td>
@@ -291,6 +307,7 @@ require_once 'header.php';
                                     <td><a class="delete" href="javascript:;">Delete</a></td>
                                 </tr>
                                 <tr >
+                                    <td>10</td>
                                     <td>goldweb</td>
                                     <td>Sergio Jackson</td>
                                     <td>132</td>
@@ -305,6 +322,7 @@ require_once 'header.php';
                                     <td><a class="delete" href="javascript:;">Delete</a></td>
                                 </tr>
                                 <tr >
+                                    <td>10</td>
                                     <td>webriver</td>
                                     <td>Antonio Sanches</td>
                                     <td>462</td>
@@ -319,6 +337,7 @@ require_once 'header.php';
                                     <td><a class="delete" href="javascript:;">Delete</a></td>
                                 </tr>
                                 <tr >
+                                    <td>10</td>
                                     <td>gist124</td>
                                     <td>Nick Roberts</td>
                                     <td>62</td>
