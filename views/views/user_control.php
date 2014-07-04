@@ -121,15 +121,15 @@ require_once 'header.php';
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label">اسم الموظف</label>
+                            <label class="control-label">الأولاد</label>
                             <div class="controls">
-                                <input type="text" name="emp_name" class="span6 m-wrap" />
+                                <input type="text" name="emp_kids" class="span6 m-wrap" />
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label">اسم الموظف</label>
+                            <label class="control-label">النوع</label>
                             <div class="controls">
-                                <input type="text" name="emp_name" class="span6 m-wrap" />
+                                <input type="text" name="emp_gen" class="span6 m-wrap" />
                             </div>
                         </div>
                         <div class="control-group">
