@@ -18,7 +18,7 @@ class Operations {
     }
 
     function init($data, $table_name, $op_type = 'insert', $clause = '') {
-        $this->data = $data;
+        $this->data = $this->prepare_data($data);
         $this->op_type = $op_type;
         $this->table_name = $table_name;
         $this->clause = $clause;
@@ -54,6 +54,14 @@ class Operations {
         }
         print_r($this->validations);
         print_r($this->checks);
+    }
+
+    function prepare_data($data) {
+        $new_data = array();
+        foreach ($data as $field => $value) {
+            $new_data[$field] = filter_var($value, FILTER_SANITIZE_STRING);
+        }
+        return $new_data;
     }
 
     function insert() {

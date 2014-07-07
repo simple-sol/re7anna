@@ -8,7 +8,7 @@ Class userController Extends baseController {
     }
 
     function emp_edit() {
-        print_r($_POST);
+        Operations::get_instance()->init($_POST, 'employee');
     }
 
 }

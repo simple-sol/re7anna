@@ -34,17 +34,16 @@ event.preventDefault();
 var \$td= $(this).closest('tr').children('td');  
 
 $('input[name="emp_id"]').val(\$td.eq(0).text());
-//alert(\$td.eq(0).text());
 $('input[name="emp_name"]').val(\$td.eq(1).text());
 $('input[name="emp_email"]').val(\$td.eq(2).text());
-$('input[name="emp_add"]').val(\$td.eq(3).text());
-$('input[name="emp_job"]').val(\$td.eq(4).text());
-$('input[name="emp_sal"]').val(\$td.eq(5).text());
-$('input[name="emp_st"]').val(\$td.eq(6).text());
-$('input[name="emp_kids"]').val(\$td.eq(7).text());
-$('input[name="emp_gen"]').val(\$td.eq(8).text());
-$('input[name="emp_bday"]').val(\$td.eq(9).text());
-$('input[name="emp_cert"]').val(\$td.eq(10).text());
+$('input[name="emp_address"]').val(\$td.eq(3).text());
+$('input[name="emp_job_id"]').val(\$td.eq(4).text());
+$('input[name="emp_salary"]').val(\$td.eq(5).text());
+$('input[name="emp_married"]').val(\$td.eq(6).text());
+$('input[name="has_kids"]').val(\$td.eq(7).text());
+$('input[name="emp_gender"]').val(\$td.eq(8).text());
+$('input[name="emp_birthdate"]').val(\$td.eq(9).text());
+$('input[name="emp_certificate"]').val(\$td.eq(10).text());
 }  
   
 );  
@@ -106,7 +105,7 @@ require_once 'header.php';
                         <div class="control-group">
                             <label class="control-label">العنوان</label>
                             <div class="controls">
-                                <input type="text" name="emp_add" class="span6 m-wrap" />
+                                <input type="text" name="emp_address" class="span6 m-wrap" />
                             </div>
                         </div>
                         <div class="control-group">
@@ -119,40 +118,53 @@ require_once 'header.php';
                             <label class="control-label">المرتب</label>
                             <div class="controls">
                                 <div class="input-prepend input-append">
-                                    <span class="add-on">$</span><input class="m-wrap " name="emp_sal" type="text" /><span class="add-on">.00</span>
+                                    <span class="add-on">$</span><input class="m-wrap " name="emp_salary" type="text" /><span class="add-on">.00</span>
                                 </div>
                             </div>
                         </div>
                         <div class="control-group">
                             <label class="control-label">الحالة الاجتماعية</label>
                             <div class="controls">
-                                <input type="text" name="emp_st" class="span6 m-wrap" />
+                                <select class="span6 m-wrap" name="emp_married" data-placeholder="اختار" tabindex="1">
+                                    <option>اختر...</option>
+                                    <option value="1">متزوج</option>
+                                    <option value="0">غير متزوج</option>
+                                </select>
                             </div>
                         </div>
                         <div class="control-group">
                             <label class="control-label">الأولاد</label>
                             <div class="controls">
-                                <input type="text" name="emp_kids" class="span6 m-wrap" />
+                                <select class="span6 m-wrap" name="has_kids" data-placeholder="اختار" tabindex="1">
+                                    <option>اختر...</option>
+                                    <option value="0">لا يوجد</option>
+                                    <option value="1">يوجد</option>
+                                </select>
                             </div>
                         </div>
                         <div class="control-group">
                             <label class="control-label">النوع</label>
                             <div class="controls">
-                                <input type="text" name="emp_gen" class="span6 m-wrap" />
+                                <select class="span6 m-wrap" name="emp_gender" data-placeholder="اختار" tabindex="1">
+                                    <option>اختر...</option>
+                                    <option value="1">ذكر</option>
+                                    <option value="2">أنثى</option>
+                                </select>
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label">اسم الموظف</label>
+                            <label class="control-label">تاريخ الميلاد</label>
                             <div class="controls">
                                 <input type="text" name="emp_name" class="span6 m-wrap" />
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label">اسم الموظف</label>
+                            <label class="control-label">المؤهل الدراسى</label>
                             <div class="controls">
-                                <input type="text" name="emp_name" class="span6 m-wrap" />
+                                <input type="text" name="emp_certificate" class="span6 m-wrap" />
                             </div>
                         </div>
+
                         <div class="form-actions">
                             <button type="submit" onClick="emp_sync();" class="btn blue">تعديل</button>
                         </div>

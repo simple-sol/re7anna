@@ -24,6 +24,10 @@ HERE;
         return $output;
     }
 
+    function editable_table() {
+        
+    }
+
     /* static function sys_comment_block($page_name = '') {
       $output = <<<HERE
       <input type = "hidden" name = "page_name" value = "$page_name" />
