@@ -3,65 +3,18 @@ $plugins = array(
     'select2/select2.min.js',
     'data-tables/jquery.dataTables.js',
     'data-tables/DT_bootstrap.js',
+    'jquery-validation/dist/jquery.validate.js',
 );
 $scripts = array(
     'app.js',
     'table-editable.js',
     'input-setter.js',
+    'emp_form.js'
 );
 
 $styles = array(
     '../plugins/data-tables/DT_bootstrap_rtl.css',
 );
-
-$script = <<<HERE
-<script>
-		jQuery(document).ready(function() {       
-		   App.init();
-		   TableEditable.init();
-		});
-	</script>
-        <script type="text/javascript">  
-$(document).ready(function()  
-{  
-  
-$("#sample_editable_1 td:nth-child(12)").click(function(event){  
-  
-//Prevent the hyperlink to perform default behavior  
-event.preventDefault();  
-//alert($(event.target).text())  
-  
-var \$td= $(this).closest('tr').children('td');  
-
-$('input[name="emp_id"]').val(\$td.eq(0).text());
-$('input[name="emp_name"]').val(\$td.eq(1).text());
-$('input[name="emp_email"]').val(\$td.eq(2).text());
-$('input[name="emp_address"]').val(\$td.eq(3).text());
-$('input[name="emp_job_id"]').val(\$td.eq(4).text());
-$('input[name="emp_salary"]').val(\$td.eq(5).text());
-$('input[name="emp_married"]').val(\$td.eq(6).text());
-$('input[name="has_kids"]').val(\$td.eq(7).text());
-$('input[name="emp_gender"]').val(\$td.eq(8).text());
-$('input[name="emp_birthdate"]').val(\$td.eq(9).text());
-$('input[name="emp_certificate"]').val(\$td.eq(10).text());
-}  
-  
-);  
-  
-});  
-function emp_sync(){
-    event.preventDefault();
-    
-    $.ajax({ url: '/re7anna/user/emp_edit',
-         data: $("#emp_edit_form").serialize(),
-         type: 'post',
-         success: function(output) {
-                      alert(output);
-                  }
-});
-}
-</script>  
-HERE;
 require_once 'head.php';
 require_once 'header.php';
 ?>
@@ -85,6 +38,8 @@ require_once 'header.php';
                 <div class="modal-header">
                     <button data-dismiss="modal" class="close" type="button"></button>
                     <h3>تعديل البيانات</h3>
+                </div>
+                <div id="data-output" class="modal-body error" >
                 </div>
                 <div class="modal-body">
                     <p></p>
@@ -111,7 +66,7 @@ require_once 'header.php';
                         <div class="control-group">
                             <label class="control-label">الوظيفة</label>
                             <div class="controls">
-                                <input type="text" name="emp_job" class="span6 m-wrap" />
+                                <input type="text" name="emp_job_id" class="span6 m-wrap" />
                             </div>
                         </div>
                         <div class="control-group">
@@ -155,7 +110,7 @@ require_once 'header.php';
                         <div class="control-group">
                             <label class="control-label">تاريخ الميلاد</label>
                             <div class="controls">
-                                <input type="text" name="emp_name" class="span6 m-wrap" />
+                                <input type="text" name="emp_birthdate" class="span6 m-wrap" />
                             </div>
                         </div>
                         <div class="control-group">
@@ -166,7 +121,7 @@ require_once 'header.php';
                         </div>
 
                         <div class="form-actions">
-                            <button type="submit" onClick="emp_sync();" class="btn blue">تعديل</button>
+                            <button type="submit" class="btn blue">تعديل</button>
                         </div>
                     </form>
                 </div>

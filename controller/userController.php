@@ -8,7 +8,13 @@ Class userController Extends baseController {
     }
 
     function emp_edit() {
-        Operations::get_instance()->init($_POST, 'employee');
+        if ($_POST['emp_id'] == 'null') {
+            $op_type = 'insert';
+        } else {
+            $op_type = 'update';
+        }
+
+        Operations::get_instance()->init($_POST, 'employee', $op_type);
     }
 
 }

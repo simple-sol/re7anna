@@ -10,6 +10,7 @@ return array(
                 'notEmpty' => 1,
                 'numeric' => 1,
             ),
+            'key' => 1,
         ),
         'emp_name' => array(
             'validations' => array(

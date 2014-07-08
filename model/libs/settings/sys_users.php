@@ -1,4 +1,5 @@
 <?php
+
 //settings for the table 'sys_users'
 //validations contains validation method names and their parameters if they exist
 
@@ -10,6 +11,7 @@ return array(
                 'email' => 1,
                 'equalTo' => array('null')
             ),
+            'key' => 1,
         ),
         'sys_users_name' => array(
             'validations' => array(
