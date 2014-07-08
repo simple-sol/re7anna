@@ -35,7 +35,7 @@ require_once 'header.php';
                 <div class="modal-body">
                     <p></p>
                     <form id="emp_edit_form" method="post" class="form-horizontal">
-                        <input type="hidden" name="emp_id" class="span6 m-wrap" />
+                        <input type="hidden" name="emp_id" value="null" class="span6 m-wrap" />
                         <div class="control-group">
                             <label class="control-label">اسم الموظف</label>
                             <div class="controls">
@@ -57,7 +57,11 @@ require_once 'header.php';
                         <div class="control-group">
                             <label class="control-label">الوظيفة</label>
                             <div class="controls">
-                                <input type="text" name="emp_job_id" class="span6 m-wrap" />
+                                <select class="span6 m-wrap" name="emp_job_id" data-placeholder="اختار" tabindex="1">
+                                    <option>اختر...</option>
+                                    <option value="1"></option>
+                                    <option value="0"></option>
+                                </select>
                             </div>
                         </div>
                         <div class="control-group">
@@ -186,9 +190,11 @@ require_once 'header.php';
 
                         <div class="table-toolbar">
                             <div class="btn-group">
-                                <button id="sample_editable_1_new" class="btn green"><i class="icon-plus"></i>
-                                    إضافة مخزن جديد 
-                                </button>
+                                <a href="#user_edit" onClick="$('#user_edit .modal-header h3').html('اضافة موظف');$('#user_edit .form-actions .btn').html('اضافة');" data-toggle="modal">
+                                    <button class="btn green"><i class="icon-plus"></i>
+                                        اضافة موظف
+                                    </button>
+                                </a>
                             </div>
                             <div class="btn-group pull-left">
                                 <button class="btn dropdown-toggle" data-toggle="dropdown">Tools <i class="icon-angle-down"></i>
@@ -226,9 +232,9 @@ require_once 'header.php';
                                     <td>1234</td>
                                     <td class="center">power user</td>
                                     <td>أى كلام</td>
+                                    <td>متزوج</td>
                                     <td>أى كلام</td>
-                                    <td>أى كلام</td>
-                                    <td>أى كلام</td>
+                                    <td>ذكر</td>
                                     <td>أى كلام</td>
                                     <td>أى كلام</td>
                                     <td><a href="#user_edit" data-toggle="modal">Edit</a></td>

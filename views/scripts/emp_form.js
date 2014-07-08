@@ -15,11 +15,17 @@ $(document).ready(function()
         $('input[name="emp_name"]').val($td.eq(1).text());
         $('input[name="emp_email"]').val($td.eq(2).text());
         $('input[name="emp_address"]').val($td.eq(3).text());
-        $('input[name="emp_job_id"]').val($td.eq(4).text());
+        $('select[name="emp_job_id"]').children().filter(function() {
+            return $(this).text() == $td.eq(4).text(); 
+        }).prop('selected', true);
         $('input[name="emp_salary"]').val($td.eq(5).text());
-        $('input[name="emp_married"]').val($td.eq(6).text());
+        $('select[name="emp_married"]').children().filter(function() {
+            return $(this).text() == $td.eq(6).text(); 
+        }).prop('selected', true);
         $('input[name="has_kids"]').val($td.eq(7).text());
-        $('input[name="emp_gender"]').val($td.eq(8).text());
+        $('select[name="emp_gender"]').children().filter(function() {
+            return $(this).text() == $td.eq(8).text(); 
+        }).prop('selected', true);
         $('input[name="emp_birthdate"]').val($td.eq(9).text());
         $('input[name="emp_certificate"]').val($td.eq(10).text());
     });  
@@ -27,16 +33,18 @@ $(document).ready(function()
 
 function reset_emp_form(){
     $("label.error").remove();
+    $("#user_edit .modal-header h3").html('تعديل موظف');
+    $("#user_edit .form-actions .btn").html('تعديل');
     $("#data-output").html('');
-    $('input[name="emp_id"]').val('');
+    $('input[name="emp_id"]').val('null');
     $('input[name="emp_name"]').val('');
     $('input[name="emp_email"]').val('');
     $('input[name="emp_address"]').val('');
-    $('input[name="emp_job_id"]').val('');
+    $('select[name="emp_job_id"]').children().prop('selected', false);
     $('input[name="emp_salary"]').val('');
-    $('input[name="emp_married"]').val('');
+    $('select[name="emp_married"]').children().prop('selected', false);
     $('input[name="has_kids"]').val('');
-    $('input[name="emp_gender"]').val('');
+    $('select[name="emp_gender"]').children().prop('selected', false);
     $('input[name="emp_birthdate"]').val('');
     $('input[name="emp_certificate"]').val('');
 }
@@ -54,7 +62,7 @@ $("#emp_edit_form").validate({
         },
         emp_address: {
             required: true,
-            minlength: 10
+            minlength: 5
         },
         emp_job_id: {
             required: true,
@@ -96,7 +104,7 @@ $("#emp_edit_form").validate({
 
         emp_address: {
             required: "يجب ادخال العنوان",
-            minlength: "يجب ألا يقل عن 10 أحرف"
+            minlength: "يجب ألا يقل عن 5 أحرف"
         },
         emp_job_id: {
             required: "يجب اختيار وظيفة",
