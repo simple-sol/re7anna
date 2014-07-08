@@ -4,13 +4,13 @@
 //validations contains validation method names and their parameters if they exist
 
 return array(
+    'key' => 'emp_id',
     'fields' => array(
         'emp_id' => array(
             'validations' => array(
                 'notEmpty' => 1,
                 'numeric' => 1,
             ),
-            'key' => 1,
         ),
         'emp_name' => array(
             'validations' => array(

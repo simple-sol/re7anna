@@ -4,6 +4,7 @@
 //validations contains validation method names and their parameters if they exist
 
 return array(
+    'key' => 'sys_users_id',
     'fields' => array(
         'sys_users_id' => array(
             'validations' => array(
@@ -11,7 +12,6 @@ return array(
                 'email' => 1,
                 'equalTo' => array('null')
             ),
-            'key' => 1,
         ),
         'sys_users_name' => array(
             'validations' => array(

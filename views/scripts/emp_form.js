@@ -25,6 +25,22 @@ $(document).ready(function()
     });  
 });  
 
+function reset_emp_form(){
+    $("label.error").remove();
+    $("#data-output").html('');
+    $('input[name="emp_id"]').val('');
+    $('input[name="emp_name"]').val('');
+    $('input[name="emp_email"]').val('');
+    $('input[name="emp_address"]').val('');
+    $('input[name="emp_job_id"]').val('');
+    $('input[name="emp_salary"]').val('');
+    $('input[name="emp_married"]').val('');
+    $('input[name="has_kids"]').val('');
+    $('input[name="emp_gender"]').val('');
+    $('input[name="emp_birthdate"]').val('');
+    $('input[name="emp_certificate"]').val('');
+}
+
 $("#emp_edit_form").validate({
     errorClass: "error",
     rules: {

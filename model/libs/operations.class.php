@@ -6,6 +6,7 @@ class Operations {
     private $table_name;
     private $op_type;
     private $clause;
+    private $key;
     private $settings;
     private $validations = array();
     private $checks = array();
@@ -23,6 +24,7 @@ class Operations {
         $this->table_name = $table_name;
         $this->clause = $clause;
         $this->grab_settings();
+        $this->key = $this->settings['key'];
         $this->validate();
         if (!in_array(null, $this->validations))
             $this->{$this->op_type}();
@@ -30,7 +32,7 @@ class Operations {
 
     function grab_settings() {
         //file exists check should be implemented here
-        $this->settings = include './settings/' . $this->table_name . '.php';
+        $this->settings = include '/settings/' . $this->table_name . '.php';
     }
 
     function validate() {
@@ -52,8 +54,6 @@ class Operations {
             $this->checks[$field] = $valid;
             $this->validations[$field] = !in_array(null, $valid);
         }
-        print_r($this->validations);
-        print_r($this->checks);
     }
 
     function prepare_data($data) {
@@ -65,27 +65,26 @@ class Operations {
     }
 
     function insert() {
-        $columns = '';
-        $values = '';
+        $columns = array();
+        $values = array();
         foreach ($this->data as $field => $value) {
             $columns[] = "`$field`";
             $values[] = "'$value'";
         }
         $query = "INSERT INTO " . db::$tables[$this->table_name]
                 . " (\n" . join(",\n", $columns) . "\n) VALUES (\n" . join(",\n", $values) . "\n)";
-        echo $query;
     }
 
     function update() {
-        $updates = '';
+        $updates = array();
         foreach ($this->data as $field => $value) {
             $updates[] = "`$field` = '$value'";
         }
+        if (empty($this->clause)) {
+            $this->clause = "WHERE `{$this->key}` = '{$this->data[$this->key]}'";
+        }
         $query = "UPDATE " . db::$tables[$this->table_name]
                 . " \nSET " . join(",\n", $updates) . "\n" . $this->clause;
-        echo $query;
     }
 
 }
-
-//operations::get_instance()->init(array('sys_users_id' => 'hellboyon@gmail.com', 'sys_users_name' => 'abdou'), 'sys_users');
