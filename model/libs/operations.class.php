@@ -22,12 +22,15 @@ class Operations {
         $this->data = $this->prepare_data($data);
         $this->op_type = $op_type;
         $this->table_name = $table_name;
-        $this->clause = $clause;
         $this->grab_settings();
         $this->key = $this->settings['key'];
+        $this->clause = empty($clause) ? $this->get_clause() : $clause;
         $this->validate();
-        if (!in_array(null, $this->validations))
+        if (!in_array(null, $this->validations) && method_exists($this, $this->op_type))
             $this->{$this->op_type}();
+        else
+            return $this->checks;
+        return true;
     }
 
     function grab_settings() {
@@ -64,6 +67,10 @@ class Operations {
         return $new_data;
     }
 
+    function get_clause() {
+        return "WHERE `{$this->key}` = '{$this->data[$this->key]}'";
+    }
+
     function insert() {
         $columns = array();
         $values = array();
@@ -80,11 +87,14 @@ class Operations {
         foreach ($this->data as $field => $value) {
             $updates[] = "`$field` = '$value'";
         }
-        if (empty($this->clause)) {
-            $this->clause = "WHERE `{$this->key}` = '{$this->data[$this->key]}'";
-        }
+
         $query = "UPDATE " . db::$tables[$this->table_name]
                 . " \nSET " . join(",\n", $updates) . "\n" . $this->clause;
+    }
+
+    function delete() {
+        $query = "DELETE FROM " . db::$tables[$this->table_name]
+                . "\n" . $this->clause;
     }
 
 }

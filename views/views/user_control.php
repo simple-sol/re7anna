@@ -59,8 +59,7 @@ require_once 'header.php';
                             <div class="controls">
                                 <select class="span6 m-wrap" name="emp_job_id" data-placeholder="اختار" tabindex="1">
                                     <option>اختر...</option>
-                                    <option value="1"></option>
-                                    <option value="0"></option>
+                                    <?= Temp::load_list_options('jobs'); ?>
                                 </select>
                             </div>
                         </div>
@@ -116,7 +115,7 @@ require_once 'header.php';
                         </div>
 
                         <div class="form-actions">
-                            <button type="submit" class="btn blue">تعديل</button>
+                            <button type="submit" onClick='$("#data-output").html("");' class="btn blue">تعديل</button>
                         </div>
                     </form>
                 </div>
@@ -177,7 +176,7 @@ require_once 'header.php';
                             <small>يمكنك اضافة المخازن والتعديل عليها وخذفها عن طريق هذه الصفحة</small>
 
                         </h3>
-                        <?= Temp::breadcrumb('user_control'); ?>
+                        <?= Temp::breadcrumb('emp_control'); ?>
                         <!-- END PAGE TITLE & BREADCRUMB-->
                     </div>
                 </div>
@@ -226,7 +225,7 @@ require_once 'header.php';
                             </thead>
                             <tbody>
                                 <tr >
-                                    <td>10</td>
+                                    <td>2</td>
                                     <td>alex</td>
                                     <td>Alex Nilson</td>
                                     <td>1234</td>
@@ -241,7 +240,7 @@ require_once 'header.php';
                                     <td><a class="delete" href="javascript:;">Delete</a></td>
                                 </tr>
                                 <tr >
-                                    <td>10</td>
+                                    <td>5</td>
                                     <td>lisa</td>
                                     <td>Lisa Wong</td>
                                     <td>434</td>

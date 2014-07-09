@@ -91,12 +91,13 @@ var TableEditable = function () {
             $('#sample_editable_1 a.delete').live('click', function (e) {
                 e.preventDefault();
 
-                if (confirm("Are you sure to delete this row ?") == false) {
+                if (confirm("هل أنت متأكد من الحذف؟") == false) {
                     return;
                 }
 
                 var nRow = $(this).parents('tr')[0];
                 oTable.fnDeleteRow(nRow);
+                row_del(nRow);
                 //alert("Deleted! Do not forget to do some ajax to sync with backend :)");
             });
 

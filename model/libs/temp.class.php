@@ -24,23 +24,23 @@ HERE;
         return $output;
     }
 
-    function editable_table() {
+    static function generate_errors($array, $msg = null) {
         
     }
 
-    /* static function sys_comment_block($page_name = '') {
-      $output = <<<HERE
-      <input type = "hidden" name = "page_name" value = "$page_name" />
-      <div class = "control-group">
-      <label class = "control-label">تعليق</label>
-      <div class = "controls">
-      <textarea class = "span6 m-wrap" rows = "3"></textarea>
-      </div>
-      </div>
-      <div class = "form-actions">
-      <button type = "submit" class = "btn blue">تعليق</button>
-      </div>
-      HERE;
-      return $output;
-      } */
+    static function load_list_options($list_name) {
+        if (method_exists('Lists', $list_name))
+            $req_list = forward_static_call_array(array('Lists', $list_name), array());
+        else
+            return;
+        foreach ($req_list as $option => $data) {
+            $output.= "<option value='{$data['value']}'>{$data['text']}</option>\n";
+        }
+        return $output;
+    }
+
+    static function editable_table() {
+        
+    }
+
 }

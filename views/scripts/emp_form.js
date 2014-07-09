@@ -29,7 +29,24 @@ $(document).ready(function()
         $('input[name="emp_birthdate"]').val($td.eq(9).text());
         $('input[name="emp_certificate"]').val($td.eq(10).text());
     });  
+    
 });  
+
+
+function row_del(row){  
+    var $td= $(row).closest('tr').children('td'); 
+    $.ajax({
+        url: '/re7anna/employee/emp_del',
+        data: {
+            'emp_id': $td.eq(0).text()
+        },
+        type: 'post',
+        success: function(output) {
+            alert(output);
+        }
+    });
+}
+
 
 function reset_emp_form(){
     $("label.error").remove();
@@ -137,7 +154,7 @@ $("#emp_edit_form").validate({
 
     submitHandler: function(){
         $.ajax({
-            url: '/re7anna/user/emp_edit',
+            url: '/re7anna/employee/emp_edit',
             data: $("#emp_edit_form").serialize(),
             type: 'post',
             success: function(output) {
