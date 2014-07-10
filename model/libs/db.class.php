@@ -10,6 +10,7 @@ class db {
         //
         'sys_users' => '`rehanna_users`.`rehanna_sys_users`',
         'employee' => '`rehanna_users`.`rehanna_employee`',
+        'traders' => '`rehanna_users`.`rehanna_traders`',
         'login_attempts' => '`rehanna_users`.`login_attempts`',
         'login_logs' => '`rehanna_system_logs`.`login_logs`',
         'register_logs' => '`rehanna_system_logs`.`register_logs`',
