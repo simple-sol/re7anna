@@ -4,7 +4,7 @@ Class employeeController Extends baseController {
 
     public function index() {
         $this->registry->template->title = 'ريحانة | الموظفين';
-        $this->registry->template->show('user_control');
+        $this->registry->template->show('emp_control');
     }
 
     function emp_edit() {
