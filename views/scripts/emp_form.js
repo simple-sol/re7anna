@@ -4,34 +4,29 @@ jQuery(document).ready(function() {
     TableEditable.init();
 });
 	
-$(document).ready(function()  
-{
-    $("#sample_editable_1 td:nth-child(12)").click(function(event){  
-        //Prevent the hyperlink to perform default behavior  
-        event.preventDefault();  
-        //alert($(event.target).text())  
-        var $td= $(this).closest('tr').children('td');  
-        $('input[name="emp_id"]').val($td.eq(0).text());
-        $('input[name="emp_name"]').val($td.eq(1).text());
-        $('input[name="emp_email"]').val($td.eq(2).text());
-        $('input[name="emp_address"]').val($td.eq(3).text());
-        $('select[name="emp_job_id"]').children().filter(function() {
-            return $(this).text() == $td.eq(4).text(); 
-        }).prop('selected', true);
-        $('input[name="emp_salary"]').val($td.eq(5).text());
-        $('select[name="emp_married"]').children().filter(function() {
-            return $(this).text() == $td.eq(6).text(); 
-        }).prop('selected', true);
-        $('input[name="has_kids"]').val($td.eq(7).text());
-        $('select[name="emp_gender"]').children().filter(function() {
-            return $(this).text() == $td.eq(8).text(); 
-        }).prop('selected', true);
-        $('input[name="emp_birthdate"]').val($td.eq(9).text());
-        $('input[name="emp_certificate"]').val($td.eq(10).text());
-    });  
-    
+$("#sample_editable_1 td:nth-child(12)").click(function(event){  
+    //Prevent the hyperlink to perform default behavior  
+    event.preventDefault();  
+    //alert($(event.target).text())  
+    var $td= $(this).closest('tr').children('td');  
+    $('input[name="emp_id"]').val($td.eq(0).text());
+    $('input[name="emp_name"]').val($td.eq(1).text());
+    $('input[name="emp_email"]').val($td.eq(2).text());
+    $('input[name="emp_address"]').val($td.eq(3).text());
+    $('select[name="emp_job_id"]').children().filter(function() {
+        return $(this).text() == $td.eq(4).text(); 
+    }).prop('selected', true);
+    $('input[name="emp_salary"]').val($td.eq(5).text());
+    $('select[name="emp_married"]').children().filter(function() {
+        return $(this).text() == $td.eq(6).text(); 
+    }).prop('selected', true);
+    $('input[name="has_kids"]').val($td.eq(7).text());
+    $('select[name="emp_gender"]').children().filter(function() {
+        return $(this).text() == $td.eq(8).text(); 
+    }).prop('selected', true);
+    $('input[name="emp_birthdate"]').val($td.eq(9).text());
+    $('input[name="emp_certificate"]').val($td.eq(10).text());
 });  
-
 
 function row_del(row){  
     var $td= $(row).closest('tr').children('td'); 

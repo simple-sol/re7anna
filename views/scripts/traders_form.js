@@ -4,26 +4,20 @@ jQuery(document).ready(function() {
     TableEditable.init();
 });
 	
-$(document).ready(function()  
-{
-    $("#sample_editable_1 td:nth-child(6)").click(function(event){  
-        //Prevent the hyperlink to perform default behavior  
-        event.preventDefault();  
-        //alert($(event.target).text())  
-        var $td= $(this).closest('tr').children('td');  
-        $('input[name="trader_id"]').val($td.eq(0).text());
-        $('input[name="trader_company"]').val($td.eq(1).text());
-        $('input[name="trader_company_address"]').val($td.eq(2).text());
-        $('select[name="trader_type"]').children().filter(function() {
-            return $(this).text() == $td.eq(3).text(); 
-        }).prop('selected', true);
-        $('select[name="trader_category"]').children().filter(function() {
-            return $(this).text() == $td.eq(4).text(); 
-        }).prop('selected', true);
-    });  
-    
+$("#sample_editable_1 td:nth-child(6)").click(function(event){
+    //Prevent the hyperlink to perform default behavior  
+    event.preventDefault();  
+    var $td= $(this).parent('tr').children('td');  
+    $('input[name="trader_id"]').val($td.eq(0).text());
+    $('input[name="trader_company"]').val($td.eq(1).text());
+    $('input[name="trader_company_address"]').val($td.eq(2).text());
+    $('select[name="trader_type"]').children().filter(function() {
+        return $(this).text() == $td.eq(3).text(); 
+    }).prop('selected', true);
+    $('select[name="trader_category"]').children().filter(function() {
+        return $(this).text() == $td.eq(4).text(); 
+    }).prop('selected', true);
 });  
-
 
 function row_del(row){  
     var $td= $(row).closest('tr').children('td'); 
