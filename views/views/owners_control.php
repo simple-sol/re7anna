@@ -8,7 +8,7 @@ $plugins = array(
 $scripts = array(
     'app.js',
     'table-editable.js',
-    'traders_form.js'
+    'owners_form.js'
 );
 
 $styles = array(
@@ -33,36 +33,18 @@ require_once 'header.php';
                 </div>
                 <div class="modal-body">
                     <p></p>
-                    <form id="trader_edit_form" method="post" class="form-horizontal">
-                        <input type="hidden" name="trader_id" value="null" class="span6 m-wrap" />
+                    <form id="owner_edit_form" method="post" class="form-horizontal">
+                        <input type="hidden" name="owner_id" value="null" class="span6 m-wrap" />
                         <div class="control-group">
-                            <label class="control-label">اسم الشركة</label>
+                            <label class="control-label">اسم المالك</label>
                             <div class="controls">
-                                <input type="text" name="trader_company" class="span6 m-wrap" />
+                                <input type="text" name="owner_name" class="span6 m-wrap" />
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label">عنوان الشركة</label>
+                            <label class="control-label">النسبة</label>
                             <div class="controls">
-                                <input type="text" name="trader_company_address" class="span6 m-wrap" />
-                            </div>
-                        </div>
-                        <div class="control-group">
-                            <label class="control-label">نوع التاجر</label>
-                            <div class="controls">
-                                <select class="span6 m-wrap" name="trader_type" data-placeholder="اختار" tabindex="1">
-                                    <option value="">اختر...</option>
-                                    <?= Temp::load_list_options('trader_type'); ?>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="control-group">
-                            <label class="control-label">فئة التاجر</label>
-                            <div class="controls">
-                                <select class="span6 m-wrap" name="trader_category" data-placeholder="اختار" tabindex="1">
-                                    <option value="">اختر...</option>
-                                    <?= Temp::load_list_options('trader_category'); ?>
-                                </select>
+                                <input type="text" name="owner_proportion" class="span6 m-wrap" />
                             </div>
                         </div>
                         <div class="form-actions">
@@ -140,9 +122,9 @@ require_once 'header.php';
 
                         <div class="table-toolbar">
                             <div class="btn-group">
-                                <a href="#user_edit" onClick="$('#user_edit .modal-header h3').html('اضافة تاجر');$('#user_edit .form-actions .btn').html('اضافة');" data-toggle="modal">
+                                <a href="#user_edit" onClick="$('#user_edit .modal-header h3').html('اضافة مالك');$('#user_edit .form-actions .btn').html('اضافة');" data-toggle="modal">
                                     <button class="btn green"><i class="icon-plus"></i>
-                                        اضافة تاجر
+                                   اضافة مالك
                                     </button>
                                 </a>
                             </div>
@@ -159,11 +141,9 @@ require_once 'header.php';
                         <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
                             <thead>
                                 <tr>
-                                    <th>رقم التاجر</th>
-                                    <th>اسم الشركة</th>
-                                    <th>عنوان الشركة</th>
-                                    <th>نوع التاجر</th>
-                                    <th>فئة التاجر</th>
+                                    <th>رقم المالك</th>
+                                    <th>اسم المالك</th>
+                                    <th>النسبة</th>
                                     <th>تعديل</th>
                                     <th>حذف</th>
                                 </tr>
@@ -173,8 +153,6 @@ require_once 'header.php';
                                     <td>2</td>
                                     <td>alex</td>
                                     <td>Alex Nilson</td>
-                                    <td>موزع</td>
-                                    <td class="center">power user</td>
                                     <td><a href="#user_edit" data-toggle="modal">Edit</a></td>
                                     <td><a class="delete" href="javascript:;">Delete</a></td>
                                 </tr>
@@ -182,8 +160,6 @@ require_once 'header.php';
                                     <td>5</td>
                                     <td>lisa</td>
                                     <td>Lisa Wong</td>
-                                    <td>434</td>
-                                    <td class="center">new user</td>
                                     <td><a href="#user_edit" data-toggle="modal">Edit</a></td>
                                     <td><a class="delete" href="javascript:;">Delete</a></td>
                                 </tr>
@@ -191,8 +167,6 @@ require_once 'header.php';
                                     <td>10</td>
                                     <td>nick12</td>
                                     <td>Nick Roberts</td>
-                                    <td>232</td>
-                                    <td class="center">power user</td>
                                     <td><a href="#user_edit" data-toggle="modal">Edit</a></td>
                                     <td><a class="delete" href="javascript:;">Delete</a></td>
                                 </tr>
@@ -200,8 +174,6 @@ require_once 'header.php';
                                     <td>10</td>
                                     <td>goldweb</td>
                                     <td>Sergio Jackson</td>
-                                    <td>132</td>
-                                    <td class="center">elite user</td>
                                     <td><a href="#user_edit" data-toggle="modal">Edit</a></td>
                                     <td><a class="delete" href="javascript:;">Delete</a></td>
                                 </tr>
@@ -209,8 +181,6 @@ require_once 'header.php';
                                     <td>10</td>
                                     <td>webriver</td>
                                     <td>Antonio Sanches</td>
-                                    <td>462</td>
-                                    <td class="center">new user</td>
                                     <td><a href="#user_edit" data-toggle="modal">Edit</a></td>
                                     <td><a class="delete" href="javascript:;">Delete</a></td>
                                 </tr>
@@ -218,8 +188,6 @@ require_once 'header.php';
                                     <td>10</td>
                                     <td>gist124</td>
                                     <td>Nick Roberts</td>
-                                    <td>موزع</td>
-                                    <td class="center">new user</td>
                                     <td><a href="#user_edit" data-toggle="modal">Edit</a></td>
                                     <td><a class="delete" href="javascript:;">Delete</a></td>
                                 </tr>

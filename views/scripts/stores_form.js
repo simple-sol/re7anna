@@ -43,7 +43,7 @@ function row_del(row){
 }
 
 
-function reset_form(){
+function reset_emp_form(){
     $("label.error").remove();
     $("#user_edit .modal-header h3").html('تعديل موظف');
     $("#user_edit .form-actions .btn").html('تعديل');

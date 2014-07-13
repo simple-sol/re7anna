@@ -34,7 +34,7 @@ function row_del(row){
 }
 
 
-function reset_traders_form(){
+function reset_form(){
     $("label.error").remove();
     $("#user_edit .modal-header h3").html('تعديل تاجر');
     $("#user_edit .form-actions .btn").html('تعديل');

@@ -27,7 +27,7 @@ require_once 'header.php';
             <!-- BEGIN SAMPLE PORTLET CONFIGURATION MODAL FORM-->
             <div id="user_edit" class="modal hide">
                 <div class="modal-header">
-                    <button data-dismiss="modal" onClick="reset_emp_form();" class="close" type="button"></button>
+                    <button data-dismiss="modal" onClick="reset_form();" class="close" type="button"></button>
                     <h3>تعديل البيانات</h3>
                 </div>
                 <div id="data-output" class="modal-body error" >

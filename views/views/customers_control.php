@@ -8,7 +8,7 @@ $plugins = array(
 $scripts = array(
     'app.js',
     'table-editable.js',
-    'traders_form.js'
+    'customers_form.js'
 );
 
 $styles = array(
@@ -33,35 +33,90 @@ require_once 'header.php';
                 </div>
                 <div class="modal-body">
                     <p></p>
-                    <form id="trader_edit_form" method="post" class="form-horizontal">
-                        <input type="hidden" name="trader_id" value="null" class="span6 m-wrap" />
+                    <form id="customer_edit_form" method="post" class="form-horizontal">
+                        <input type="hidden" name="customer_id" value="null" class="span6 m-wrap" />
                         <div class="control-group">
-                            <label class="control-label">اسم الشركة</label>
+                            <label class="control-label">اسم العميل</label>
                             <div class="controls">
-                                <input type="text" name="trader_company" class="span6 m-wrap" />
+                                <input type="text" name="customer_name" class="span6 m-wrap" />
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label">عنوان الشركة</label>
+                            <label class="control-label">رقم الهاتف</label>
                             <div class="controls">
-                                <input type="text" name="trader_company_address" class="span6 m-wrap" />
+                                <input type="text" name="customer_phone" class="span6 m-wrap" />
+                            </div>
+                        </div>
+                        <<div class="control-group">
+                            <label class="control-label">الوظيفة</label>
+                            <div class="controls">
+                                <input type="text" name="customer_job" class="span6 m-wrap" />
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label">نوع التاجر</label>
+                            <label class="control-label">السن</label>
                             <div class="controls">
-                                <select class="span6 m-wrap" name="trader_type" data-placeholder="اختار" tabindex="1">
+                                <input type="text" name="customer_age" class="span6 m-wrap" />
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">النوع</label>
+                            <div class="controls">
+                                <select class="span6 m-wrap" name="customer_gender" data-placeholder="اختار" tabindex="1">
                                     <option value="">اختر...</option>
-                                    <?= Temp::load_list_options('trader_type'); ?>
+                                    <option value="male">ذكر</option>
+                                    <option value="female">أنثى</option>
                                 </select>
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label">فئة التاجر</label>
+                            <label class="control-label">الحالة الاجتماعية</label>
                             <div class="controls">
-                                <select class="span6 m-wrap" name="trader_category" data-placeholder="اختار" tabindex="1">
+                                <select class="span6 m-wrap" name="customer_married" data-placeholder="اختار" tabindex="1">
                                     <option value="">اختر...</option>
-                                    <?= Temp::load_list_options('trader_category'); ?>
+                                    <option value="1">متزوج</option>
+                                    <option value="0">غير متزوج</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">فترة العمل</label>
+                            <div class="controls">
+                                <select class="span6 m-wrap" name="customer_job_period" data-placeholder="اختار" tabindex="1">
+                                    <option value="">اختر...</option>
+                                    <option value="day">نهار</option>
+                                    <option value="night">ليل</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">التصنيف المفضل</label>
+                            <div class="controls">
+                                <select class="span6 m-wrap" name="customer_favourites_category" data-placeholder="اختار" tabindex="1">
+                                    <option value="">اختر...</option>
+                                    <option value="classic">classic</option>
+                                    <option value="casual">casual</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">النوع المفضل</label>
+                            <div class="controls">
+                                <select class="span6 m-wrap" name="customer_favourites_type" data-placeholder="اختار" tabindex="1">
+                                    <option value="">اختر...</option>
+                                    <option value="fruits">fruits</option>
+                                    <option value="organic">organic</option>
+                                    <option value="flowers">flowers</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">التركيز المفضل</label>
+                            <div class="controls">
+                                <select class="span6 m-wrap" name="customer_favourites_concentration" data-placeholder="اختار" tabindex="1">
+                                    <option value="">اختر...</option>
+                                    <option value="light">خفيف</option>
+                                    <option value="medium">متوسط</option>
                                 </select>
                             </div>
                         </div>
@@ -140,9 +195,9 @@ require_once 'header.php';
 
                         <div class="table-toolbar">
                             <div class="btn-group">
-                                <a href="#user_edit" onClick="$('#user_edit .modal-header h3').html('اضافة تاجر');$('#user_edit .form-actions .btn').html('اضافة');" data-toggle="modal">
+                                <a href="#user_edit" onClick="$('#user_edit .modal-header h3').html('اضافة عميل');$('#user_edit .form-actions .btn').html('اضافة');" data-toggle="modal">
                                     <button class="btn green"><i class="icon-plus"></i>
-                                        اضافة تاجر
+                                        اضافة عميل
                                     </button>
                                 </a>
                             </div>
@@ -159,11 +214,17 @@ require_once 'header.php';
                         <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
                             <thead>
                                 <tr>
-                                    <th>رقم التاجر</th>
-                                    <th>اسم الشركة</th>
-                                    <th>عنوان الشركة</th>
-                                    <th>نوع التاجر</th>
-                                    <th>فئة التاجر</th>
+                                    <th>رقم العميل</th>
+                                    <th>اسم العميل</th>
+                                    <th>رقم الهاتف</th>
+                                    <th>الوظيفة</th>
+                                    <th>العمر</th>
+                                    <th>النوع</th>
+                                    <th>الحالة الاجتماعية</th>
+                                    <th>فترة العمل</th>
+                                    <th>التصنيف المفضل</th>
+                                    <th>النوع المفضل</th>
+                                    <th>التركيز المفضل</th>
                                     <th>تعديل</th>
                                     <th>حذف</th>
                                 </tr>
@@ -175,6 +236,12 @@ require_once 'header.php';
                                     <td>Alex Nilson</td>
                                     <td>موزع</td>
                                     <td class="center">power user</td>
+                                    <td class="center">power user</td>
+                                    <td class="center">power user</td>
+                                    <td class="center">power user</td>
+                                    <td class="center">power user</td>
+                                    <td class="center">power user</td>
+                                    <td class="center">power user</td>
                                     <td><a href="#user_edit" data-toggle="modal">Edit</a></td>
                                     <td><a class="delete" href="javascript:;">Delete</a></td>
                                 </tr>
@@ -184,6 +251,12 @@ require_once 'header.php';
                                     <td>Lisa Wong</td>
                                     <td>434</td>
                                     <td class="center">new user</td>
+                                    <td class="center">power user</td>
+                                    <td class="center">power user</td>
+                                    <td class="center">power user</td>
+                                    <td class="center">power user</td>
+                                    <td class="center">power user</td>
+                                    <td class="center">power user</td>
                                     <td><a href="#user_edit" data-toggle="modal">Edit</a></td>
                                     <td><a class="delete" href="javascript:;">Delete</a></td>
                                 </tr>
@@ -192,6 +265,12 @@ require_once 'header.php';
                                     <td>nick12</td>
                                     <td>Nick Roberts</td>
                                     <td>232</td>
+                                    <td class="center">power user</td>
+                                    <td class="center">power user</td>
+                                    <td class="center">power user</td>
+                                    <td class="center">power user</td>
+                                    <td class="center">power user</td>
+                                    <td class="center">power user</td>
                                     <td class="center">power user</td>
                                     <td><a href="#user_edit" data-toggle="modal">Edit</a></td>
                                     <td><a class="delete" href="javascript:;">Delete</a></td>
@@ -202,6 +281,12 @@ require_once 'header.php';
                                     <td>Sergio Jackson</td>
                                     <td>132</td>
                                     <td class="center">elite user</td>
+                                    <td class="center">power user</td>
+                                    <td class="center">power user</td>
+                                    <td class="center">power user</td>
+                                    <td class="center">power user</td>
+                                    <td class="center">power user</td>
+                                    <td class="center">power user</td>
                                     <td><a href="#user_edit" data-toggle="modal">Edit</a></td>
                                     <td><a class="delete" href="javascript:;">Delete</a></td>
                                 </tr>
@@ -211,6 +296,12 @@ require_once 'header.php';
                                     <td>Antonio Sanches</td>
                                     <td>462</td>
                                     <td class="center">new user</td>
+                                    <td class="center">power user</td>
+                                    <td class="center">power user</td>
+                                    <td class="center">power user</td>
+                                    <td class="center">power user</td>
+                                    <td class="center">power user</td>
+                                    <td class="center">power user</td>
                                     <td><a href="#user_edit" data-toggle="modal">Edit</a></td>
                                     <td><a class="delete" href="javascript:;">Delete</a></td>
                                 </tr>
@@ -220,6 +311,12 @@ require_once 'header.php';
                                     <td>Nick Roberts</td>
                                     <td>موزع</td>
                                     <td class="center">new user</td>
+                                    <td class="center">power user</td>
+                                    <td class="center">power user</td>
+                                    <td class="center">power user</td>
+                                    <td class="center">power user</td>
+                                    <td class="center">power user</td>
+                                    <td class="center">power user</td>
                                     <td><a href="#user_edit" data-toggle="modal">Edit</a></td>
                                     <td><a class="delete" href="javascript:;">Delete</a></td>
                                 </tr>
