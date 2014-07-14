@@ -9,6 +9,7 @@ Class customersController Extends baseController {
 
     function customers_edit() {
         if ($_POST['customer_id'] == 'null') {
+            unset($_POST['customer_id']);
             $op_type = 'insert';
         } else {
             $op_type = 'update';

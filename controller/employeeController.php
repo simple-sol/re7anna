@@ -9,6 +9,7 @@ Class employeeController Extends baseController {
 
     function emp_edit() {
         if ($_POST['emp_id'] == 'null') {
+            unset($_POST['emp_id']);
             $op_type = 'insert';
         } else {
             $op_type = 'update';

@@ -9,6 +9,7 @@ Class tradersController Extends baseController {
 
     function traders_edit() {
         if ($_POST['trader_id'] == 'null') {
+            unset($_POST['trader_id']);
             $op_type = 'insert';
         } else {
             $op_type = 'update';

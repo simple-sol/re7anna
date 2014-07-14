@@ -9,6 +9,7 @@ Class ownersController Extends baseController {
 
     function owners_edit() {
         if ($_POST['owner_id'] == 'null') {
+            unset($_POST['owner_id']);
             $op_type = 'insert';
         } else {
             $op_type = 'update';

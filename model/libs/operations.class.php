@@ -57,6 +57,7 @@ class Operations {
             $this->checks[$field] = $valid;
             $this->validations[$field] = !in_array(null, $valid);
         }
+        //print_r($this->checks);
     }
 
     function prepare_data($data) {
