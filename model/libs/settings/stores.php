@@ -1,33 +1,28 @@
 <?php
 
-//settings for the table 'traders'
+//settings for the table 'stores'
 //validations contains validation method names and their parameters if they exist
 
 return array(
-    'key' => 'trader_id',
+    'key' => 'store_id',
     'fields' => array(
-        'trader_id' => array(
+        'store_id' => array(
             'validations' => array(
                 'notEmpty' => 1,
                 'numeric' => 1,
             ),
         ),
-        'trader_company' => array(
+        'store_name' => array(
             'validations' => array(
                 'notEmpty' => 1,
             ),
         ),
-        'trader_company_address' => array(
+        'store_address' => array(
             'validations' => array(
                 'notEmpty' => 1,
             ),
         ),
-        'trader_type' => array(
-            'validations' => array(
-                'notEmpty' => 1,
-            ),
-        ),
-        'trader_category' => array(
+        'store_type' => array(
             'validations' => array(
                 'notEmpty' => 1,
             ),

@@ -8,7 +8,7 @@ $plugins = array(
 $scripts = array(
     'app.js',
     'table-editable.js',
-    'traders_form.js'
+    'markets_form.js'
 );
 
 $styles = array(
@@ -26,40 +26,33 @@ require_once 'header.php';
             <!-- BEGIN SAMPLE PORTLET CONFIGURATION MODAL FORM-->
             <div id="user_edit" class="modal hide">
                 <div class="modal-header">
-                    <button data-dismiss="modal" onClick="reset_traders_form();" class="close" type="button"></button>
-                    <h3>تعديل البيانات</h3>
+                    <button data-dismiss="modal" onClick="reset_form();" class="close" type="button"></button>
+                    <h3>تعديل سوق</h3>
                 </div>
                 <div id="data-output" class="modal-body error" >
                 </div>
                 <div class="modal-body">
                     <p></p>
-                    <form id="trader_edit_form" method="post" class="form-horizontal">
-                        <input type="hidden" name="trader_id" value="null" class="span6 m-wrap" />
+                    <form id="market_edit_form" method="post" class="form-horizontal">
+                        <input type="hidden" name="market_id" value="null" class="span6 m-wrap" />
                         <div class="control-group">
-                            <label class="control-label">اسم الشركة</label>
+                            <label class="control-label">اسم السوق</label>
                             <div class="controls">
-                                <input type="text" name="trader_company" class="span6 m-wrap" />
+                                <input type="text" name="market_name" class="span6 m-wrap" />
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label">عنوان الشركة</label>
+                            <label class="control-label">عنوان السوق</label>
                             <div class="controls">
-                                <input type="text" name="trader_company_address" class="span6 m-wrap" />
+                                <input type="text" name="market_address" class="span6 m-wrap" />
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label">نوع التاجر</label>
+                            <label class="control-label">نوع السوق</label>
                             <div class="controls">
-                                <select class="span6 m-wrap" name="trader_type" data-placeholder="اختار" tabindex="1">
-                                    <?= Temp::load_list_options('trader_type'); ?>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="control-group">
-                            <label class="control-label">فئة التاجر</label>
-                            <div class="controls">
-                                <select class="span6 m-wrap" name="trader_category" data-placeholder="اختار" tabindex="1">
-                                    <?= Temp::load_list_options('trader_category'); ?>
+                                <select class="span6 m-wrap" name="market_type" data-placeholder="اختار" tabindex="1">
+                                    <option value="">اختر...</option>
+                                    <?= Temp::load_list_options('market_type'); ?>
                                 </select>
                             </div>
                         </div>
@@ -138,9 +131,9 @@ require_once 'header.php';
 
                         <div class="table-toolbar">
                             <div class="btn-group">
-                                <a href="#user_edit" onClick="$('#user_edit .modal-header h3').html('اضافة تاجر');$('#user_edit .form-actions .btn').html('اضافة');" data-toggle="modal">
+                                <a href="#user_edit" onClick="$('#user_edit .modal-header h3').html('اضافة سوق');$('#user_edit .form-actions .btn').html('اضافة');" data-toggle="modal">
                                     <button class="btn green"><i class="icon-plus"></i>
-                                        اضافة تاجر
+                                        اضافة سوق
                                     </button>
                                 </a>
                             </div>
@@ -157,11 +150,10 @@ require_once 'header.php';
                         <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
                             <thead>
                                 <tr>
-                                    <th>رقم التاجر</th>
-                                    <th>اسم الشركة</th>
-                                    <th>عنوان الشركة</th>
-                                    <th>نوع التاجر</th>
-                                    <th>فئة التاجر</th>
+                                    <th>رقم السوق</th>
+                                    <th>اسم السوق</th>
+                                    <th>عنوان السوق</th>
+                                    <th>نوع السوق</th>
                                     <th>تعديل</th>
                                     <th>حذف</th>
                                 </tr>
@@ -172,7 +164,6 @@ require_once 'header.php';
                                     <td>alex</td>
                                     <td>Alex Nilson</td>
                                     <td>موزع</td>
-                                    <td class="center">power user</td>
                                     <td><a href="#user_edit" data-toggle="modal">Edit</a></td>
                                     <td><a class="delete" href="javascript:;">Delete</a></td>
                                 </tr>
@@ -181,7 +172,6 @@ require_once 'header.php';
                                     <td>lisa</td>
                                     <td>Lisa Wong</td>
                                     <td>434</td>
-                                    <td class="center">new user</td>
                                     <td><a href="#user_edit" data-toggle="modal">Edit</a></td>
                                     <td><a class="delete" href="javascript:;">Delete</a></td>
                                 </tr>
@@ -190,7 +180,6 @@ require_once 'header.php';
                                     <td>nick12</td>
                                     <td>Nick Roberts</td>
                                     <td>232</td>
-                                    <td class="center">power user</td>
                                     <td><a href="#user_edit" data-toggle="modal">Edit</a></td>
                                     <td><a class="delete" href="javascript:;">Delete</a></td>
                                 </tr>
@@ -199,7 +188,6 @@ require_once 'header.php';
                                     <td>goldweb</td>
                                     <td>Sergio Jackson</td>
                                     <td>132</td>
-                                    <td class="center">elite user</td>
                                     <td><a href="#user_edit" data-toggle="modal">Edit</a></td>
                                     <td><a class="delete" href="javascript:;">Delete</a></td>
                                 </tr>
@@ -208,7 +196,6 @@ require_once 'header.php';
                                     <td>webriver</td>
                                     <td>Antonio Sanches</td>
                                     <td>462</td>
-                                    <td class="center">new user</td>
                                     <td><a href="#user_edit" data-toggle="modal">Edit</a></td>
                                     <td><a class="delete" href="javascript:;">Delete</a></td>
                                 </tr>
@@ -217,7 +204,6 @@ require_once 'header.php';
                                     <td>gist124</td>
                                     <td>Nick Roberts</td>
                                     <td>موزع</td>
-                                    <td class="center">new user</td>
                                     <td><a href="#user_edit" data-toggle="modal">Edit</a></td>
                                     <td><a class="delete" href="javascript:;">Delete</a></td>
                                 </tr>

@@ -13,6 +13,8 @@ class db {
         'customers' => '`rehanna_users`.`rehanna_customers`',
         'owners' => '`rehanna_users`.`rehanna_owners`',
         'traders' => '`rehanna_users`.`rehanna_traders`',
+        'stores' => '`rehanna_products`.`rehanna_stores`',
+        'markets' => '`rehanna_products`.`rehanna_markets`',
         'login_attempts' => '`rehanna_users`.`login_attempts`',
         'login_logs' => '`rehanna_system_logs`.`login_logs`',
         'register_logs' => '`rehanna_system_logs`.`register_logs`',

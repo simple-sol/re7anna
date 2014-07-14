@@ -1,6 +1,6 @@
 <?php
 
-//settings for the table 'employee'
+//settings for the table 'customers'
 //validations contains validation method names and their parameters if they exist
 
 return array(

@@ -14,10 +14,22 @@ class Lists {
             array('value' => 'both', 'text' => 'عميل & موزع'),
         );
     }
+
     static function trader_category() {
         return array(
             array('value' => 'wholesaler', 'text' => 'تاجر جملة'),
-            
+        );
+    }
+
+    static function store_type() {
+        return array(
+            array('value' => '1', 'text' => ''),
+        );
+    }
+
+    static function market_type() {
+        return array(
+            array('value' => '1', 'text' => ''),
         );
     }
 
