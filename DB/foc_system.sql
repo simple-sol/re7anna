@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 20, 2014 at 12:17 AM
+-- Generation Time: Jul 23, 2014 at 05:47 PM
 -- Server version: 5.5.32
 -- PHP Version: 5.4.19
 
@@ -66,6 +66,36 @@ CREATE TABLE IF NOT EXISTS `purchasing_invoices` (
   `company_id` int(11) NOT NULL,
   PRIMARY KEY (`invoice_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sales_invoices`
+--
+
+CREATE TABLE IF NOT EXISTS `sales_invoices` (
+  `invoice_id` int(11) NOT NULL AUTO_INCREMENT,
+  `stock_id` int(11) NOT NULL,
+  `payment_amount` double NOT NULL,
+  `invoice_time` int(11) NOT NULL,
+  `invoice_date` int(11) NOT NULL,
+  PRIMARY KEY (`invoice_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sales_invoices_info`
+--
+
+CREATE TABLE IF NOT EXISTS `sales_invoices_info` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `invoice_id` int(11) NOT NULL,
+  `good_id` int(11) NOT NULL,
+  `good_quantity` int(11) NOT NULL,
+  `good_price` double NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
