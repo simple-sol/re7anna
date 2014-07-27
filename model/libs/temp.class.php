@@ -28,6 +28,26 @@ HERE;
         
     }
 
+    static function table_data($data, $is_array = false) {
+        $table_data = array();
+        foreach ($data as $index => $array) {
+            $table_data[$index] = "";
+            foreach ($array as $value) {
+                $table_data[$index] .= "<td>$value</td>\n";
+            }
+            if (!$is_array)
+                $table_data[$index] = "<tr>\n" . $table_data[$index] . "</tr>\n";
+        }
+        if ($is_array)
+            return $table_data;
+        else
+            return join("\n", $table_data);
+    }
+
+    static function autocomplete_data() {
+        
+    }
+
     static function load_list_options($list_name) {
         if (method_exists('Lists', $list_name))
             $req_list = forward_static_call_array(array('Lists', $list_name), array());
