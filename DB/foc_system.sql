@@ -61,7 +61,7 @@ CREATE TABLE IF NOT EXISTS `purchasing_invoices` (
   `invoice_id` int(11) NOT NULL AUTO_INCREMENT,
   `invoice_num` int(11) NOT NULL,
   `total_price` double NOT NULL,
-  `contrated_date` int(11) NOT NULL,
+  `contracted_date` int(11) NOT NULL,
   `delivery_date` int(11) NOT NULL,
   `company_id` int(11) NOT NULL,
   PRIMARY KEY (`invoice_id`)

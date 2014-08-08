@@ -9,13 +9,14 @@ $("#product-add").click(function(event){
     product_form();
 });
 
-$('body').on('click', '.product-edit', function() {
-    event.preventDefault();   
+$('body').on('click', '.product-edit', function(e) {
+    e.preventDefault();   
     product_form();
-    var $td= $(this).closest('tr').children('td');  
-    $('input[name="product_name"]').val($td.eq(1).text());
-    $('input[name="quantity"]').val($td.eq(2).text());
-    alert("here");
+    var $td= $(this).closest('tr').children('td');
+    $('#invoice_form input[name="product_num"]').val($td.eq(0).text());
+    $('#invoice_form input[name="product_name"]').val($td.eq(1).text());
+    $('#invoice_form input[name="quantity"]').val($td.eq(2).text());
+    $('#invoice_form input[name="unit_price"]').val($td.eq(3).text());
 });
 
 $("#invoice_info_edit").click(function(event){  
@@ -40,15 +41,43 @@ function invoice_info(){
     $("#invoice_form").html($("#invoice_info").html());
 }
 
-function update_table(){
+
+function update_products(){
+    
+    var product_num = $('#invoice_form input[name="product_num"]').val();
+    if(product_num == 'null'){
+        var new_product_num = $('#final_form_elements > input').length - 4;
+        $('#final_form_elements').append('<input type="hidden" name="product_name[' + new_product_num + ']" value="' + 
+            $('#invoice_form input[name="product_name"]').val() + '">');
+        $('#final_form_elements').append('<input type="hidden" name="quantity[' + new_product_num + ']" value="' +
+            $('#invoice_form input[name="quantity"]').val() + '">');
+        $('#final_form_elements').append('<input type="hidden" name="unit_price[' + new_product_num + ']" value="' +
+            $('#invoice_form input[name="unit_price"]').val() + '">');
+    } else {
+        $('#final_form_elements input[name="product_name[' + product_num + ']"]').val($('#invoice_form input[name="product_name"]').val());   
+        $('#final_form_elements input[name="quantity[' + product_num + ']"]').val($('#invoice_form input[name="quantity"]').val());
+        $('#final_form_elements input[name="unit_price[' + product_num + ']"]').val($('#invoice_form input[name="unit_price"]').val());   
+    }
     $.ajax({
         url: '/re7anna/invoices/update_table',
-        data: {},
+        data: $("#final_form_elements").serialize(),
         type: 'post',
         success: function(output) {
-            $("#products-table").html(output);
+            $('#products-table').html(output);
         }
     });
+}
+
+function update_invoice_info(){
+    $('#final_form input[name="invoice_num"]').val($('#invoice_form input[name="invoice_num"]').val());
+    $('#final_form input[name="company_id"]').val($('#invoice_form input[name="company_id"]').val());
+    $('#final_form input[name="contracted_date"]').val($('#invoice_form input[name="contracted_date"]').val());
+    $('#final_form input[name="delivery_date"]').val($('#invoice_form input[name="delivery_date"]').val());
+    
+    $('#display_form_num').html($('#invoice_form input[name="invoice_num"]').val());
+    $('#display_company_name').html($('#invoice_form input[name="company_id"]').val());
+    $('#display_contracted_date').html($('#invoice_form input[name="contracted_date"]').val());
+    $('#display_delivery_date').html($('#invoice_form input[name="delivery_date"]').val());
 }
 /*
 $("#invoice_form").validate({

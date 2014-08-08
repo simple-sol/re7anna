@@ -13,16 +13,24 @@ Class invoicesController Extends baseController {
     }
 
     public function edit_invoice_info() {
+        session_start();
         $_SESSION['invoice']['invoice_info'] = $_POST;
     }
 
     public function edit_invoice_product() {
+        session_start();
         $_SESSION['invoice']['invoice_products'] = $_POST;
+    }
+
+    public function update_invoice_info() {
+        session_start();
+        $_SESSION['invoice_info']['invoice_num'] = 'I am ok man';
+        echo $_SESSION['invoice_info']['invoice_num'];
     }
 
     public function update_table() {
         $table_data = "";
-        $table_data_array = Temp::table_data($_SESSION['invoice_products'], true);
+        $table_data_array = Temp::table_data(array(0 => array('1','product_name','10','22','220')), true);
         foreach ($table_data_array as $index => $value) {
             $table_data .= "<tr>\n";
             $table_data .= "$value";

@@ -21,7 +21,7 @@ require_once 'header.php';
         <!-- BEGIN PAGE -->
         <div class="page-content"><!-- BEGIN SAMPLE PORTLET CONFIGURATION MODAL FORM-->
             <div id="product_form" style="display: none;">
-                <input type="hidden" name="invoice_id" value="null" class="span6 m-wrap" />
+                <input type="hidden" name="product_num" value="null" />
                 <div class="control-group">
                     <label class="control-label">اسم المنتج</label>
                     <div class="controls">
@@ -35,8 +35,16 @@ require_once 'header.php';
                         <input type="text" name="quantity" class="span6 m-wrap" />
                     </div>
                 </div>
+                <div class="control-group">
+                    <label class="control-label">سعر الوحدة</label>
+                    <div class="controls">
+                        <div class="input-prepend input-append">
+                            <span class="add-on">$</span><input class="m-wrap " name="unit_price" type="text" /><span class="add-on">.00</span>
+                        </div>
+                    </div>
+                </div>
                 <div class="form-actions">
-                    <button type="submit" onClick='$("#data-output").html("");' class="btn blue">تعديل</button>
+                    <button type="submit" onClick='$("#data-output").html("");update_products();return false;' class="btn blue">تعديل</button>
                 </div>
             </div>
             <div id="invoice_info" style="display: none;">
@@ -44,21 +52,48 @@ require_once 'header.php';
                 <div class="control-group">
                     <label class="control-label">رقم الفاتورة</label>
                     <div class="controls">
-                        <input type="text" name="invoice_number" class="span6 m-wrap" style="margin: 0 auto;" data-provide="typeahead" data-items="4" 
-                               data-source="[&quot;Alabama&quot;,&quot;Alaska&quot;,&quot;Arizona&quot;,&quot;Arkansas&quot;,&quot;California&quot;,&quot;Colorado&quot;,&quot;Connecticut&quot;,&quot;Delaware&quot;,&quot;Florida&quot;,&quot;Georgia&quot;,&quot;Hawaii&quot;,&quot;Idaho&quot;,&quot;Illinois&quot;,&quot;Indiana&quot;,&quot;Iowa&quot;,&quot;Kansas&quot;,&quot;Kentucky&quot;,&quot;Louisiana&quot;,&quot;Maine&quot;,&quot;Maryland&quot;,&quot;Massachusetts&quot;,&quot;Michigan&quot;,&quot;Minnesota&quot;,&quot;Mississippi&quot;,&quot;Missouri&quot;,&quot;Montana&quot;,&quot;Nebraska&quot;,&quot;Nevada&quot;,&quot;New Hampshire&quot;,&quot;New Jersey&quot;,&quot;New Mexico&quot;,&quot;New York&quot;,&quot;North Dakota&quot;,&quot;North Carolina&quot;,&quot;Ohio&quot;,&quot;Oklahoma&quot;,&quot;Oregon&quot;,&quot;Pennsylvania&quot;,&quot;Rhode Island&quot;,&quot;South Carolina&quot;,&quot;South Dakota&quot;,&quot;Tennessee&quot;,&quot;Texas&quot;,&quot;Utah&quot;,&quot;Vermont&quot;,&quot;Virginia&quot;,&quot;Washington&quot;,&quot;West Virginia&quot;,&quot;Wisconsin&quot;,&quot;Wyoming&quot;]">
+                        <input name="invoice_num" type="text" value="asdsa" class="span6 m-wrap">
                     </div>
                 </div>
                 <div class="control-group">
-                    <label class="control-label">الكمية</label>
+                    <label class="control-label">اسم الشركة</label>
                     <div class="controls">
-                        <input type="text" name="quantity" class="span6 m-wrap" />
+                        <input type="text" name="company_id" class="span6 m-wrap" style="margin: 0 auto;" data-provide="typeahead" data-items="4" 
+                               data-source="[&quot;Alabama&quot;,&quot;Alaska&quot;,&quot;Arizona&quot;,&quot;Arkansas&quot;,
+                               &quot;California&quot;,&quot;Colorado&quot;,&quot;Connecticut&quot;,&quot;Delaware&quot;,
+                               &quot;Florida&quot;,&quot;Georgia&quot;,&quot;Hawaii&quot;,&quot;Idaho&quot;,&quot;Illinois&quot;,
+                               &quot;Indiana&quot;,&quot;Iowa&quot;,&quot;Kansas&quot;,&quot;Kentucky&quot;,&quot;Louisiana&quot;,
+                               &quot;Maine&quot;,&quot;Maryland&quot;,&quot;Massachusetts&quot;,&quot;Michigan&quot;,&quot;Minnesota&quot;,
+                               &quot;Mississippi&quot;,&quot;Missouri&quot;,&quot;Montana&quot;,&quot;Nebraska&quot;,&quot;Nevada&quot;,
+                               &quot;New Hampshire&quot;,&quot;New Jersey&quot;,&quot;New Mexico&quot;,&quot;New York&quot;,
+                               &quot;North Dakota&quot;,&quot;North Carolina&quot;,&quot;Ohio&quot;,&quot;Oklahoma&quot;,&quot;Oregon&quot;,
+                               &quot;Pennsylvania&quot;,&quot;Rhode Island&quot;,&quot;South Carolina&quot;,&quot;South Dakota&quot;,
+                               &quot;Tennessee&quot;,&quot;Texas&quot;,&quot;Utah&quot;,&quot;Vermont&quot;,&quot;Virginia&quot;,
+                               &quot;Washington&quot;,&quot;West Virginia&quot;,&quot;Wisconsin&quot;,&quot;Wyoming&quot;]">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">تاريخ التعاقد</label>
+                    <div class="controls">
+                        <div class="input-append date form_datetime">
+                            <input name="contracted_date" size="16" type="text" value="" readonly="" class="m-wrap">
+                            <span class="add-on"><i class="icon-calendar"></i></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">تاريخ الوصول</label>
+                    <div class="controls">
+                        <div class="input-append date form_datetime">
+                            <input name="delivery_date" size="16" type="text" value="" readonly="" class="m-wrap">
+                            <span class="add-on"><i class="icon-calendar"></i></span>
+                        </div>
                     </div>
                 </div>
                 <div class="form-actions">
-                    <button type="submit" onClick='$("#data-output").html("");' class="btn blue">تعديل</button>
+                    <button type="submit" onClick='$("#data-output").html("");update_invoice_info();return false;' class="btn blue">تعديل</button>
                 </div>
             </div>
-            
             <div id="portlet-box" class="modal hide">
                 <div class="modal-header">
                     <button data-dismiss="modal" class="close" type="button"></button>
@@ -92,11 +127,11 @@ require_once 'header.php';
                     <div class="row-fluid">
                         <div class="span4 invoice-payment">
                             <h4>معلومات الفاتورة :</h4>
-                            <ul class="unstyled">
-                                <li><strong>رقم الفاتورة #:</strong> 542554(DEMO)78</li>
-                                <li><strong>اسم الشركة :</strong> FoodMaster Ltd</li>
-                                <li><strong>تاريخ التعاقد :</strong> 45454DEMO545DEMO</li>
-                                <li><strong>تاريخ الوصول :</strong> 542554(DEMO)78</li>
+                            <ul id="invoice-info-box" class="unstyled">
+                                <li><strong>رقم الفاتورة #:</strong><span id="display_form_num"><?= $_POST['invoice_info']['invoice_num']; ?></span></li>
+                                <li><strong>اسم الشركة :</strong><span id="display_company_name"><?= $_POST['invoice_info']['company_id']; ?></span></li>
+                                <li><strong>تاريخ التعاقد :</strong><span id="display_contracted_date"><?= $_POST['invoice_info']['contracted_date']; ?></span></li>
+                                <li><strong>تاريخ الوصول :</strong><span id="display_delivery_date"><?= $_POST['invoice_info']['delivery_date']; ?></span></li>
                                 <li id="invoice_info_edit" style="font-size: 16px;font-weight: bold;"><a href="#portlet-box" data-toggle="modal">تعديل</a></li>
                             </ul>
                         </div>
@@ -115,50 +150,13 @@ require_once 'header.php';
                                 </tr>
                             </thead>
                             <tbody id="products-table">
-                                <tr>
-                                    <td>1</td>
-                                    <td>Hardware</td>
-                                    <td>32</td>
-                                    <td>$75</td>
-                                    <td>$2152</td>
-                                    <td>
-                                        <a href="#portlet-box" data-toggle="modal" class="btn blue icn-only product-edit"><i class="icon-edit icon-white"></i></a>
-                                        <a href="#" class="btn red icn-only product-del"><i class="icon-remove icon-white"></i></a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Furniture</td>
-                                    <td>15</td>
-                                    <td>$169</td>
-                                    <td>$4169</td>
-                                    <td>
-                                        <a href="#portlet-box" data-toggle="modal" class="btn blue icn-only product-edit"><i class="icon-edit icon-white"></i></a>
-                                        <a href="#" class="btn red icn-only product-del"><i class="icon-remove icon-white"></i></a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>Foods</td>
-                                    <td>69</td>
-                                    <td>$49</td>
-                                    <td>$1260</td>
-                                    <td>
-                                        <a href="#portlet-box" data-toggle="modal" class="btn blue icn-only product-edit"><i class="icon-edit icon-white"></i></a>
-                                        <a href="#" class="btn red icn-only product-del"><i class="icon-remove icon-white"></i></a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>Software</td>
-                                    <td>149</td>
-                                    <td>$12</td>
-                                    <td>$866</td>
-                                    <td>
-                                        <a href="#portlet-box" data-toggle="modal" class="btn blue icn-only product-edit"><i class="icon-edit icon-white"></i></a>
-                                        <a href="#" class="btn red icn-only product-del"><i class="icon-remove icon-white"></i></a>
-                                    </td>
-                                </tr>
+                                <?php
+                                if (!empty($table_data)) {
+                                    echo $table_data;
+                                } else {
+                                    echo '<tr><td colspan="5">لا توجد منتجات</tr>';
+                                }
+                                ?>
                             </tbody>
                         </table>
                         <a id="product-add" href="#portlet-box" data-toggle="modal" class="btn"><i class="icon-plus"></i> اضافة منتج</a>
@@ -170,8 +168,17 @@ require_once 'header.php';
                                 <li style="font-size: 16px"><strong>الكمية الكلية:</strong> $9265</li>
                             </ul>
                             <br />
-                            <a class="btn blue big hidden-print" onclick="javascript:window.print();">طباعة <i class="icon-print icon-big"></i></a>
-                            <a class="btn green big hidden-print">تأكيد الفاتوة <i class="m-icon-big-swapright m-icon-white"></i></a>
+                            <form id="final_form">
+                                <div id="final_form_elements">
+                                    <input type="hidden" name="invoice_id" value="null" />
+                                    <input type="hidden" name="invoice_num" />
+                                    <input type="hidden" name="company_id" />
+                                    <input type="hidden" name="contracted_date" />
+                                    <input type="hidden" name="delivery_date" />
+                                </div>
+                                <a class="btn blue big hidden-print" onclick="javascript:window.print();">طباعة <i class="icon-print icon-big"></i></a>
+                                <a class="btn green big hidden-print">تأكيد الفاتوة <i class="m-icon-big-swapright m-icon-white"></i></a>
+                            </form>
                         </div>
                     </div>
                 </div>
