@@ -67,7 +67,7 @@ var FormComponents = function () {
         $('#tags_1').tagsInput({
             width: 'auto',
             'onAddTag': function () {
-                //alert(1);
+            //alert(1);
             },
         });
         $('#tags_2').tagsInput({
@@ -102,17 +102,17 @@ var FormComponents = function () {
         }
 
         $('.date-range').daterangepicker(
-            {
-                opens: (App.isRTL() ? 'left' : 'right'),
-                format: 'MM/dd/yyyy',
-                separator: ' to ',
-                startDate: Date.today().add({
-                    days: -29
-                }),
-                endDate: Date.today(),
-                minDate: '01/01/2012',
-                maxDate: '12/31/2014',
-            }
+        {
+            opens: (App.isRTL() ? 'left' : 'right'),
+            format: 'MM/dd/yyyy',
+            separator: ' to ',
+            startDate: Date.today().add({
+                days: -29
+            }),
+            endDate: Date.today(),
+            minDate: '01/01/2012',
+            maxDate: '12/31/2014',
+        }
         );
 
         $('#form-date-range').daterangepicker({
@@ -120,17 +120,17 @@ var FormComponents = function () {
                 'Today': ['today', 'today'],
                 'Yesterday': ['yesterday', 'yesterday'],
                 'Last 7 Days': [Date.today().add({
-                        days: -6
-                    }), 'today'],
+                    days: -6
+                }), 'today'],
                 'Last 29 Days': [Date.today().add({
-                        days: -29
-                    }), 'today'],
+                    days: -29
+                }), 'today'],
                 'This Month': [Date.today().moveToFirstDayOfMonth(), Date.today().moveToLastDayOfMonth()],
                 'Last Month': [Date.today().moveToFirstDayOfMonth().add({
-                        months: -1
-                    }), Date.today().moveToFirstDayOfMonth().add({
-                        days: -1
-                    })]
+                    months: -1
+                }), Date.today().moveToFirstDayOfMonth().add({
+                    days: -1
+                })]
             },
             opens: (App.isRTL() ? 'left' : 'right'),
             format: 'MM/dd/yyyy',
@@ -170,17 +170,17 @@ var FormComponents = function () {
                 'Today': ['today', 'today'],
                 'Yesterday': ['yesterday', 'yesterday'],
                 'Last 7 Days': [Date.today().add({
-                        days: -6
-                    }), 'today'],
+                    days: -6
+                }), 'today'],
                 'Last 29 Days': [Date.today().add({
-                        days: -29
-                    }), 'today'],
+                    days: -29
+                }), 'today'],
                 'This Month': [Date.today().moveToFirstDayOfMonth(), Date.today().moveToLastDayOfMonth()],
                 'Last Month': [Date.today().moveToFirstDayOfMonth().add({
-                        months: -1
-                    }), Date.today().moveToFirstDayOfMonth().add({
-                        days: -1
-                    })]
+                    months: -1
+                }), Date.today().moveToFirstDayOfMonth().add({
+                    days: -1
+                })]
             },
             opens: (App.isRTL() ? 'left' : 'right'),
             format: 'MM/dd/yyyy',
@@ -215,14 +215,13 @@ var FormComponents = function () {
     }
 
     var handleDatetimePicker = function () {        
-
         $(".form_datetime").datetimepicker({
             isRTL: App.isRTL(),
             format: "dd MM yyyy - hh:ii",
             pickerPosition: (App.isRTL() ? "bottom-right" : "bottom-left")
         });
 
-         $(".form_advance_datetime").datetimepicker({
+        $(".form_advance_datetime").datetimepicker({
             isRTL: App.isRTL(),
             format: "dd MM yyyy - hh:ii",
             autoclose: true,
@@ -232,7 +231,7 @@ var FormComponents = function () {
             minuteStep: 10
         });
 
-         $(".form_meridian_datetime").datetimepicker({
+        $(".form_meridian_datetime").datetimepicker({
             isRTL: App.isRTL(),
             format: "dd MM yyyy - HH:ii P",
             showMeridian: true,
@@ -527,22 +526,49 @@ var FormComponents = function () {
             'autounmask': true
         });
 
-        $("#mask_date").inputmask("d/m/y", {autoUnmask: true});  //direct mask        
-        $("#mask_date1").inputmask("d/m/y",{ "placeholder": "*"}); //change the placeholder
-        $("#mask_date2").inputmask("d/m/y",{ "placeholder": "dd/mm/yyyy" }); //multi-char placeholder
-        $("#mask_phone").inputmask("mask", {"mask": "(999) 999-9999"}); //specifying fn & options
-        $("#mask_tin").inputmask({"mask": "99-9999999"}); //specifying options only
-        $("#mask_number").inputmask({ "mask": "9", "repeat": 10, "greedy": false });  // ~ mask "9" or mask "99" or ... mask "9999999999"
-        $("#mask_decimal").inputmask('decimal', { rightAlignNumerics: false }); //disables the right alignment of the decimal input
-        $("#mask_currency").inputmask('€ 999.999.999,99', { numericInput: true });  //123456  =>  € ___.__1.234,56
+        $("#mask_date").inputmask("d/m/y", {
+            autoUnmask: true
+        });  //direct mask        
+        $("#mask_date1").inputmask("d/m/y",{
+            "placeholder": "*"
+        }); //change the placeholder
+        $("#mask_date2").inputmask("d/m/y",{
+            "placeholder": "dd/mm/yyyy"
+        }); //multi-char placeholder
+        $("#mask_phone").inputmask("mask", {
+            "mask": "(999) 999-9999"
+        }); //specifying fn & options
+        $("#mask_tin").inputmask({
+            "mask": "99-9999999"
+        }); //specifying options only
+        $("#mask_number").inputmask({
+            "mask": "9", 
+            "repeat": 10, 
+            "greedy": false
+        });  // ~ mask "9" or mask "99" or ... mask "9999999999"
+        $("#mask_decimal").inputmask('decimal', {
+            rightAlignNumerics: false
+        }); //disables the right alignment of the decimal input
+        $("#mask_currency").inputmask('â‚¬ 999.999.999,99', {
+            numericInput: true
+        });  //123456  =>  â‚¬ ___.__1.234,56
        
-        $("#mask_currency2").inputmask('€ 999,999,999.99', { numericInput: true, rightAlignNumerics: false, greedy: false}); //123456  =>  € ___.__1.234,56
-        $("#mask_ssn").inputmask("999-99-9999", {placeholder:" ", clearMaskOnLostFocus: true }); //default
+        $("#mask_currency2").inputmask('â‚¬ 999,999,999.99', {
+            numericInput: true, 
+            rightAlignNumerics: false, 
+            greedy: false
+        }); //123456  =>  â‚¬ ___.__1.234,56
+        $("#mask_ssn").inputmask("999-99-9999", {
+            placeholder:" ", 
+            clearMaskOnLostFocus: true
+        }); //default
     }
 
     var handleIPAddressInput = function () {
         $('#input_ipv4').ipAddress();
-        $('#input_ipv6').ipAddress({v:6});
+        $('#input_ipv6').ipAddress({
+            v:6
+        });
     }
 
     var handlePasswordStrengthChecker = function () {
@@ -601,15 +627,17 @@ var FormComponents = function () {
             btn.attr('disabled', true);
 
             input.attr("readonly", true).
-                attr("disabled", true).
-                addClass("spinner");
+            attr("disabled", true).
+            addClass("spinner");
 
-            $.post('demo/username_checker.php', {username: input.val()}, function(res) {
+            $.post('demo/username_checker.php', {
+                username: input.val()
+                }, function(res) {
                 btn.attr('disabled', false);
 
                 input.attr("readonly", false).
-                    attr("disabled", false).
-                    removeClass("spinner");
+                attr("disabled", false).
+                removeClass("spinner");
 
                 input.popover('destroy');    
                 input.popover({
@@ -645,13 +673,15 @@ var FormComponents = function () {
             }
 
             input.attr("readonly", true).
-                attr("disabled", true).
-                addClass("spinner");
+            attr("disabled", true).
+            addClass("spinner");
 
-            $.post('demo/username_checker.php', {username: input.val()}, function(res) {
+            $.post('demo/username_checker.php', {
+                username: input.val()
+                }, function(res) {
                 input.attr("readonly", false).
-                    attr("disabled", false).
-                    removeClass("spinner");
+                attr("disabled", false).
+                removeClass("spinner");
 
                 input.popover('destroy');    
                 input.popover({
@@ -687,13 +717,15 @@ var FormComponents = function () {
             }
 
             input.attr("readonly", true).
-                attr("disabled", true).
-                addClass("spinner");
+            attr("disabled", true).
+            addClass("spinner");
 
-            $.post('demo/username_checker.php', {username: input.val()}, function(res) {
+            $.post('demo/username_checker.php', {
+                username: input.val()
+                }, function(res) {
                 input.attr("readonly", false).
-                    attr("disabled", false).
-                    removeClass("spinner");
+                attr("disabled", false).
+                removeClass("spinner");
 
                 input.popover('destroy');    
                 input.popover({

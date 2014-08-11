@@ -2,6 +2,7 @@
 jQuery(document).ready(function() {       
     App.init();
     TableEditable.init();
+    FormComponents.init();
 });
 	
 $("#sample_editable_1 td:nth-child(12)").click(function(event){  
@@ -101,6 +102,9 @@ $("#emp_edit_form").validate({
             date: true
         },
         emp_certificate: {
+            required: true
+        },
+        company_id: {
             required: true
         }
     },

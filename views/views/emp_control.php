@@ -9,7 +9,8 @@ $scripts = array(
     'app.js',
     'table-editable.js',
     'input-setter.js',
-    'emp_form.js'
+    'emp_form.js',
+    'form-components.js',
 );
 
 $styles = array(
@@ -113,7 +114,15 @@ require_once 'header.php';
                                 <input type="text" name="emp_certificate" class="span6 m-wrap" />
                             </div>
                         </div>
-
+                        <div class="control-group">
+                            <label class="control-label">Default Datetimepicker</label>
+                            <div class="controls">
+                                <div class="input-append date form_datetime">
+                                    <input size="16" type="text" value="" readonly="" class="m-wrap">
+                                    <span class="add-on"><i class="icon-calendar"></i></span>
+                                </div>
+                            </div>
+                        </div>
                         <div class="form-actions">
                             <button type="submit" onClick='$("#data-output").html("");' class="btn blue">تعديل</button>
                         </div>

@@ -1,21 +1,26 @@
 <?php
 $plugins = array(
+    'jquery-validation/dist/jquery.validate.js',
+    'bootstrap-datepicker/js/bootstrap-datepicker.js',
+    'bootstrap-datetimepicker/js/bootstrap-datetimepicker.js',
 );
 
 $scripts = array(
     'app.js',
     'invoices.js',
-    'ui-jqueryui.js',
+    'form-components.js'
 );
 
 $styles = array(
     '../plugins/jquery-ui/jquery-ui-1.10.1.custom.min.css',
+    '../plugins/bootstrap-datepicker/css/datepicker.css',
+    '../plugins/bootstrap-datetimepicker/css/datetimepicker.css',
 );
 require_once 'head.php';
-require_once 'header.php';
 ?>
 <!-- BEGIN BODY -->
 <body class="page-header-fixed">
+    <? require_once 'header.php';?>
     <div class="page-container row-fluid">
         <? require_once 'side_bar.php';?>
         <!-- BEGIN PAGE -->
@@ -44,15 +49,15 @@ require_once 'header.php';
                     </div>
                 </div>
                 <div class="form-actions">
-                    <button type="submit" onClick='$("#data-output").html("");update_products();return false;' class="btn blue">تعديل</button>
+                    <button type="submit" onClick='$("#data-output").html("");update_products();return false;' class="btn blue">تأكيد</button>
                 </div>
             </div>
             <div id="invoice_info" style="display: none;">
-                <input type="hidden" name="invoice_id" value="null" class="span6 m-wrap" />
+
                 <div class="control-group">
                     <label class="control-label">رقم الفاتورة</label>
                     <div class="controls">
-                        <input name="invoice_num" type="text" value="asdsa" class="span6 m-wrap">
+                        <input name="invoice_num" type="text" value="547878" class="span6 m-wrap">
                     </div>
                 </div>
                 <div class="control-group">
@@ -75,29 +80,27 @@ require_once 'header.php';
                 <div class="control-group">
                     <label class="control-label">تاريخ التعاقد</label>
                     <div class="controls">
-                        <div class="input-append date form_datetime">
-                            <input name="contracted_date" size="16" type="text" value="" readonly="" class="m-wrap">
-                            <span class="add-on"><i class="icon-calendar"></i></span>
+                        <div class="input-append date date-picker" data-date="102/2012" data-date-format="mm/yyyy" data-date-viewmode="years" data-date-minviewmode="months">
+                            <input name="contracted_date" class="m-wrap m-ctrl-medium date-picker" readonly="" size="16" type="text" value=""><span class="add-on"><i class="icon-calendar"></i></span>
                         </div>
                     </div>
                 </div>
                 <div class="control-group">
                     <label class="control-label">تاريخ الوصول</label>
                     <div class="controls">
-                        <div class="input-append date form_datetime">
-                            <input name="delivery_date" size="16" type="text" value="" readonly="" class="m-wrap">
-                            <span class="add-on"><i class="icon-calendar"></i></span>
+                        <div class="input-append date date-picker" data-date="102/2012" data-date-format="mm/yyyy" data-date-viewmode="years" data-date-minviewmode="months">
+                            <input name="delivery_date" class="m-wrap m-ctrl-medium date-picker" readonly="" size="16" type="text" value=""><span class="add-on"><i class="icon-calendar"></i></span>
                         </div>
                     </div>
                 </div>
                 <div class="form-actions">
-                    <button type="submit" onClick='$("#data-output").html("");update_invoice_info();return false;' class="btn blue">تعديل</button>
+                    <button type="submit" onClick='$("#data-output").html("");update_invoice_info();return false;' class="btn blue">تأكيد</button>
                 </div>
             </div>
             <div id="portlet-box" class="modal hide">
                 <div class="modal-header">
-                    <button data-dismiss="modal" class="close" type="button"></button>
-                    <h3>تعديل مخزن</h3>
+                    <button id="data_dismiss" data-dismiss="modal" class="close" type="button"></button>
+                    <h3 id="portlet-box-title">تعديل البيانات</h3>
                 </div>
                 <div id="data-output" class="modal-body">
                 </div>
@@ -118,9 +121,19 @@ require_once 'header.php';
                 <!-- END PAGE TITLE & BREADCRUMB-->
                 <div class="row-fluid invoice">
                     <div class="row-fluid">
-
+                        <form id="final_form">
+                            <div id="final_form_elements">
+                                <input class="hidden_input" type="hidden" name="invoice_id" value="null" />
+                                <input class="hidden_input" type="hidden" name="invoice_num" />
+                                <input class="hidden_input" type="hidden" name="company_id" />
+                                <input class="hidden_input" type="hidden" name="contracted_date" />
+                                <input class="hidden_input" type="hidden" name="delivery_date" />
+                            </div>
+                        </form>
                         <div class="span6">
-                            <p style="font-size: 16px;">#5652256 / <?= date('Y-m-d')?> <span class="muted">فاتورة</span></p>
+                            <p style="font-size: 16px;"><span class="muted">فاتورة  </span>
+                                <span class="display_form_num"><?= $_POST['invoice_info']['invoice_num']; ?></span> / 
+                                <? if (isset($invoice_date)) echo $invoice_date; else echo date('Y-m-d'); ?></p>
                         </div>
                     </div>
                     <hr />
@@ -128,10 +141,10 @@ require_once 'header.php';
                         <div class="span4 invoice-payment">
                             <h4>معلومات الفاتورة :</h4>
                             <ul id="invoice-info-box" class="unstyled">
-                                <li><strong>رقم الفاتورة #:</strong><span id="display_form_num"><?= $_POST['invoice_info']['invoice_num']; ?></span></li>
-                                <li><strong>اسم الشركة :</strong><span id="display_company_name"><?= $_POST['invoice_info']['company_id']; ?></span></li>
-                                <li><strong>تاريخ التعاقد :</strong><span id="display_contracted_date"><?= $_POST['invoice_info']['contracted_date']; ?></span></li>
-                                <li><strong>تاريخ الوصول :</strong><span id="display_delivery_date"><?= $_POST['invoice_info']['delivery_date']; ?></span></li>
+                                <li><strong>رقم الفاتورة :</strong><span class="display_form_num"><? if (isset($invoice_num)) echo $invoice_num; ?></span></li>
+                                <li><strong>اسم الشركة :</strong><span id="display_company_name"><? if (isset($company_name)) echo $company_name; ?></span></li>
+                                <li><strong>تاريخ التعاقد :</strong><span id="display_contracted_date"><? if (isset($contracted_date)) echo $contracted_date; ?></span></li>
+                                <li><strong>تاريخ الوصول :</strong><span id="display_delivery_date"><? if (isset($delivery_date)) echo $delivery_date; ?></span></li>
                                 <li id="invoice_info_edit" style="font-size: 16px;font-weight: bold;"><a href="#portlet-box" data-toggle="modal">تعديل</a></li>
                             </ul>
                         </div>
@@ -168,17 +181,9 @@ require_once 'header.php';
                                 <li style="font-size: 16px"><strong>الكمية الكلية:</strong> $9265</li>
                             </ul>
                             <br />
-                            <form id="final_form">
-                                <div id="final_form_elements">
-                                    <input type="hidden" name="invoice_id" value="null" />
-                                    <input type="hidden" name="invoice_num" />
-                                    <input type="hidden" name="company_id" />
-                                    <input type="hidden" name="contracted_date" />
-                                    <input type="hidden" name="delivery_date" />
-                                </div>
-                                <a class="btn blue big hidden-print" onclick="javascript:window.print();">طباعة <i class="icon-print icon-big"></i></a>
-                                <a class="btn green big hidden-print">تأكيد الفاتوة <i class="m-icon-big-swapright m-icon-white"></i></a>
-                            </form>
+                            <a class="btn blue big hidden-print" onclick="javascript:window.print();">طباعة <i class="icon-print icon-big"></i></a>
+                            <a id="confirm_invoice" class="btn green big hidden-print">تأكيد الفاتوة <i class="m-icon-big-swapright m-icon-white"></i></a>
+
                         </div>
                     </div>
                 </div>

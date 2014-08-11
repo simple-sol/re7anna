@@ -12,25 +12,22 @@ Class invoicesController Extends baseController {
         $this->registry->template->show('invoices');
     }
 
-    public function edit_invoice_info() {
-        session_start();
-        $_SESSION['invoice']['invoice_info'] = $_POST;
-    }
-
-    public function edit_invoice_product() {
-        session_start();
-        $_SESSION['invoice']['invoice_products'] = $_POST;
-    }
-
-    public function update_invoice_info() {
-        session_start();
-        $_SESSION['invoice_info']['invoice_num'] = 'I am ok man';
-        echo $_SESSION['invoice_info']['invoice_num'];
+    public function handle_invoice() {
+        $invoice['info']['invoice_id'] = $_POST['invoice_id'];
+        $invoice['info']['invoice_num'] = $_POST['invoice_num'];
+        $invoice['info']['company_id'] = $_POST['company_id'];
+        $invoice['info']['contracted_date'] = $_POST['contracted_date'];
+        $invoice['info']['delivery_date'] = $_POST['delivery_date'];
+        foreach ($_POST['product_name'] as $index => $val) {
+            $invoice['products'][$index] = array('product_name' => $val, // edit product_name into product_id
+                'quantity' => $_POST['quantity'][$index], 'price' => $_POST['total_price'][$index]);
+        }
+        $check1 = Operations::get_instance()->pre_validate($invoice['info'], 'purchasing_invoices');
     }
 
     public function update_table() {
         $table_data = "";
-        $table_data_array = Temp::table_data(array(0 => array('1','product_name','10','22','220')), true);
+        $table_data_array = Temp::table_data(array(0 => array('1', 'product_name', '10', '22', '220')), true);
         foreach ($table_data_array as $index => $value) {
             $table_data .= "<tr>\n";
             $table_data .= "$value";

@@ -20,8 +20,8 @@ class Operations {
 
     function init($data, $table_name, $op_type = 'insert', $clause = '') {
         $this->data = $this->prepare_data($data);
-        $this->op_type = $op_type;
         $this->table_name = $table_name;
+        $this->op_type = $op_type;
         $this->grab_settings();
         $this->key = $this->settings['key'];
         $this->clause = empty($clause) ? $this->get_clause() : $clause;
@@ -36,6 +36,17 @@ class Operations {
     function grab_settings() {
         //file exists check should be implemented here
         $this->settings = include '/settings/' . $this->table_name . '.php';
+    }
+
+    function pre_validate($data, $table_name) {
+        $this->data = $this->prepare_data($data);
+        $this->table_name = $table_name;
+        $this->grab_settings();
+        $this->validate();
+        if (!in_array(null, $this->validations))
+            return true;
+        else
+            return $this->checks;
     }
 
     function validate() {
