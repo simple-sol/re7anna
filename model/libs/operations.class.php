@@ -19,6 +19,7 @@ class Operations {
     }
 
     function init($data, $table_name, $op_type = 'insert', $clause = '') {
+        $this->reset_arrays();
         $this->data = $this->prepare_data($data);
         $this->table_name = $table_name;
         $this->op_type = $op_type;
@@ -27,9 +28,13 @@ class Operations {
         $this->clause = empty($clause) ? $this->get_clause() : $clause;
         $this->validate();
         if (!in_array(null, $this->validations) && method_exists($this, $this->op_type))
-            $this->{$this->op_type}();
+            $return = $this->{$this->op_type}();
         else
             return $this->checks;
+
+        if ($this->op_type == 'insert')
+            return $return;
+
         return true;
     }
 
@@ -38,7 +43,19 @@ class Operations {
         $this->settings = include '/settings/' . $this->table_name . '.php';
     }
 
+    function reset_arrays() {
+        $this->data = array();
+        $this->table_name = array();
+        $this->op_type = null;
+        $this->clause = null;
+        $this->key = null;
+        $this->settings = array();
+        $this->validations = array();
+        $this->checks = array();
+    }
+
     function pre_validate($data, $table_name) {
+        $this->reset_arrays();
         $this->data = $this->prepare_data($data);
         $this->table_name = $table_name;
         $this->grab_settings();
@@ -92,6 +109,9 @@ class Operations {
         }
         $query = "INSERT INTO " . db::$tables[$this->table_name]
                 . " (\n" . join(",\n", $columns) . "\n) VALUES (\n" . join(",\n", $values) . "\n)";
+        $result = db::getInstance()->fetchRows($query);
+
+        return db::getInstance()->insertId();
     }
 
     function update() {
@@ -102,11 +122,17 @@ class Operations {
 
         $query = "UPDATE " . db::$tables[$this->table_name]
                 . " \nSET " . join(",\n", $updates) . "\n" . $this->clause;
+        $result = db::getInstance()->fetchRows($query);
     }
 
     function delete() {
         $query = "DELETE FROM " . db::$tables[$this->table_name]
                 . "\n" . $this->clause;
+        $result = db::getInstance()->fetchRows($query);
+    }
+
+    function generate_errors() {
+        
     }
 
 }

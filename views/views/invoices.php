@@ -57,7 +57,7 @@ require_once 'head.php';
                 <div class="control-group">
                     <label class="control-label">رقم الفاتورة</label>
                     <div class="controls">
-                        <input name="invoice_num" type="text" value="547878" class="span6 m-wrap">
+                        <input name="invoice_num" type="text" class="span6 m-wrap">
                     </div>
                 </div>
                 <div class="control-group">
@@ -128,6 +128,7 @@ require_once 'head.php';
                                 <input class="hidden_input" type="hidden" name="company_id" />
                                 <input class="hidden_input" type="hidden" name="contracted_date" />
                                 <input class="hidden_input" type="hidden" name="delivery_date" />
+                                <input class="hidden_input" type="hidden" value="0" name="total_price" />
                             </div>
                         </form>
                         <div class="span6">
@@ -178,7 +179,7 @@ require_once 'head.php';
                     <div class="row-fluid">
                         <div class="span8 invoice-block">
                             <ul class="unstyled amounts">
-                                <li style="font-size: 16px"><strong>الكمية الكلية:</strong> $9265</li>
+                                <li style="font-size: 16px"><strong>الكمية الكلية: </strong><span id="total_price"></span></li>
                             </ul>
                             <br />
                             <a class="btn blue big hidden-print" onclick="javascript:window.print();">طباعة <i class="icon-print icon-big"></i></a>

@@ -20,6 +20,12 @@ class db {
         'register_logs' => '`rehanna_system_logs`.`register_logs`',
         'manufacture_logs' => '`rehanna_system_logs`.`rehanna_factory_manufature_orders_logs`',
         'sales_logs' => '`rehanna_system_logs`.`rehanna_market_sales_logs`',
+        'invoices_products' => '`foc_system`.`invoices_products`',
+        'invoices' => '`foc_system`.`purchasing_invoices`',
+        'invoices_payment' => '`foc_system`.`invoices_payment`',
+        'store_goods' => '`foc_system`.`store_goods`',
+        'perfume_company' => '`rehanna_products`.`perfume_company`',
+        'products_info' => '`foc_system`.`products_info`',
     );
 
     /**
@@ -61,8 +67,8 @@ class db {
      * @return array of all rows
      */
     public function fetchRows($query) {
-        $rst = self::getinstance()->multi_query($query);
-        $data = $this->fetch_all($rst);
+        $rst = self::getinstance()->multiQuery($query);
+        $data = $this->fetchAll($rst);
 
         return $data;
     }
@@ -81,13 +87,13 @@ class db {
 
         $res = $query . " limit $start , $count";
 
-        $rst = self::getinstance()->multi_query($res);
+        $rst = self::getinstance()->multiQuery($res);
         $data = $this->fetch_all($rst);
         unset($res, $rst);
         // check if there is more data 
 
         $res = $query . " limit " . ($count * ($page + 1)) . " , 1";
-        $rst = self::getinstance()->multi_query($res);
+        $rst = self::getinstance()->multiQuery($res);
         $morData = self::getinstance()->num_rows($rst);
 
 
@@ -100,8 +106,8 @@ class db {
      * @return array
      */
     public function fetchRow($query) {
-        $rst = self::getinstance()->multi_query($query);
-        return $rst->fetch_array();
+        $rst = self::getinstance()->multiQuery($query);
+        return $rst->fetchArray();
     }
 
     /**
