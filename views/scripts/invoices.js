@@ -3,6 +3,7 @@ jQuery(document).ready(function() {
     FormComponents.init();
 });
 
+
 $("#product-add").click(function(event){  
     //Prevent the hyperlink to perform default behavior  
     event.preventDefault();   
@@ -22,6 +23,8 @@ $('body').on('click', '.product-edit', function(e) {
 });
 
 
+    
+    
 $('body').on('click', '#confirm_invoice', function(e) {
     $("html, body").animate({
         scrollTop: 0
@@ -179,6 +182,8 @@ function update_invoice_info(){
     $('#display_delivery_date').html(delivery_date);
     $('.alert-info').remove();
     $('#final_form').append('<div class="alert alert-info"><button class="close" data-dismiss="alert"></button><strong>تم تعديل بيانات الفاتورة بنجاح</strong></div>');
+    $('#info_button').html('تعديل بيانات الفاتورة');
+    
     
 }
 

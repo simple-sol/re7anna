@@ -147,7 +147,8 @@ require_once 'head.php';
                                 <li><strong>اسم الشركة :</strong><span id="display_company_name"><? if (isset($company_name)) echo $company_name; ?></span></li>
                                 <li><strong>تاريخ التعاقد :</strong><span id="display_contracted_date"><? if (isset($contracted_date)) echo $contracted_date; ?></span></li>
                                 <li><strong>تاريخ الوصول :</strong><span id="display_delivery_date"><? if (isset($delivery_date)) echo $delivery_date; ?></span></li>
-                                <li id="invoice_info_edit" style="font-size: 16px;font-weight: bold;"><a href="#portlet-box" data-toggle="modal">تعديل</a></li>
+                                <br />
+                                <li id="invoice_info_edit" style="font-size: 16px;font-weight: bold;"><a id="info_button" href="#portlet-box" data-toggle="modal">اضافة بيانات الفاتورة</a></li>
                             </ul>
                         </div>
                     </div>
