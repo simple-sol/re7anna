@@ -122,6 +122,7 @@ require_once 'head.php';
                 <div class="row-fluid invoice">
                     <div class="row-fluid">
                         <form id="final_form">
+                            <div id="debug"></div>
                             <div id="final_form_elements">
                                 <input class="hidden_input" type="hidden" name="invoice_id" value="null" />
                                 <input class="hidden_input" type="hidden" name="invoice_num" />
@@ -179,7 +180,7 @@ require_once 'head.php';
                     <div class="row-fluid">
                         <div class="span8 invoice-block">
                             <ul class="unstyled amounts">
-                                <li style="font-size: 16px"><strong>الكمية الكلية: </strong><span id="total_price"></span></li>
+                                <li style="font-size: 16px"><strong>الاجمالى: </strong><span id="total_price"></span>$</li>
                             </ul>
                             <br />
                             <a class="btn blue big hidden-print" onclick="javascript:window.print();">طباعة <i class="icon-print icon-big"></i></a>

@@ -24,7 +24,6 @@ class Operations {
         $this->table_name = $table_name;
         $this->op_type = $op_type;
         $this->grab_settings();
-        $this->key = $this->settings['key'];
         $this->clause = empty($clause) ? $this->get_clause() : $clause;
         $this->validate();
         if (!in_array(null, $this->validations) && method_exists($this, $this->op_type))
@@ -41,6 +40,7 @@ class Operations {
     function grab_settings() {
         //file exists check should be implemented here
         $this->settings = include '/settings/' . $this->table_name . '.php';
+        $this->key = $this->settings['key'];
     }
 
     function reset_arrays() {
@@ -54,7 +54,7 @@ class Operations {
         $this->checks = array();
     }
 
-    function pre_validate($data, $table_name) {
+    function pre_validate($data, $table_name, $op_type = 'insert') {
         $this->reset_arrays();
         $this->data = $this->prepare_data($data);
         $this->table_name = $table_name;

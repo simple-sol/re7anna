@@ -46,7 +46,12 @@ $('body').on('click', '#confirm_invoice', function(e) {
         data: $("#final_form").serialize(),
         type: 'post',
         success: function(output) {
-            $('#products-table').html(output);
+            console.log(output);
+            if(output == 1){
+                $('#final_form').append('<div class="alert alert-success"><button class="close" data-dismiss="alert"></button><strong>تم اضافة الفاتورة بنجاح</strong></div>');                
+            }else{
+                $('#debug').html(output);
+            }
         }
     });
     
@@ -63,10 +68,34 @@ $("#invoice_info_edit").click(function(event){
 
 
 
-$("#product_del").click(function(event){  
+$('body').on('click', '.product-del', function(e) {
     //Prevent the hyperlink to perform default behavior  
-    event.preventDefault();
+    e.preventDefault();
+    var $td= $(this).closest('tr').children('td');
+    $('#final_form input[name="quantity[' + $td.eq(0).text() + ']"]').remove();
+    $('#final_form input[name="unit_price[' + $td.eq(0).text() + ']"]').remove();
+    $('#final_form input[name="product_name[' + $td.eq(0).text() + ']"]').remove();
+    $(this).closest('tr').remove();
     
+    $.ajax({
+        url: '/re7anna/invoices/update_table',
+        data: $("#final_form").serialize(),
+        type: 'post',
+        success: function(output) {
+            $('#products-table').html(output);
+            var sum = 0;
+            $('#products-table td:nth-child(5)').each(function() {
+                var value = $(this).text();
+                if(!isNaN(value) && value.length != 0) {
+                    sum += parseFloat(value);
+                }
+            });
+            $('#total_price').html(sum);
+            $('#final_form input[name="total_price"]').val(sum);
+            $('.alert-info').remove();
+            $('#final_form').append('<div class="alert alert-info"><button class="close" data-dismiss="alert"></button><strong>تم حذف المنتج بنجاح</strong></div>');
+        }
+    });
 });
 
 function product_form(){
@@ -101,14 +130,27 @@ function update_products(){
         $('#final_form_elements input[name="quantity[' + product_num + ']"]').val(quantity);
         $('#final_form_elements input[name="unit_price[' + product_num + ']"]').val(unit_price);   
     }
+
     $.ajax({
         url: '/re7anna/invoices/update_table',
-        data: $("#final_form_elements").serialize(),
+        data: $("#final_form").serialize(),
         type: 'post',
         success: function(output) {
             $('#products-table').html(output);
+            var sum = 0;
+            $('#products-table td:nth-child(5)').each(function() {
+                var value = $(this).text();
+                if(!isNaN(value) && value.length != 0) {
+                    sum += parseFloat(value);
+                }
+            });
+            $('#total_price').html(sum);
+            $('#final_form input[name="total_price"]').val(sum);
+            $('.alert-info').remove();
+            $('#final_form').append('<div class="alert alert-info"><button class="close" data-dismiss="alert"></button><strong>تم تعديل المنتج بنجاح</strong></div>');
         }
     });
+    
 }
 
 function update_invoice_info(){
@@ -135,6 +177,9 @@ function update_invoice_info(){
     $('#display_company_name').html(company_id);
     $('#display_contracted_date').html(contracted_date);
     $('#display_delivery_date').html(delivery_date);
+    $('.alert-info').remove();
+    $('#final_form').append('<div class="alert alert-info"><button class="close" data-dismiss="alert"></button><strong>تم تعديل بيانات الفاتورة بنجاح</strong></div>');
+    
 }
 
 function invoice_validate(form){
