@@ -95,7 +95,7 @@ $('body').on('click', '.product-del', function(e) {
             });
             $('#total_price').html(sum);
             $('#final_form input[name="total_price"]').val(sum);
-            $('.alert-info').remove();
+            remove_alerts();
             $('#final_form').append('<div class="alert alert-info"><button class="close" data-dismiss="alert"></button><strong>تم حذف المنتج بنجاح</strong></div>');
         }
     });
@@ -124,7 +124,12 @@ function update_products(){
     var unit_price = $('#invoice_form input[name="unit_price"]').val();
     
     if(product_num == 'null'){
-        var new_product_num = $('#final_form_elements > input').length - 4;
+        var elements_num = $('#final_form_elements > input').length;
+        if(elements_num <= 6){
+            var new_product_num = 1;
+        }else{
+            var new_product_num = ((elements_num - 6)/3) + 1;
+        }
         $('#final_form_elements').append('<input type="hidden" name="product_name[' + new_product_num + ']" value="' + product_name + '">');
         $('#final_form_elements').append('<input type="hidden" name="quantity[' + new_product_num + ']" value="' + quantity + '">');
         $('#final_form_elements').append('<input type="hidden" name="unit_price[' + new_product_num + ']" value="' + unit_price + '">');
@@ -149,7 +154,7 @@ function update_products(){
             });
             $('#total_price').html(sum);
             $('#final_form input[name="total_price"]').val(sum);
-            $('.alert-info').remove();
+            remove_alerts();
             $('#final_form').append('<div class="alert alert-info"><button class="close" data-dismiss="alert"></button><strong>تم تعديل المنتج بنجاح</strong></div>');
         }
     });
@@ -180,13 +185,19 @@ function update_invoice_info(){
     $('#display_company_name').html(company_id);
     $('#display_contracted_date').html(contracted_date);
     $('#display_delivery_date').html(delivery_date);
-    $('.alert-info').remove();
+    remove_alerts();
     $('#final_form').append('<div class="alert alert-info"><button class="close" data-dismiss="alert"></button><strong>تم تعديل بيانات الفاتورة بنجاح</strong></div>');
     $('#info_button').html('تعديل بيانات الفاتورة');
     
     
 }
 
+function remove_alerts(){
+    $('.alert-info').remove();
+    $('.alert-error').remove();
+    $('.alert-success').remove();
+    
+}
 function invoice_validate(form){
     form.validate({
         ignore: [],

@@ -185,7 +185,7 @@ require_once 'head.php';
                             </ul>
                             <br />
                             <a class="btn blue big hidden-print" onclick="javascript:window.print();">طباعة <i class="icon-print icon-big"></i></a>
-                            <a id="confirm_invoice" class="btn green big hidden-print">تأكيد الفاتوة <i class="m-icon-big-swapright m-icon-white"></i></a>
+                            <a id="confirm_invoice" class="btn green big hidden-print">تأكيد الفاتورة <i class="m-icon-big-swapright m-icon-white"></i></a>
 
                         </div>
                     </div>

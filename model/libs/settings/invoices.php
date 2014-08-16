@@ -42,5 +42,17 @@ return array(
                 'numeric' => 1,
             ),
         ),
+        'time' => array(
+            'validations' => array(
+                'notEmpty' => 1,
+                'numeric' => 1,
+            ),
+        ),
+        'time_id' => array(
+            'validations' => array(
+                'notEmpty' => 1,
+                'numeric' => 1,
+            ),
+        ),
     ),
 );
