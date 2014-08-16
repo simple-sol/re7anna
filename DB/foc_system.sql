@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 23, 2014 at 05:47 PM
+-- Generation Time: Aug 17, 2014 at 01:19 AM
 -- Server version: 5.5.32
 -- PHP Version: 5.4.19
 
@@ -25,6 +25,20 @@ USE `foc_system`;
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `invoices_payment`
+--
+
+CREATE TABLE IF NOT EXISTS `invoices_payment` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `invoice_id` int(11) NOT NULL,
+  `payment_amount` double NOT NULL,
+  `payment_date` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `invoices_products`
 --
 
@@ -40,15 +54,67 @@ CREATE TABLE IF NOT EXISTS `invoices_products` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `invvoices_payment`
+-- Table structure for table `notification_center`
 --
 
-CREATE TABLE IF NOT EXISTS `invvoices_payment` (
+CREATE TABLE IF NOT EXISTS `notification_center` (
+  `notification_id` int(11) NOT NULL AUTO_INCREMENT,
+  `notification_type` int(11) NOT NULL,
+  `corresponding_id` int(11) NOT NULL,
+  `notification_date` int(11) NOT NULL,
+  `notification_time` int(11) NOT NULL,
+  `notifcation_sender` int(11) NOT NULL,
+  `notification_receiver` int(11) NOT NULL,
+  `is_deliverd` tinyint(4) NOT NULL,
+  `state` tinyint(4) NOT NULL,
+  `notification_type_type_id` int(11) NOT NULL,
+  PRIMARY KEY (`notification_id`),
+  KEY `fk_notification_center_notification_type_idx` (`notification_type_type_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `notification_type`
+--
+
+CREATE TABLE IF NOT EXISTS `notification_type` (
+  `type_id` int(11) NOT NULL,
+  `notification_type` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`type_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `products_info`
+--
+
+CREATE TABLE IF NOT EXISTS `products_info` (
+  `Product_id` int(11) NOT NULL AUTO_INCREMENT,
+  `Product_name` varchar(100) NOT NULL,
+  `Product_desc` text NOT NULL,
+  `Product_add_date` int(11) NOT NULL,
+  `product_adder` int(11) NOT NULL,
+  PRIMARY KEY (`Product_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `products_store`
+--
+
+CREATE TABLE IF NOT EXISTS `products_store` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `invoice_id` int(11) NOT NULL,
-  `payment_amount` double NOT NULL,
-  `payment_date` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
+  `store_id` int(11) NOT NULL,
+  `Product_id` int(11) NOT NULL,
+  `product_quatity` int(11) NOT NULL,
+  `description` text CHARACTER SET utf8 NOT NULL,
+  `last_added_date` int(11) NOT NULL,
+  `products_info_Product_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`,`products_info_Product_id`),
+  KEY `fk_Products_store_products_info1_idx` (`products_info_Product_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -61,7 +127,7 @@ CREATE TABLE IF NOT EXISTS `purchasing_invoices` (
   `invoice_id` int(11) NOT NULL AUTO_INCREMENT,
   `invoice_num` int(11) NOT NULL,
   `total_price` double NOT NULL,
-  `contracted_date` int(11) NOT NULL,
+  `contrated_date` int(11) NOT NULL,
   `delivery_date` int(11) NOT NULL,
   `company_id` int(11) NOT NULL,
   PRIMARY KEY (`invoice_id`)
@@ -79,7 +145,9 @@ CREATE TABLE IF NOT EXISTS `sales_invoices` (
   `payment_amount` double NOT NULL,
   `invoice_time` int(11) NOT NULL,
   `invoice_date` int(11) NOT NULL,
-  PRIMARY KEY (`invoice_id`)
+  `sales_invoices_info_id` int(11) NOT NULL,
+  PRIMARY KEY (`invoice_id`),
+  KEY `fk_sales_invoices_sales_invoices_info1_idx` (`sales_invoices_info_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -97,21 +165,21 @@ CREATE TABLE IF NOT EXISTS `sales_invoices_info` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
--- --------------------------------------------------------
-
 --
--- Table structure for table `store_goods`
+-- Constraints for dumped tables
 --
 
-CREATE TABLE IF NOT EXISTS `store_goods` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `store_id` int(11) NOT NULL,
-  `good_id` int(11) NOT NULL,
-  `good_quatity` int(11) NOT NULL,
-  `description` text NOT NULL,
-  `last_added_date` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+--
+-- Constraints for table `notification_center`
+--
+ALTER TABLE `notification_center`
+  ADD CONSTRAINT `fk_notification_center_notification_type` FOREIGN KEY (`notification_type_type_id`) REFERENCES `notification_type` (`type_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Constraints for table `sales_invoices`
+--
+ALTER TABLE `sales_invoices`
+  ADD CONSTRAINT `fk_sales_invoices_sales_invoices_info1` FOREIGN KEY (`sales_invoices_info_id`) REFERENCES `sales_invoices_info` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
