@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 17, 2014 at 01:19 AM
+-- Generation Time: Aug 21, 2014 at 08:58 PM
 -- Server version: 5.5.32
 -- PHP Version: 5.4.19
 
@@ -68,9 +68,28 @@ CREATE TABLE IF NOT EXISTS `notification_center` (
   `is_deliverd` tinyint(4) NOT NULL,
   `state` tinyint(4) NOT NULL,
   `notification_type_type_id` int(11) NOT NULL,
+  `notification_messages_messages_id` int(11) NOT NULL,
+  `transactions_invoices_transactions_invoices_id` int(11) NOT NULL,
+  `transactions_invoices_notification_center_notification_id` int(11) NOT NULL,
   PRIMARY KEY (`notification_id`),
-  KEY `fk_notification_center_notification_type_idx` (`notification_type_type_id`)
+  KEY `fk_notification_center_notification_type_idx` (`notification_type_type_id`),
+  KEY `fk_notification_center_notification_messages1_idx` (`notification_messages_messages_id`),
+  KEY `fk_notification_center_transactions_invoices1_idx` (`transactions_invoices_transactions_invoices_id`,`transactions_invoices_notification_center_notification_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `notification_messages`
+--
+
+CREATE TABLE IF NOT EXISTS `notification_messages` (
+  `messages_id` int(11) NOT NULL,
+  `notification_messages` text,
+  `notification_messages_url` varchar(45) DEFAULT NULL,
+  `notification_center_notification_id` int(11) NOT NULL,
+  PRIMARY KEY (`messages_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -114,7 +133,8 @@ CREATE TABLE IF NOT EXISTS `products_store` (
   `last_added_date` int(11) NOT NULL,
   `products_info_Product_id` int(11) NOT NULL,
   PRIMARY KEY (`id`,`products_info_Product_id`),
-  KEY `fk_Products_store_products_info1_idx` (`products_info_Product_id`)
+  KEY `fk_Products_store_products_info1_idx` (`products_info_Product_id`),
+  KEY `product_id_idx` (`Product_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -145,9 +165,7 @@ CREATE TABLE IF NOT EXISTS `sales_invoices` (
   `payment_amount` double NOT NULL,
   `invoice_time` int(11) NOT NULL,
   `invoice_date` int(11) NOT NULL,
-  `sales_invoices_info_id` int(11) NOT NULL,
-  PRIMARY KEY (`invoice_id`),
-  KEY `fk_sales_invoices_sales_invoices_info1_idx` (`sales_invoices_info_id`)
+  PRIMARY KEY (`invoice_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -162,8 +180,26 @@ CREATE TABLE IF NOT EXISTS `sales_invoices_info` (
   `good_id` int(11) NOT NULL,
   `good_quantity` int(11) NOT NULL,
   `good_price` double NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `one_idx` (`invoice_id`),
+  KEY `product_id_idx` (`good_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `transactions_invoices`
+--
+
+CREATE TABLE IF NOT EXISTS `transactions_invoices` (
+  `transactions_invoices_id` int(11) NOT NULL,
+  `product_id` varchar(45) DEFAULT NULL,
+  `product_amount` int(11) DEFAULT NULL,
+  `product_price` double DEFAULT NULL,
+  `product_description` text,
+  `notification_center_notification_id` int(11) NOT NULL,
+  PRIMARY KEY (`transactions_invoices_id`,`notification_center_notification_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Constraints for dumped tables
@@ -173,13 +209,22 @@ CREATE TABLE IF NOT EXISTS `sales_invoices_info` (
 -- Constraints for table `notification_center`
 --
 ALTER TABLE `notification_center`
-  ADD CONSTRAINT `fk_notification_center_notification_type` FOREIGN KEY (`notification_type_type_id`) REFERENCES `notification_type` (`type_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_notification_center_notification_messages1` FOREIGN KEY (`notification_messages_messages_id`) REFERENCES `notification_messages` (`messages_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_notification_center_notification_type` FOREIGN KEY (`notification_type_type_id`) REFERENCES `notification_type` (`type_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_notification_center_transactions_invoices1` FOREIGN KEY (`transactions_invoices_transactions_invoices_id`, `transactions_invoices_notification_center_notification_id`) REFERENCES `transactions_invoices` (`transactions_invoices_id`, `notification_center_notification_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Constraints for table `sales_invoices`
+-- Constraints for table `products_store`
 --
-ALTER TABLE `sales_invoices`
-  ADD CONSTRAINT `fk_sales_invoices_sales_invoices_info1` FOREIGN KEY (`sales_invoices_info_id`) REFERENCES `sales_invoices_info` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE `products_store`
+  ADD CONSTRAINT `product_id` FOREIGN KEY (`Product_id`) REFERENCES `products_info` (`Product_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Constraints for table `sales_invoices_info`
+--
+ALTER TABLE `sales_invoices_info`
+  ADD CONSTRAINT `good_id_prod_id` FOREIGN KEY (`good_id`) REFERENCES `products_info` (`Product_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `invoices_invoices_info` FOREIGN KEY (`invoice_id`) REFERENCES `sales_invoices` (`invoice_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
