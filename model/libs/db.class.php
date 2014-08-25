@@ -8,30 +8,30 @@ class db {
      */
     static $tables = array(
         //
-        'sys_users' => '`rehanna_users`.`rehanna_sys_users`',
-        'employee' => '`rehanna_users`.`rehanna_employee`',
-        'customers' => '`rehanna_users`.`rehanna_customers`',
-        'owners' => '`rehanna_users`.`rehanna_owners`',
-        'traders' => '`rehanna_users`.`rehanna_traders`',
-        'stores' => '`rehanna_products`.`rehanna_stores`',
-        'markets' => '`rehanna_products`.`rehanna_markets`',
-        'login_attempts' => '`rehanna_users`.`login_attempts`',
-        'login_logs' => '`rehanna_system_logs`.`login_logs`',
-        'register_logs' => '`rehanna_system_logs`.`register_logs`',
-        'manufacture_logs' => '`rehanna_system_logs`.`rehanna_factory_manufature_orders_logs`',
-        'sales_logs' => '`rehanna_system_logs`.`rehanna_market_sales_logs`',
+        'sys_users' => '`foc_system`.`system_sys_users`',
+        'employee' => '`foc_system`.`system_employee`',
+        'customers' => '`foc_system`.`system_customers`',
+        'owners' => '`foc_system`.`system_owners`',
+        'traders' => '`foc_system`.`system_traders`',
+        'stores' => '`foc_system`.`system_stores`',
+        'markets' => '`foc_system`.`system_markets`',
+        'login_attempts' => '`foc_system`.`login_attempts`',
+        'login_logs' => '`foc_system`.`login_logs`',
+        'register_logs' => '`foc_system`.`register_logs`',
+        'manufacture_logs' => '`foc_system`.`system_factory_manufature_orders_logs`',
+        'sales_logs' => '`foc_system`.`system_market_sales_logs`',
         'invoices_products' => '`foc_system`.`invoices_products`',
         'invoices' => '`foc_system`.`purchasing_invoices`',
         'invoices_payment' => '`foc_system`.`invoices_payment`',
         'store_goods' => '`foc_system`.`store_goods`',
-        'perfume_company' => '`rehanna_products`.`perfume_company`',
+        'perfume_company' => '`foc_system`.`perfume_company`',
         'products_info' => '`foc_system`.`products_info`',
     );
 
     /**
      * @var array of database information
      */
-    private $db_info = array("host" => "localhost", "dbname" => "rehanna_users", "username" => "root", "password" => "123");
+    private $db_info = array("host" => "localhost", "dbname" => "foc_system", "username" => "root", "password" => "123");
 
     /**
      * @var object of mysqli 
@@ -48,7 +48,7 @@ class db {
      * @return void
      */
     public function __construct() {
-        $this->dbh = new mysqli('localhost', 'root', '123', 'rehanna_users');
+        $this->dbh = new mysqli('localhost', 'root', '123', 'foc_system');
         $this->dbh->query("SET NAMES utf8");
     }
 
@@ -128,7 +128,7 @@ class db {
         }
 
         $subject = "database error #" . $exc->getCode();
-        $userinfo = array('email' => "hi@simple-sol.com", 'nickname' => "rehanna tech team");
+        $userinfo = array('email' => "hi@simple-sol.com", 'nickname' => "system tech team");
         notification::getNotifications()->sendMail($subject, $userinfo, 'blank', $msg);
     }
 

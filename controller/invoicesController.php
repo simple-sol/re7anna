@@ -4,7 +4,7 @@ Class invoicesController Extends baseController {
 
     public function index() {
         $this->registry->template->title = 'ريحانة | الفواتير';
-        //$this->registry->template->show('invoices');
+        $this->registry->template->show('invoices');
     }
 
     public function addInvoice() {
