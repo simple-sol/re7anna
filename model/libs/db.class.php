@@ -26,6 +26,7 @@ class db {
         'store_goods' => '`foc_system`.`store_goods`',
         'perfume_company' => '`foc_system`.`perfume_company`',
         'products_info' => '`foc_system`.`products_info`',
+        'notification_center' => '`foc_system`.`notification_center`',
     );
 
     /**
