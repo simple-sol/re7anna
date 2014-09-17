@@ -58,7 +58,7 @@ require_once 'header.php';
                         <div class="control-group">
                             <label class="control-label">الوظيفة</label>
                             <div class="controls">
-                                <select class="span6 m-wrap" name="emp_job_id" data-placeholder="اختار" tabindex="1">
+                                <select class="span6 m-wrap" name="emp_job" data-placeholder="اختار" tabindex="1">
                                     <option>اختر...</option>
                                     <?= Temp::load_list_options('jobs'); ?>
                                 </select>

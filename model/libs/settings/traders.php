@@ -32,5 +32,17 @@ return array(
                 'notEmpty' => 1,
             ),
         ),
+        'Creditor' => array(
+            'validations' => array(
+                'notEmpty' => 1,
+                'decimal' => 1,
+            ),
+        ),
+        'Debtor' => array(
+            'validations' => array(
+                'notEmpty' => 1,
+                'decimal' => 1,
+            ),
+        ),
     ),
 );

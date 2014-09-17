@@ -15,7 +15,7 @@ Class employeeController Extends baseController {
             $op_type = 'update';
         }
 
-        $check = Operations::get_instance()->init($_POST, 'employee', $op_type);
+        $check = Operations::get_instance()->init($_POST, 'employees', $op_type);
         if (is_array($check)) {
             echo 'failure!';
         } else {
@@ -24,7 +24,7 @@ Class employeeController Extends baseController {
     }
 
     function emp_del() {
-        $check = Operations::get_instance()->init($_POST, 'employee', 'delete');
+        $check = Operations::get_instance()->init($_POST, 'employees', 'delete');
         if (is_array($check)) {
             echo 'failure!';
         } else {
