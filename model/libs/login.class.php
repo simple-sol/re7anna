@@ -32,7 +32,7 @@ class Login {
     function get_data($username) {
         if (!empty($this->user_data))
             return;
-        $table = db::$tables['sys_users'];
+        $table = db::$tables['system_users'];
         $query = "SELECT * FROM $table WHERE `sys_users_name` = '$username' LIMIT 1";
         $stmt = db::getInstance()->query($query);
         $result = db::getInstance()->fetchAll($stmt);
@@ -68,6 +68,10 @@ class Login {
     function valid_attempt() {
         $table = db::$tables['login_attempts'];
         $query = "DELETE FROM $table WHERE `sys_users_id` = '{$this->user_data['sys_users_id']}'";
+        $stmt = db::getInstance()->query($query);
+        
+        $table = db::$tables['system_users'];
+        $query = "UPDATE $table SET `is_blocked` = '0' WHERE `sys_users_id` = '{$this->user_data['sys_users_id']}'";
         $stmt = db::getInstance()->query($query);
     }
 

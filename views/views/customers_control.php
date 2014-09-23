@@ -92,7 +92,7 @@ require_once 'header.php';
                         <div class="control-group">
                             <label class="control-label">التصنيف المفضل</label>
                             <div class="controls">
-                                <select class="span6 m-wrap" name="customer_favourites_category" data-placeholder="اختار" tabindex="1">
+                                <select class="span6 m-wrap" name="customer_favorites_category" data-placeholder="اختار" tabindex="1">
                                     <option value="">اختر...</option>
                                     <option value="classic">classic</option>
                                     <option value="casual">casual</option>
@@ -102,7 +102,7 @@ require_once 'header.php';
                         <div class="control-group">
                             <label class="control-label">النوع المفضل</label>
                             <div class="controls">
-                                <select class="span6 m-wrap" name="customer_favourites_type" data-placeholder="اختار" tabindex="1">
+                                <select class="span6 m-wrap" name="customer_favorites_type" data-placeholder="اختار" tabindex="1">
                                     <option value="">اختر...</option>
                                     <option value="fruits">fruits</option>
                                     <option value="organic">organic</option>
@@ -113,7 +113,7 @@ require_once 'header.php';
                         <div class="control-group">
                             <label class="control-label">التركيز المفضل</label>
                             <div class="controls">
-                                <select class="span6 m-wrap" name="customer_favourites_concentration" data-placeholder="اختار" tabindex="1">
+                                <select class="span6 m-wrap" name="customer_favorites_concentration" data-placeholder="اختار" tabindex="1">
                                     <option value="">اختر...</option>
                                     <option value="light">خفيف</option>
                                     <option value="medium">متوسط</option>

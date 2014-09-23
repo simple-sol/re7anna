@@ -34,7 +34,7 @@ require_once 'header.php';
                 <div class="modal-body">
                     <p></p>
                     <form id="market_edit_form" method="post" class="form-horizontal">
-                        <input type="hidden" name="market_id" value="null" class="span6 m-wrap" />
+                        <input type="hidden" name="id" value="null" class="span6 m-wrap" />
                         <div class="control-group">
                             <label class="control-label">اسم السوق</label>
                             <div class="controls">
@@ -44,7 +44,7 @@ require_once 'header.php';
                         <div class="control-group">
                             <label class="control-label">عنوان السوق</label>
                             <div class="controls">
-                                <input type="text" name="market_address" class="span6 m-wrap" />
+                                <input type="text" name="market_mac" class="span6 m-wrap" />
                             </div>
                         </div>
                         <div class="control-group">

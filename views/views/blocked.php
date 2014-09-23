@@ -44,7 +44,6 @@ require_once 'head.php';
                 </p>
             </div>
             <br />
-            <?= Temp::sys_comment_block('blocked');?>
             <!--<div class="create-account">
                     <p>
                             Don't have an account yet ?&nbsp; 

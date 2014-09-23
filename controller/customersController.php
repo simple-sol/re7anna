@@ -15,7 +15,7 @@ Class customersController Extends baseController {
             $op_type = 'update';
         }
 
-        $check = Operations::get_instance()->init($_POST, 'customers', $op_type);
+        $check = Operations::get_instance()->init($_POST, 'customer', $op_type);
         if (is_array($check)) {
             echo 'failure!';
         } else {
@@ -24,7 +24,7 @@ Class customersController Extends baseController {
     }
 
     function customers_del() {
-        $check = Operations::get_instance()->init($_POST, 'customers', 'delete');
+        $check = Operations::get_instance()->init($_POST, 'customer', 'delete');
         if (is_array($check)) {
             echo 'failure!';
         } else {

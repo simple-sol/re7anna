@@ -8,14 +8,15 @@ Class marketsController Extends baseController {
     }
 
     function markets_edit() {
-        if ($_POST['market_id'] == 'null') {
-            unset($_POST['market_id']);
+        if ($_POST['id'] == 'null') {
+            unset($_POST['id']);
             $op_type = 'insert';
         } else {
             $op_type = 'update';
         }
 
         $check = Operations::get_instance()->init($_POST, 'markets', $op_type);
+        print_r($check);
         if (is_array($check)) {
             echo 'failure!';
         } else {

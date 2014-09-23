@@ -19,15 +19,15 @@ var Login = function () {
 
 	            messages: {
 	                username: {
-	                    required: "Username is required1."
+	                    required: "يجب ادخال اسم المستخدم"
 	                },
 	                password: {
-	                    required: "Password is required2."
+	                    required: "يجب ادخال كلمة المرور"
 	                }
 	            },
 
 	            invalidHandler: function (event, validator) { //display error alert on form submit   
-	                $('.alert-error', $('.login-form')).show();
+	                //$('.alert-error', $('.login-form')).show();
 	            },
 
 	            highlight: function (element) { // hightlight error inputs
@@ -74,7 +74,8 @@ var Login = function () {
 
 	            messages: {
 	                email: {
-	                    required: "Email is required."
+	                    required: "يجب ادخال البريد الالكترونى",
+                            email: "يجب ادخال بريد الكترونى صحيح"
 	                }
 	            },
 

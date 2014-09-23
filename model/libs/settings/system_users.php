@@ -1,46 +1,42 @@
 <?php
 
-//settings for the table 'stores'
+//settings for the table 'sys_users'
 //validations contains validation method names and their parameters if they exist
 
 return array(
-    'key' => 'id',
+    'key' => 'sys_users_id',
     'fields' => array(
-        'id' => array(
+        'sys_users_id' => array(
+            'validations' => array(
+                'notEmpty' => 1,
+                'equalTo' => array('null')
+            ),
+        ),
+        'sys_users_name' => array(
+            'validations' => array(
+                'notEmpty' => 1,
+                'alphaNumeric' => 1,
+            ),
+        ),
+        'sys_users_password' => array(
+            'validations' => array(
+                'notEmpty' => 1,
+                'alphaNumeric' => 1,
+            ),
+        ),
+        'sys_users_type' => array(
             'validations' => array(
                 'notEmpty' => 1,
                 'numeric' => 1,
             ),
         ),
-        'market_type' => array(
+        'is_blocked' => array(
             'validations' => array(
                 'notEmpty' => 1,
                 'numeric' => 1,
             ),
         ),
-        'market_category' => array(
-            'validations' => array(
-                'notEmpty' => 1,
-                'numeric',
-            ),
-        ),
-        'market_name' => array(
-            'validations' => array(
-                'notEmpty' => 1,
-            ),
-        ),
-        'market_mac' => array(
-            'validations' => array(
-                'notEmpty' => 1,
-            ),
-        ),
-        'storekeeper' => array(
-            'validations' => array(
-                'notEmpty' => 1,
-                'numeric' => 1,
-            ),
-        ),
-        'market_info' => array(
+        'user_info' => array(
             'validations' => array(
                 'notEmpty' => 1,
                 'numeric' => 1,
