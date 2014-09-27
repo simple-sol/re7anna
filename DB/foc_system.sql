@@ -1,13 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.4.1
+-- version 3.5.2.2
 -- http://www.phpmyadmin.net
 --
--- Host: 127.0.0.1
--- Generation Time: Sep 08, 2014 at 02:25 PM
--- Server version: 5.5.32
--- PHP Version: 5.4.19
+-- Host: localhost
+-- Generation Time: Sep 27, 2014 at 10:37 PM
+-- Server version: 5.5.27
+-- PHP Version: 5.4.7
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
 
@@ -19,8 +19,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `foc_system`
 --
-CREATE DATABASE IF NOT EXISTS `foc_system` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `foc_system`;
 
 -- --------------------------------------------------------
 
@@ -41,7 +39,14 @@ CREATE TABLE IF NOT EXISTS `customer` (
   `customer_favorites_type` enum('fruits','flowers','woods','spices','organic') CHARACTER SET utf8 NOT NULL,
   `customer_favorites_concentration` enum('light','medium','strong','super_strong') CHARACTER SET utf8 NOT NULL,
   PRIMARY KEY (`customer_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `customer`
+--
+
+INSERT INTO `customer` (`customer_id`, `customer_name`, `customer_phone`, `customer_job`, `customer_age`, `customer_gender`, `customer_married`, `customer_job_period`, `customer_favorites_category`, `customer_favorites_type`, `customer_favorites_concentration`) VALUES
+(1, 'aaasd', '44474', '', '', 'male', 1, 'day', 'classic', 'fruits', 'light');
 
 -- --------------------------------------------------------
 
@@ -109,7 +114,14 @@ CREATE TABLE IF NOT EXISTS `employees` (
   `emp_birthdate` varchar(25) CHARACTER SET utf8 NOT NULL,
   `emp_certificate` varchar(200) CHARACTER SET utf8 NOT NULL,
   PRIMARY KEY (`emp_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `employees`
+--
+
+INSERT INTO `employees` (`emp_id`, `emp_name`, `emp_email`, `emp_job`, `emp_salary`, `emp_address`, `emp_married`, `has_kids`, `emp_gender`, `emp_birthdate`, `emp_certificate`) VALUES
+(1, 'axasd', 'hellboy0nline@yahoo.com', 1, 1200, 'ali abdelhameed', 1, 0, 1, '1990-09-18', 'asdas');
 
 -- --------------------------------------------------------
 
@@ -156,7 +168,8 @@ CREATE TABLE IF NOT EXISTS `invoices_transmission` (
   PRIMARY KEY (`invoice_id`),
   KEY `fk_invoices_transmission_invoices_transmission1_idx` (`parent`),
   KEY `fk_invoices_transmission_system_users1_idx` (`invoice_creator`),
-  KEY `fk_invoices_transmission_invoices_state1_idx` (`invoice_recipient`)
+  KEY `fk_invoices_transmission_invoices_state1_idx` (`invoice_recipient`),
+  KEY `invoice_state` (`invoice_state`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -203,7 +216,14 @@ CREATE TABLE IF NOT EXISTS `markets` (
   `storekeeper` int(11) DEFAULT NULL,
   `market_info` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `markets`
+--
+
+INSERT INTO `markets` (`id`, `market_type`, `market_category`, `market_name`, `market_mac`, `storekeeper`, `market_info`) VALUES
+(1, 1, NULL, 'asdfs', 'asfdasd', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -312,7 +332,14 @@ CREATE TABLE IF NOT EXISTS `owners` (
   `owner_name` varchar(100) DEFAULT NULL,
   `owner_proportion` double DEFAULT NULL,
   PRIMARY KEY (`owner_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `owners`
+--
+
+INSERT INTO `owners` (`owner_id`, `owner_name`, `owner_proportion`) VALUES
+(1, 'qweqwe', 20);
 
 -- --------------------------------------------------------
 
@@ -395,11 +422,19 @@ CREATE TABLE IF NOT EXISTS `purchasing_details` (
   `product` int(11) DEFAULT NULL,
   `quantity` double DEFAULT NULL,
   `unit_price` double DEFAULT NULL,
-  `invoice-id` int(11) DEFAULT NULL,
+  `invoice` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_purchasing_details_purchasing_products_invoices1_idx` (`invoice-id`),
+  KEY `fk_purchasing_details_purchasing_products_invoices1_idx` (`invoice`),
   KEY `fk_purchasing_details_products1_idx` (`product`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+
+--
+-- Dumping data for table `purchasing_details`
+--
+
+INSERT INTO `purchasing_details` (`id`, `product`, `quantity`, `unit_price`, `invoice`) VALUES
+(4, 1, 15, 2310, 6),
+(5, 1, 15, 2310, 7);
 
 -- --------------------------------------------------------
 
@@ -409,11 +444,13 @@ CREATE TABLE IF NOT EXISTS `purchasing_details` (
 
 CREATE TABLE IF NOT EXISTS `purchasing_products_invoices` (
   `invoice_id` int(11) NOT NULL AUTO_INCREMENT,
+  `invoice_num` int(11) NOT NULL,
   `invoice_creater` int(11) DEFAULT NULL,
   `invoice_date` int(16) DEFAULT NULL,
   `invoice_value` double DEFAULT NULL,
   `invoice_reason` varchar(255) DEFAULT NULL,
   `supplier` int(11) DEFAULT NULL,
+  `invoice_contract_date` int(11) NOT NULL,
   `invoice_deliver_date` int(16) DEFAULT NULL,
   `state` tinyint(4) DEFAULT NULL,
   `invoice_parent` int(11) NOT NULL,
@@ -421,7 +458,17 @@ CREATE TABLE IF NOT EXISTS `purchasing_products_invoices` (
   KEY `fk_purchasing_products_invoices_system_users1_idx` (`invoice_creater`),
   KEY `fk_purchasing_products_invoices_traders1_idx` (`supplier`),
   KEY `fk_purchasing_products_invoices_purchasing_products_invoice_idx` (`invoice_parent`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+
+--
+-- Dumping data for table `purchasing_products_invoices`
+--
+
+INSERT INTO `purchasing_products_invoices` (`invoice_id`, `invoice_num`, `invoice_creater`, `invoice_date`, `invoice_value`, `invoice_reason`, `supplier`, `invoice_contract_date`, `invoice_deliver_date`, `state`, `invoice_parent`) VALUES
+(4, 444, 1, 1411583958, 60, NULL, 1, 1411583958, 1412361558, NULL, 0),
+(5, 444, 1, 1411584143, 60, NULL, 1, 1411584143, 1412361743, NULL, 0),
+(6, 444, 1, 1411584245, 2310, NULL, 1, 1411584245, 1412361845, NULL, 0),
+(7, 444, 1, 1411584261, 2310, NULL, 1, 1411584261, 1412361861, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -484,7 +531,7 @@ CREATE TABLE IF NOT EXISTS `sales_invoice_details` (
 --
 
 CREATE TABLE IF NOT EXISTS `system_users` (
-  `sys_users_id` int(11) NOT NULL,
+  `sys_users_id` int(11) NOT NULL AUTO_INCREMENT,
   `sys_users_name` varchar(255) CHARACTER SET utf8 NOT NULL,
   `sys_users_password` varchar(50) CHARACTER SET utf8 NOT NULL,
   `sys_users_type` tinyint(1) NOT NULL,
@@ -492,7 +539,14 @@ CREATE TABLE IF NOT EXISTS `system_users` (
   `user_info` int(5) NOT NULL,
   PRIMARY KEY (`sys_users_id`),
   KEY `fk_system_sys_users_system_employee1_idx` (`user_info`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `system_users`
+--
+
+INSERT INTO `system_users` (`sys_users_id`, `sys_users_name`, `sys_users_password`, `sys_users_type`, `is_blocked`, `user_info`) VALUES
+(1, 'hellboy', '9a57acad6a57183e32968f137dcdb4b2', 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -509,7 +563,14 @@ CREATE TABLE IF NOT EXISTS `traders` (
   `Creditor` double NOT NULL,
   `Debtor` double NOT NULL,
   PRIMARY KEY (`trader_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `traders`
+--
+
+INSERT INTO `traders` (`trader_id`, `trader_company`, `trader_company_address`, `trader_type`, `trader_category`, `Creditor`, `Debtor`) VALUES
+(1, 'asdasd', 'asdasdas', 'supplier', 'Wholesaler', 0, 0);
 
 --
 -- Constraints for dumped tables
@@ -533,9 +594,10 @@ ALTER TABLE `discounts`
 -- Constraints for table `invoices_transmission`
 --
 ALTER TABLE `invoices_transmission`
-  ADD CONSTRAINT `fk_invoices_transmission_invoices_state1` FOREIGN KEY (`invoice_recipient`) REFERENCES `invoices_state` (`state_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_invoices_transmission_invoices_transmission1` FOREIGN KEY (`parent`) REFERENCES `invoices_transmission` (`invoice_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_invoices_transmission_system_users1` FOREIGN KEY (`invoice_creator`) REFERENCES `system_users` (`sys_users_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_invoices_transmission_system_users1` FOREIGN KEY (`invoice_creator`) REFERENCES `system_users` (`sys_users_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `invoices_transmission_ibfk_1` FOREIGN KEY (`invoice_recipient`) REFERENCES `system_users` (`sys_users_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `invoices_transmission_ibfk_2` FOREIGN KEY (`invoice_state`) REFERENCES `invoices_state` (`state_id`);
 
 --
 -- Constraints for table `invoice_transmissions_details`
@@ -596,14 +658,12 @@ ALTER TABLE `product_price_tracing`
 -- Constraints for table `purchasing_details`
 --
 ALTER TABLE `purchasing_details`
-  ADD CONSTRAINT `fk_purchasing_details_products1` FOREIGN KEY (`product`) REFERENCES `products` (`product_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_purchasing_details_purchasing_products_invoices1` FOREIGN KEY (`invoice-id`) REFERENCES `purchasing_products_invoices` (`invoice_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `purchasing_details_ibfk_1` FOREIGN KEY (`invoice`) REFERENCES `purchasing_products_invoices` (`invoice_id`);
 
 --
 -- Constraints for table `purchasing_products_invoices`
 --
 ALTER TABLE `purchasing_products_invoices`
-  ADD CONSTRAINT `fk_purchasing_products_invoices_purchasing_products_invoices1` FOREIGN KEY (`invoice_parent`) REFERENCES `purchasing_products_invoices` (`invoice_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_purchasing_products_invoices_system_users1` FOREIGN KEY (`invoice_creater`) REFERENCES `system_users` (`sys_users_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_purchasing_products_invoices_traders1` FOREIGN KEY (`supplier`) REFERENCES `traders` (`trader_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 

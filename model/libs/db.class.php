@@ -140,7 +140,7 @@ class db {
 
         $subject = "database error #" . $exc->getCode();
         $userinfo = array('email' => "hi@simple-sol.com", 'nickname' => "system tech team");
-        notification::getNotifications()->sendMail($subject, $userinfo, 'blank', $msg);
+        //notification::getNotifications()->sendMail($subject, $userinfo, 'blank', $msg);
     }
 
     public function query($query) {

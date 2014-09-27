@@ -1,7 +1,5 @@
 <?php
 
-session_start();
-
 class Login {
 
     private $user_data;
@@ -37,6 +35,7 @@ class Login {
         $stmt = db::getInstance()->query($query);
         $result = db::getInstance()->fetchAll($stmt);
         $this->user_data = $result[0];
+        return $this->user_data;
     }
 
     function check_login($user_data = array()) {
@@ -69,7 +68,7 @@ class Login {
         $table = db::$tables['login_attempts'];
         $query = "DELETE FROM $table WHERE `sys_users_id` = '{$this->user_data['sys_users_id']}'";
         $stmt = db::getInstance()->query($query);
-        
+
         $table = db::$tables['system_users'];
         $query = "UPDATE $table SET `is_blocked` = '0' WHERE `sys_users_id` = '{$this->user_data['sys_users_id']}'";
         $stmt = db::getInstance()->query($query);

@@ -69,7 +69,7 @@ require_once 'head.php';
                         <form id="final_form">
                             <div id="debug"></div>
                             <div id="final_form_elements">
-                                <input class="hidden_input" type="hidden" name="invoice_id" value="<?= $_GET['invoice_id'];?>" />
+                                <input class="hidden_input" type="hidden" name="invoice_id" value="<?= $_GET['id'];?>" />
                                 <input class="hidden_input" type="hidden" name="invoice_total_price" value="<?= invoices::get_total_price($_GET['invoice_id']);?>" />
                             </div>
                         </form>
@@ -127,7 +127,6 @@ require_once 'head.php';
                                 ?>
                             </tbody>
                         </table>
-                        <a id="product-add" href="#portlet-box" data-toggle="modal" class="btn"><i class="icon-plus"></i> اضافة منتج</a>
                     </div>
                     <br />
                     <div class="row-fluid">

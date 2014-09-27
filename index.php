@@ -1,8 +1,8 @@
 <?php
-
+session_start();
 /* * * error reporting on ** */
 error_reporting(E_ALL & ~E_NOTICE);
-
+ini_set('display_errors', true);
 /* * * define the site path ** */
 $site_path = realpath(dirname(__FILE__));
 define('__SITE_PATH', $site_path);

@@ -20,50 +20,56 @@ Class invoicesController Extends baseController {
     public function handle_invoice() {
         $errors = array();
         $invoice['info']['invoice_num'] = $_POST['invoice_num'];
-        $invoice['info']['supplier'] = 1;//$_POST['company_id']; //#bug
-        $user_data = Login::get_instance()->get_data($_SESSION['user_info']['username']);
-        $invoice['info']['invoice_creater'] = $user_data['sys_users_id'];
+        $company_name = select::select_by_field(array('company_name' => $_POST['company_id']), 'perfume_company', '1');
+        $invoice['info']['company_id'] = $company_name[0]['company_id'];
+
         $myDateTime = DateTime::createFromFormat('m/d/Y', $_POST['contracted_date']);
-        //$contracted = $myDateTime->format('Y-m-d');
-        $invoice['info']['invoice_contract_date'] = $myDateTime->getTimestamp();
+        $contracted = $myDateTime->format('Y-m-d');
+        $invoice['info']['contracted_date'] = $contracted;
         $myDateTime = DateTime::createFromFormat('m/d/Y', $_POST['delivery_date']);
-        //$delivery = $myDateTime->format('Y-m-d');
-        $invoice['info']['invoice_deliver_date'] = $myDateTime->getTimestamp();
-        $invoice['info']['invoice_value'] = $_POST['total_price'];
-        $invoice['info']['invoice_date'] = time();
+        $delivery = $myDateTime->format('Y-m-d');
+        $invoice['info']['delivery_date'] = $delivery;
+        $invoice['info']['total_price'] = $_POST['total_price'];
+        $invoice['info']['time'] = time();
+        $invoice['info']['time_id'] = date('Y-m-d');
+
+        function insert_new_product($product_name) {
+            return Operations::get_instance()->init(array('product_name' => $product_name), 'products_info');
+        }
 
         foreach ($_POST['product_name'] as $index => $val) {
+            $product_id =
+                    select::select_by_field(array('product_name' => $_POST['product_name'][$index]), 'products_info', '1');
+            $product_id = empty($product_id[0]['product_id']) ?
+                    insert_new_product($_POST['product_name'][$index]) : $product_id[0]['product_id'];
             $invoice['products'][$index] =
-                    array('product' => 1, 'invoice' => 1,
+                    array('product_id' => $product_id, 'invoice_id' => 1,
                         'quantity' => $_POST['quantity'][$index],
-                        'unit_price' => $_POST['unit_price'][$index] * $_POST['quantity'][$index]);
+                        'price' => $_POST['unit_price'][$index] * $_POST['quantity'][$index]);
         }
-        
-        $check = Operations::get_instance()->pre_validate($invoice['info'], 'purchasing_products_invoices');
+        $check = Operations::get_instance()->pre_validate($invoice['info'], 'invoices');
         if (is_array($check)) {
-            $errors['info'] = 1212;//Operations::get_instance()->generate_errors();
+            $errors['info'] = Operations::get_instance()->generate_errors();
         }
-        
         foreach ($invoice['products'] as $index => $product) {
-            $check = Operations::get_instance()->pre_validate($product, 'purchasing_details');
+            $check = Operations::get_instance()->pre_validate($product, 'invoices_products');
+
             if (is_array($check)) {
-                $errors['products'][$index] = 1111;//Operations::get_instance()->generate_errors();
+                $errors['products'][$index] = Operations::get_instance()->generate_errors();
             }
         }
 
+
+
         if (empty($errors)) {
-            $invoice_id = Operations::get_instance()->init($invoice['info'], 'purchasing_products_invoices');
+            $invoice_id = Operations::get_instance()->init($invoice['info'], 'invoices');
             foreach ($invoice['products'] as $index => $product) {
-                $product['invoice'] = $invoice_id;
-                Operations::get_instance()->init($product, 'purchasing_details');
+                $product['invoice_id'] = $invoice_id;
+                Operations::get_instance()->init($product, 'invoices_products');
                 echo 1;
             }
         } else {
             $output = '';
-            $output .= '<div class="alert alert-error">
-                <button class="close" data-dismiss="alert"></button>
-                <strong>خطأ فى اضافة الفاتورة</strong></div>';
-            echo $output;
             return;
             foreach ($errors['info'] as $error) {
                 $output .= '<div class="alert alert-error">
@@ -102,14 +108,14 @@ Class invoicesController Extends baseController {
         if (!$check) {
             $errors['total_amount'] = 'error in payment';
         }
-
-
+        
+        
         if (empty($errors)) {
-            foreach ($payments as $index => $array) {
+            foreach($payments as $index => $array) {
                 Operations::get_instance()->init($array, 'invoices_payments');
             }
             echo 1;
-        } else {
+        }else{
             echo 'error';
         }
     }
