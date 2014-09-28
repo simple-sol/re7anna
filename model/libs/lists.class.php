@@ -33,4 +33,16 @@ class Lists {
         );
     }
 
+    static function traders() {
+        $table = db::$tables['traders'];
+        $query = "SELECT * FROM $table";
+        $stmt = db::getInstance()->query($query);
+        $result = db::getInstance()->fetchAll($stmt);
+        $traders = array();
+        foreach ($result as $index => $array) {
+            $traders[] = array('value' => $array['trader_id'], 'text' => $array['trader_company']);
+        }
+        return $traders;
+    }
+
 }

@@ -44,8 +44,20 @@ HERE;
             return join("\n", $table_data);
     }
 
-    static function autocomplete_data() {
-        
+    static function autocomplete_data($list_name, $type = 'data', $params = array()) {
+        if (method_exists('Lists', $list_name))
+            $req_list = forward_static_call_array(array('Lists', $list_name), $params);
+        else
+            return;
+
+        if ($type == 'data') {
+            $output = array();
+            foreach ($req_list as $option => $data) {
+                $output[] = "&quot;{$data['text']}&quot;";
+            }
+            return join(',', $output);
+        }
+        return $output;
     }
 
     static function load_list_options($list_name, $params = array()) {
@@ -53,6 +65,7 @@ HERE;
             $req_list = forward_static_call_array(array('Lists', $list_name), $params);
         else
             return;
+        $output = '';
         foreach ($req_list as $option => $data) {
             $output.= "<option value='{$data['value']}'>{$data['text']}</option>\n";
         }

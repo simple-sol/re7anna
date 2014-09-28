@@ -108,7 +108,7 @@ function product_form(){
 function invoice_info(){
     $("#invoice_form").html($("#invoice_info").html());
     $('#invoice_form input[name="invoice_num"]').val($('#final_form input[name="invoice_num"]').val());
-    $('#invoice_form input[name="company_id"]').val($('#final_form input[name="company_id"]').val());
+    $('#invoice_form input[name="supplier"]').val($('#final_form input[name="supplier"]').val());
     $('#invoice_form input[name="contracted_date"]').val($('#final_form input[name="contracted_date"]').val());
     $('#invoice_form input[name="delivery_date"]').val($('#final_form input[name="delivery_date"]').val());
 }
@@ -172,17 +172,17 @@ function update_invoice_info(){
     }
     $('#data_dismiss').click();
     var invoice_num = $('#invoice_form input[name="invoice_num"]').val();
-    var company_id = $('#invoice_form input[name="company_id"]').val();
+    var supplier = $('#invoice_form input[name="supplier"]').val();
     var contracted_date = $('#invoice_form input[name="contracted_date"]').val();
     var delivery_date = $('#invoice_form input[name="delivery_date"]').val();
     
     $('#final_form input[name="invoice_num"]').val(invoice_num);
-    $('#final_form input[name="company_id"]').val(company_id);
+    $('#final_form input[name="supplier"]').val(supplier);
     $('#final_form input[name="contracted_date"]').val(contracted_date);
     $('#final_form input[name="delivery_date"]').val(delivery_date);
     
     $('.display_form_num').html('#' + invoice_num);
-    $('#display_company_name').html(company_id);
+    $('#display_company_name').html(supplier);
     $('#display_contracted_date').html(contracted_date);
     $('#display_delivery_date').html(delivery_date);
     remove_alerts();
@@ -207,7 +207,7 @@ function invoice_validate(form){
                 required: true,
                 digits: true
             },
-            company_id: {
+            supplier: {
                 required: true
             },
             contracted_date: {
@@ -235,7 +235,7 @@ function invoice_validate(form){
                 required: 'يجب ادخال رقم الفاتورة',
                 digits: 'يجب أن يكون رقم'
             },
-            company_id: {
+            supplier: {
                 required: 'يجب ادخال اسم الشركة'
             },
             contracted_date: {
