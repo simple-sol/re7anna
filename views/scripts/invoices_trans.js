@@ -38,7 +38,7 @@ $('body').on('click', '#confirm_invoice', function(e) {
         }
     });
     if(products == false){
-        $('#final_form_elements').append('<div class="alert alert-error"><button class="close" data-dismiss="alert"></button><strong class="redo">يجب اضافة منتج واحد على الأقل</strong></div>');
+        $('#debug').append('<div class="alert alert-error"><button class="close" data-dismiss="alert"></button><strong class="redo">يجب اضافة منتج واحد على الأقل</strong></div>');
         return;
     } 
     if(isValid == false) return;
@@ -50,7 +50,7 @@ $('body').on('click', '#confirm_invoice', function(e) {
         success: function(output) {
             console.log(output);
             if(output == 1){
-                $('#final_form').append('<div class="alert alert-success"><button class="close" data-dismiss="alert"></button><strong>تم اضافة التحويل بنجاح</strong></div>');                
+                $('#debug').append('<div class="alert alert-success"><button class="close" data-dismiss="alert"></button><strong>تم اضافة التحويل بنجاح</strong></div>');                
             }else{
                 $('#debug').html(output);
             }
@@ -58,17 +58,6 @@ $('body').on('click', '#confirm_invoice', function(e) {
     });
     
 });
-
-
-$("#invoice_info_edit").click(function(event){  
-    //Prevent the hyperlink to perform default behavior
-    event.preventDefault();
-    $("#portlet-box-title").html('تعديل بيانات التحويل');
-    invoice_info();
-    FormComponents.init();
-});
-
-
 
 $('body').on('click', '.product-del', function(e) {
     //Prevent the hyperlink to perform default behavior  
@@ -92,18 +81,13 @@ $('body').on('click', '.product-del', function(e) {
                 }
             });
             remove_alerts();
-            $('#final_form').append('<div class="alert alert-info"><button class="close" data-dismiss="alert"></button><strong>تم حذف المنتج بنجاح</strong></div>');
+            $('#debug').append('<div class="alert alert-info"><button class="close" data-dismiss="alert"></button><strong>تم حذف المنتج بنجاح</strong></div>');
         }
     });
 });
 
 function product_form(){
     $("#invoice_form").html($("#product_form").html());
-}
-
-function invoice_info(){
-    $("#invoice_form").html($("#invoice_info").html());
-    $('#invoice_form input[name="recipient"]').val($('#final_form input[name="recipient"]').val());
 }
 
 
@@ -117,10 +101,10 @@ function update_products(){
     
     if(product_num == 'null'){
         var elements_num = $('#final_form_elements > input').length;
-        if(elements_num <= 6){
+        if(elements_num <= 1){
             var new_product_num = 1;
         }else{
-            var new_product_num = ((elements_num - 6)/3) + 1;
+            var new_product_num = ((elements_num - 1)/2) + 1;
         }
         $('#final_form_elements').append('<input type="hidden" name="product_name[' + new_product_num + ']" value="' + product_name + '">');
         $('#final_form_elements').append('<input type="hidden" name="quantity[' + new_product_num + ']" value="' + quantity + '">');
@@ -143,23 +127,9 @@ function update_products(){
                 }
             });
             remove_alerts();
-            $('#final_form').append('<div class="alert alert-info"><button class="close" data-dismiss="alert"></button><strong>تم تعديل المنتج بنجاح</strong></div>');
+            $('#debug').append('<div class="alert alert-info"><button class="close" data-dismiss="alert"></button><strong>تم تعديل المنتج بنجاح</strong></div>');
         }
     });
-    
-}
-
-function update_invoice_info(){
-    var isValid = invoice_validate($("#invoice_form"));
-    if(isValid == false) return;
-    $('#data_dismiss').click();
-    var recipient = $('#invoice_form input[name="recipient"]').val();
-    
-    $('#display_recipient').html(recipient);
-    remove_alerts();
-    $('#final_form').append('<div class="alert alert-info"><button class="close" data-dismiss="alert"></button><strong>تم تعديل بيانات التحويل بنجاح</strong></div>');
-    $('#info_button').html('تعديل بيانات التحويل');
-    
     
 }
 
@@ -199,7 +169,9 @@ function invoice_validate(form){
         },
         errorPlacement: function(error, element) {
             if(element.hasClass('hidden_input')) {
-                element.parent().append('<div class="alert alert-error"><button class="close" data-dismiss="alert"></button><strong class="redo">' + error.text()+ '</strong></div>');
+                //element.parent().append('<div class="alert alert-error"><button class="close" data-dismiss="alert"></button><strong class="redo">' + error.text()+ '</strong></div>');
+                remove_alerts();
+                $('#debug').append('<div class="alert alert-error"><button class="close" data-dismiss="alert"></button><strong class="redo">' + error.text()+ '</strong></div>');
             } else {
                 error.insertAfter(element);
             }

@@ -33,16 +33,58 @@ class Lists {
         );
     }
 
-    static function traders() {
+    static function traders($key = 0) {
         $table = db::$tables['traders'];
         $query = "SELECT * FROM $table";
         $stmt = db::getInstance()->query($query);
         $result = db::getInstance()->fetchAll($stmt);
         $traders = array();
-        foreach ($result as $index => $array) {
-            $traders[] = array('value' => $array['trader_id'], 'text' => $array['trader_company']);
+        if ($key) {
+            foreach ($result as $index => $array) {
+                $traders[$array['trader_id']] = $array['trader_company'];
+            }
+        } else {
+            foreach ($result as $index => $array) {
+                $traders[] = array('value' => $array['trader_id'], 'text' => $array['trader_company']);
+            }
         }
         return $traders;
+    }
+
+    static function products($key = 0) {
+        $table = db::$tables['products'];
+        $query = "SELECT * FROM $table";
+        $stmt = db::getInstance()->query($query);
+        $result = db::getInstance()->fetchAll($stmt);
+        $products = array();
+        if ($key) {
+            foreach ($result as $index => $array) {
+                $products[$array['product_id']] = $array['product_name'];
+            }
+        } else {
+            foreach ($result as $index => $array) {
+                $products[] = array('value' => $array['product_id'], 'text' => $array['product_name']);
+            }
+        }
+        return $products;
+    }
+
+    static function users($key = 0) {
+        $table = db::$tables['system_users'];
+        $query = "SELECT * FROM $table";
+        $stmt = db::getInstance()->query($query);
+        $result = db::getInstance()->fetchAll($stmt);
+        $users = array();
+        if ($key) {
+            foreach ($result as $index => $array) {
+                $users[$array['sys_users_id']] = $array['sys_users_name'];
+            }
+        } else {
+            foreach ($result as $index => $array) {
+                $users[] = array('value' => $array['sys_users_id'], 'text' => $array['sys_users_name']);
+            }
+        }
+        return $users;
     }
 
 }

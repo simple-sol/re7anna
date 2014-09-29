@@ -7,29 +7,6 @@ Class transController Extends baseController {
         $this->registry->template->show('advanced_table');
     }
 
-    public function add_trans() {
-        if ($_POST) {
-            $transmition_info = array(
-                'invoice_date' => time(),
-                'invoice_recipient' => '',
-                'invoice_creator' => '',
-                'invoice_reason' => '',
-                'invoice_state' => '',
-                'parent' => '',
-            );
-            $id = Operations::get_instance()->init($transmition_info, 'invoices_transmission');
-
-            foreach ($products as $product_info) {
-                $transmition_details = array(
-                    'product_id' => $product_info,
-                    'product_quantity' => $product_info,
-                    'invoice' => $id,
-                );
-                Operations::get_instance()->init($transmition_details, 'invoices_transmission_details');
-            }
-        }
-    }
-
     public function addtrans() {
         $this->registry->template->title = 'ريحانة | التحويلات';
         $this->registry->template->show('invoices_trans');
@@ -37,20 +14,24 @@ Class transController Extends baseController {
 
     public function handle_trans() {
         $errors = array();
+
+        $products = Lists::products(1);
+        $users = Lists::users(1);
         $user_data = Login::get_instance()->get_data($_SESSION['user_info']['username']);
         $invoice['info']['invoice_creator'] = $user_data['sys_users_id'];
-        $invoice['info']['invoice_recipient'] = $_POST['recipient'];
+        $invoice['info']['invoice_recipient'] = array_search($_POST['recipient'], $users);
         $invoice['info']['invoice_date'] = time();
 
         foreach ($_POST['product_name'] as $index => $val) {
             $invoice['products'][$index] =
-                    array('product_id' => 1, 'invoice' => 1,
+                    array('product_id' => array_search($val, $products), 'invoice' => 1,
                         'product_quantity' => $_POST['quantity'][$index]);
         }
 
         $check = Operations::get_instance()->pre_validate($invoice['info'], 'invoices_transmission');
         if (is_array($check)) {
             $errors['info'] = 1212; //Operations::get_instance()->generate_errors();
+            print_r($check);
         }
 
         foreach ($invoice['products'] as $index => $product) {
@@ -60,33 +41,47 @@ Class transController Extends baseController {
             }
         }
 
-
-
         if (empty($errors)) {
             $invoice_id = Operations::get_instance()->init($invoice['info'], 'invoices_transmission');
             foreach ($invoice['products'] as $index => $product) {
                 $product['invoice'] = $invoice_id;
                 Operations::get_instance()->init($product, 'invoice_transmissions_details');
-                echo 1;
             }
+            echo 1;
         } else {
             $output = '';
             $output .= '<div class="alert alert-error">
                 <button class="close" data-dismiss="alert"></button>
-                <strong>خطأ فى اضافة التحويل</strong></div>';
+                <strong>خطأ فى اضافة الفاتورة</strong></div>';
             echo $output;
             return;
-            foreach ($errors['info'] as $error) {
-                $output .= '<div class="alert alert-error">
-                <button class="close" data-dismiss="alert"></button>
-                <strong>' . $error . '</strong></div>';
-            }
-            foreach ($errors['products'] as $index => $error) {
-                $output .= '<div class="alert alert-error">
-                <button class="close" data-dismiss="alert"></button>
-                <strong>خطأ فى المنتج رقم #' . $index . '</strong></div>';
-            }
         }
+    }
+
+    public function update_table() {
+        $table_data = "";
+        $table_array = array();
+        if (empty($_POST['product_name'])) {
+            echo '<tr><td colspan="5">لا توجد منتجات</tr>';
+            return;
+        }
+        foreach ($_POST['product_name'] as $index => $value) {
+            $table_array[] = array($index, $value, $_POST['quantity'][$index]);
+        }
+
+        $table_data_array = Temp::table_data($table_array, true);
+        foreach ($table_data_array as $index => $value) {
+            $table_data .= "<tr>\n";
+            $table_data .= "$value";
+            $table_data .= '
+<td>
+                                        <a href="#portlet-box" data-toggle="modal" class="btn blue icn-only product-edit"><i class="icon-edit icon-white"></i></a>
+                                        <a href="#" class="btn red icn-only product-del"><i class="icon-remove icon-white"></i></a>
+                                    </td>                
+';
+            $table_data .= "</tr>\n";
+        }
+        echo $table_data;
     }
 
 }

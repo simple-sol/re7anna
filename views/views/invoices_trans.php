@@ -31,7 +31,7 @@ require_once 'head.php';
                     <label class="control-label">اسم المنتج</label>
                     <div class="controls">
                         <input type="text" name="product_name" class="span6 m-wrap" style="margin: 0 auto;" data-provide="typeahead" data-items="4" 
-                               data-source="[&quot;Alabama&quot;,&quot;Alaska&quot;,&quot;Arizona&quot;,&quot;Arkansas&quot;,&quot;California&quot;,&quot;Colorado&quot;,&quot;Connecticut&quot;,&quot;Delaware&quot;,&quot;Florida&quot;,&quot;Georgia&quot;,&quot;Hawaii&quot;,&quot;Idaho&quot;,&quot;Illinois&quot;,&quot;Indiana&quot;,&quot;Iowa&quot;,&quot;Kansas&quot;,&quot;Kentucky&quot;,&quot;Louisiana&quot;,&quot;Maine&quot;,&quot;Maryland&quot;,&quot;Massachusetts&quot;,&quot;Michigan&quot;,&quot;Minnesota&quot;,&quot;Mississippi&quot;,&quot;Missouri&quot;,&quot;Montana&quot;,&quot;Nebraska&quot;,&quot;Nevada&quot;,&quot;New Hampshire&quot;,&quot;New Jersey&quot;,&quot;New Mexico&quot;,&quot;New York&quot;,&quot;North Dakota&quot;,&quot;North Carolina&quot;,&quot;Ohio&quot;,&quot;Oklahoma&quot;,&quot;Oregon&quot;,&quot;Pennsylvania&quot;,&quot;Rhode Island&quot;,&quot;South Carolina&quot;,&quot;South Dakota&quot;,&quot;Tennessee&quot;,&quot;Texas&quot;,&quot;Utah&quot;,&quot;Vermont&quot;,&quot;Virginia&quot;,&quot;Washington&quot;,&quot;West Virginia&quot;,&quot;Wisconsin&quot;,&quot;Wyoming&quot;]">
+                               data-source="[<?php echo Temp::autocomplete_data('products'); ?>]">
                     </div>
                 </div>
                 <div class="control-group">
@@ -46,23 +46,6 @@ require_once 'head.php';
             </div>
             <div id="invoice_info" style="display: none;">
 
-                <div class="control-group">
-                    <label class="control-label">المستلم</label>
-                    <div class="controls">
-                        <input type="text" name="recipient" class="span6 m-wrap" style="margin: 0 auto;" data-provide="typeahead" data-items="4" 
-                               data-source="[&quot;Alabama&quot;,&quot;Alaska&quot;,&quot;Arizona&quot;,&quot;Arkansas&quot;,
-                               &quot;California&quot;,&quot;Colorado&quot;,&quot;Connecticut&quot;,&quot;Delaware&quot;,
-                               &quot;Florida&quot;,&quot;Georgia&quot;,&quot;Hawaii&quot;,&quot;Idaho&quot;,&quot;Illinois&quot;,
-                               &quot;Indiana&quot;,&quot;Iowa&quot;,&quot;Kansas&quot;,&quot;Kentucky&quot;,&quot;Louisiana&quot;,
-                               &quot;Maine&quot;,&quot;Maryland&quot;,&quot;Massachusetts&quot;,&quot;Michigan&quot;,&quot;Minnesota&quot;,
-                               &quot;Mississippi&quot;,&quot;Missouri&quot;,&quot;Montana&quot;,&quot;Nebraska&quot;,&quot;Nevada&quot;,
-                               &quot;New Hampshire&quot;,&quot;New Jersey&quot;,&quot;New Mexico&quot;,&quot;New York&quot;,
-                               &quot;North Dakota&quot;,&quot;North Carolina&quot;,&quot;Ohio&quot;,&quot;Oklahoma&quot;,&quot;Oregon&quot;,
-                               &quot;Pennsylvania&quot;,&quot;Rhode Island&quot;,&quot;South Carolina&quot;,&quot;South Dakota&quot;,
-                               &quot;Tennessee&quot;,&quot;Texas&quot;,&quot;Utah&quot;,&quot;Vermont&quot;,&quot;Virginia&quot;,
-                               &quot;Washington&quot;,&quot;West Virginia&quot;,&quot;Wisconsin&quot;,&quot;Wyoming&quot;]">
-                    </div>
-                </div>
                 <div class="form-actions">
                     <button type="submit" onClick='$("#data-output").html("");update_invoice_info();return false;' class="btn blue">تأكيد</button>
                 </div>
@@ -83,7 +66,7 @@ require_once 'head.php';
             <!-- BEGIN PAGE CONTAINER-->        
             <div class="container-fluid">
                 <!-- BEGIN PAGE TITLE & BREADCRUMB-->
-                <h3 class="page-title">اضافة فاتورة
+                <h3 class="page-title">اضافة تحويل
                     <small></small>
 
                 </h3>
@@ -91,15 +74,8 @@ require_once 'head.php';
                 <!-- END PAGE TITLE & BREADCRUMB-->
                 <div class="row-fluid invoice">
                     <div class="row-fluid">
-                        <form id="final_form">
-                            <div id="debug"></div>
-                            <div id="final_form_elements">
-                                <input class="hidden_input" type="hidden" name="invoice_id" value="null" />
-                                <input class="hidden_input" type="hidden" name="recipient"  />
-                            </div>
-                        </form>
                         <div class="span6">
-                            <p style="font-size: 16px;"><span class="muted">فاتورة  </span>
+                            <p style="font-size: 16px;"><span class="muted">تحويل  </span>
                                 <span class="display_form_num"><?= $_POST['invoice_info']['invoice_id']; ?></span> / 
                                 <? if (isset($invoice_date)) echo $invoice_date; else echo date('Y-m-d'); ?></p>
                         </div>
@@ -107,19 +83,20 @@ require_once 'head.php';
                     <hr />
                     <div class="row-fluid">
                         <div class="span4 invoice-payment">
-                            <h4>معلومات الفاتورة :</h4>
-                            <div class="control-group">
-                                <label class="control-label">المستلم</label>
-                                <div class="controls">
-                                    <input type="text" name="recipient" class="span6 m-wrap" />
+                            <h4>معلومات التحويل :</h4>
+                            <form id="final_form">
+                                <div id="debug"></div>
+                                <div id="final_form_elements">
+                                    <input class="hidden_input" type="hidden" name="invoice_id" value="null" />
+                                    <div class="control-group">
+                                        <label class="control-label">المستلم</label>
+                                        <div class="controls">
+                                            <input type="text" name="recipient" class="hidden_input span6 m-wrap" style="margin: 0 auto;" data-provide="typeahead" data-items="4" 
+                                                   data-source="[<?php echo Temp::autocomplete_data('users'); ?>]">
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-
-                            <ul id="invoice-info-box" class="unstyled">
-                                <li><strong>المستلم :</strong><span id="display_recipient"><? if (isset($recipient)) echo $recipient; ?></span></li>
-                                <br />
-                                <li id="invoice_info_edit" style="font-size: 16px;font-weight: bold;"><a id="info_button" href="#portlet-box" data-toggle="modal">اضافة بيانات الفاتورة</a></li>
-                            </ul>
+                            </form>
                         </div>
                     </div>
                     <div class="row-fluid">
@@ -148,12 +125,8 @@ require_once 'head.php';
                     <br />
                     <div class="row-fluid">
                         <div class="span8 invoice-block">
-                            <ul class="unstyled amounts">
-                                <li style="font-size: 16px"><strong>الاجمالى: </strong><span id="total_price"></span>$</li>
-                            </ul>
-                            <br />
                             <a class="btn blue big hidden-print" onclick="javascript:window.print();">طباعة <i class="icon-print icon-big"></i></a>
-                            <a id="confirm_invoice" class="btn green big hidden-print">تأكيد الفاتورة <i class="m-icon-big-swapright m-icon-white"></i></a>
+                            <a id="confirm_invoice" class="btn green big hidden-print">تأكيد التحويل <i class="m-icon-big-swapright m-icon-white"></i></a>
 
                         </div>
                     </div>

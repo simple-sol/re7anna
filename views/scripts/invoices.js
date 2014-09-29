@@ -3,6 +3,22 @@ jQuery(document).ready(function() {
     FormComponents.init();
 });
 
+/*function replace_values(){
+    var data = $.parseJSON($.ajax({
+        url: '/re7anna/invoices/loadjs',
+        dataType: "json",
+        async: false
+    }).responseText);
+    
+    for( var i = 0, len = data.length; i < len; i++ ) {
+        if( data[i]['text'] == $('#final_form input[name="supplier"]').val() ) {
+            $('#final_form input[name="supplier"]').val(data[i]['value']);
+            break;
+        }
+    }
+}*/
+
+
 
 $("#product-add").click(function(event){  
     //Prevent the hyperlink to perform default behavior  
@@ -26,6 +42,10 @@ $('body').on('click', '.product-edit', function(e) {
     
     
 $('body').on('click', '#confirm_invoice', function(e) {
+    e.preventDefault();
+    
+    //replace_values();
+    
     $("html, body").animate({
         scrollTop: 0
     }, 500);
@@ -43,7 +63,6 @@ $('body').on('click', '#confirm_invoice', function(e) {
         return;
     } 
     if(isValid == false) return;
-    e.preventDefault();
     $.ajax({
         url: '/re7anna/invoices/handle_invoice',
         data: $("#final_form").serialize(),

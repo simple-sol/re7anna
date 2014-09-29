@@ -19,8 +19,10 @@ Class invoicesController Extends baseController {
 
     public function handle_invoice() {
         $errors = array();
+        $products = Lists::products(1);
+        $traders = Lists::traders(1);
         $invoice['info']['invoice_num'] = $_POST['invoice_num'];
-        $invoice['info']['supplier'] = 1;//$_POST['company_id']; //#bug
+        $invoice['info']['supplier'] = array_search($_POST['supplier'], $traders);
         $user_data = Login::get_instance()->get_data($_SESSION['user_info']['username']);
         $invoice['info']['invoice_creater'] = $user_data['sys_users_id'];
         $myDateTime = DateTime::createFromFormat('m/d/Y', $_POST['contracted_date']);
@@ -34,20 +36,20 @@ Class invoicesController Extends baseController {
 
         foreach ($_POST['product_name'] as $index => $val) {
             $invoice['products'][$index] =
-                    array('product' => 1, 'invoice' => 1,
+                    array('product' => array_search($val, $products), 'invoice' => 1,
                         'quantity' => $_POST['quantity'][$index],
                         'unit_price' => $_POST['unit_price'][$index] * $_POST['quantity'][$index]);
         }
-        
+
         $check = Operations::get_instance()->pre_validate($invoice['info'], 'purchasing_products_invoices');
         if (is_array($check)) {
-            $errors['info'] = 1212;//Operations::get_instance()->generate_errors();
+            $errors['info'] = 1212; //Operations::get_instance()->generate_errors();
         }
-        
+
         foreach ($invoice['products'] as $index => $product) {
             $check = Operations::get_instance()->pre_validate($product, 'purchasing_details');
             if (is_array($check)) {
-                $errors['products'][$index] = 1111;//Operations::get_instance()->generate_errors();
+                $errors['products'][$index] = 1111; //Operations::get_instance()->generate_errors();
             }
         }
 
@@ -56,8 +58,8 @@ Class invoicesController Extends baseController {
             foreach ($invoice['products'] as $index => $product) {
                 $product['invoice'] = $invoice_id;
                 Operations::get_instance()->init($product, 'purchasing_details');
-                echo 1;
             }
+            echo 1;
         } else {
             $output = '';
             $output .= '<div class="alert alert-error">
@@ -86,14 +88,13 @@ Class invoicesController Extends baseController {
         $total_payments = 0;
         foreach ($_POST['payment_amount'] as $index => $payment_amount) {
             $myDateTime = DateTime::createFromFormat('m/d/Y', $_POST['payment_date'][$index]);
-            $payment_date = $myDateTime->format('Y-m-d');
             $total_payments += $payment_amount;
             $payments[$index] = array(
-                'invoice_id' => $invoice_id,
+                'invoice' => $invoice_id,
                 'payment_amount' => $payment_amount,
-                'payment_date' => $payment_date,
+                'payment_date' => $myDateTime->getTimestamp(),
             );
-            $check = Operations::get_instance()->pre_validate($payments[$index], 'invoices_payment');
+            $check = Operations::get_instance()->pre_validate($payments[$index], 'repayments');
             if (is_array($check)) {
                 $errors['payments'][$index] = Operations::get_instance()->generate_errors();
             }
@@ -106,11 +107,14 @@ Class invoicesController Extends baseController {
 
         if (empty($errors)) {
             foreach ($payments as $index => $array) {
-                Operations::get_instance()->init($array, 'invoices_payments');
+                Operations::get_instance()->init($array, 'repayments');
             }
             echo 1;
         } else {
-            echo 'error';
+            $output .= '<div class="alert alert-error">
+                <button class="close" data-dismiss="alert"></button>
+                <strong>خطأ فى اضافة الدفع</strong></div>';
+            echo $output;
         }
     }
 
