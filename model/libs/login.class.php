@@ -15,12 +15,6 @@ class Login {
         $status = $this->check_login($user_data);
         if ($status == 'valid') {
             $this->valid_attempt();
-            if (isset($user_data['remember_me']))
-                $expire = time() + (30 * 24 * 60 * 60);
-            else
-                $expire = time() + (2 * 60 * 60);
-            $_SESSION['user_info'] = array('username' => $user_data['username'], 'password' => $user_data['password']);
-            setcookie('site_id', session_id(), $expire, '/');
         }else if ($status == 'invalid') {
             $this->invalid_attempt();
         }
@@ -47,7 +41,6 @@ class Login {
         if (empty($this->user_data)) {
             return 'invalid';
         }
-
         if ($this->user_data['is_blocked'] == 1) {
             return 'blocked';
         } else if ($this->user_data['sys_users_password'] == $password) {
@@ -55,6 +48,7 @@ class Login {
         } else {
             return 'invalid';
         }
+        
     }
 
     function invalid_attempt() {

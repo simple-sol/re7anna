@@ -1,20 +1,23 @@
 <?php
 
+session_start();
+
 Abstract Class baseController {
+    /*
+     * @registry object
+     */
 
-/*
- * @registry object
- */
-protected $registry;
+    protected $registry;
 
-function __construct($registry) {
-	$this->registry = $registry;
-}
+    function __construct($registry) {
+        $this->registry = $registry;
 
-/**
- * @all controllers must contain an index method
- */
-abstract function index();
+    }
+
+    /**
+     * @all controllers must contain an index method
+     */
+    abstract function index();
 }
 
 ?>

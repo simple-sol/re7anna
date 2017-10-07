@@ -1,1 +1,1 @@
-<h1><?php echo $welcome; ?></h1>
+<h2><?php echo $welcome; ?></h2>

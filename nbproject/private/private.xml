@@ -3,6 +3,16 @@
     <coverage xmlns="http://www.netbeans.org/ns/code-coverage/1" enabled="false"/>
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/xampp/htdocs/re7anna/application/controller_base.class.php</file>
+            <file>file:/C:/xampp/htdocs/re7anna/views/views/index.php</file>
+            <file>file:/C:/xampp/htdocs/re7anna/views/views/login.php</file>
+            <file>file:/C:/xampp/htdocs/re7anna/controller/loginController.php</file>
+            <file>file:/C:/xampp/htdocs/re7anna/application/template.class.php</file>
+            <file>file:/C:/xampp/htdocs/re7anna/application/registry.class.php</file>
+            <file>file:/C:/xampp/htdocs/re7anna/model/libs/login.class.php</file>
+            <file>file:/C:/xampp/htdocs/re7anna/views/scripts/login.js</file>
+            <file>file:/C:/xampp/htdocs/re7anna/controller/indexController.php</file>
+        </group>
     </open-files>
 </project-private>
